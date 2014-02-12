@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Where You App?</string>
+    <string name="route_name">Route name</string>
+    <string name="enter_address">Address</string>
+    <string name="enter_radius">Choose target radius (in miles)</string>
+    <string name="enter_contact">Phone number (no dashes or parentheses)</string>
+    <string name="enter_message">Message</string>
+    <string name="save">Save</string>
+    <string name="menu_settings">Settings</string>
+    <string name="title_activity_add_route_screen">Add Route</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="title_activity_add_route_screen_message">Message</string>
+    <string name="action_settings">Settings</string>
+    <string name="cancel">Cancel</string>
+    <string name="title_activity_main_screen">Where You App?</string>
+    <string name="add_route_button">+</string>
+    <string name="welcome_message">Welcome to Where You App?, presented by Prometheus Software</string>
+    <string name="title_activity_credits_screen">Credits</string>
+    <string name="credits_message">Credits message</string>
+    <string name="credits">Credits</string>
+    <string name="tutorial">Help</string>
+    <string name="title_activity_tutorial_screen">Tutorial</string>
+    <string name="settings">Settings</string>
+    <string name="title_activity_settings_screen">Settings</string>
+    <string name = "battery_level">Enter threshold battery level</string>
+    <string name = "route_name1">Enter route name:</string>
+    <string name = "enter_address1">Enter address:</string>
+    <string name = "enter_radius1">Enter radius of contact (in miles):</string>
+    <string name = "enter_contact1">Enter contact phone number:</string>
+    <string name = "enter_message1">Enter text message:</string>
+    <string name = "back">Back</string>
+    <string name = "tutorial_message">How to use Where You App?</string>
+
+</resources>

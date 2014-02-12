@@ -1,0 +1,58 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:orientation = "vertical"
+    tools:context=".MainScreen" >
+
+    <Button
+        android:id = "@+id/add_route"
+        android:layout_width = "wrap_content"
+        android:layout_height = "wrap_content"
+        android:text = "@string/add_route_button"
+        android:layout_alignParentRight="true"
+        android:onClick = "addRoute" />
+
+	<Button
+	    android:id="@+id/tutorial"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:layout_alignParentLeft="true"
+	    android:onClick="toTutorial"
+	    android:text="@string/tutorial"/>
+
+	<Button
+	    android:id="@+id/settings"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:layout_toLeftOf="@id/add_route"
+	    android:layout_toRightOf="@id/tutorial"
+	    android:onClick="toSettings"
+	    android:text="@string/settings" />
+
+	<Button
+	    android:id="@+id/credits"
+	    android:layout_width="100dp"
+	    android:layout_height="wrap_content"
+	    android:layout_alignParentBottom="true"
+	    android:layout_centerHorizontal="true"
+	    android:layout_marginBottom="14dp"
+	    android:onClick="toCredits"
+	    android:text="@string/credits"
+	    android:layout_centerVertical="true" />
+
+	<TextView
+	    android:id="@+id/welcome_message"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:layout_centerVertical = "true"
+	    android:layout_centerHorizontal = "true"
+	    android:text="@string/welcome_message" />
+
+</RelativeLayout>
+
+
