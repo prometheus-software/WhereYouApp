@@ -40,8 +40,8 @@ public class Route {
 		
 		//double coordinates array to be possibly replaced with Google's LatLng object
 		this.coordinates = new double[2];
-		this.coordinates[0] = coordinates.substring(0, coordinates.indexOf(" "));
-		this.coordinates[1] = coordinates.substring(coordinates.indexOf(" ")+1, coordinates.length());
+		this.coordinates[0] = Double.parseDouble(coordinates.substring(0, coordinates.indexOf(" ")));
+		this.coordinates[1] = Double.parseDouble(coordinates.substring(coordinates.indexOf(" ")+1, coordinates.length()));
 		
 		addRoute(this);
 	}
@@ -110,7 +110,7 @@ public class Route {
 	}
 	
 	public static void duplicateRoute() {
-		routeList.add(new route(this));
+		routeList.add(new route(this)); //There's an error with this, and I believe it lies in the static nature of the variables
 	}
 	
 	public static ArrayList<Route> getRouteList() {
