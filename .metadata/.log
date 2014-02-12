@@ -155,3 +155,46 @@ Caused by: org.eclipse.core.internal.resources.ResourceException: Resource is ou
 
 !ENTRY com.android.ide.eclipse.adt 2 0 2014-02-11 22:20:07.991
 !MESSAGE activity_add_route_screen.xml: Couldn't resolve resource @string/save
+!SESSION 2014-02-11 22:38:06.296 -----------------------------------------------
+eclipse.buildId=v22.3.0-887826
+java.version=1.6.0_65
+java.vendor=Apple Inc.
+BootLoader constants: OS=macosx, ARCH=x86_64, WS=cocoa, NL=en_US
+Framework arguments:  -product com.android.ide.eclipse.adt.package.product -product com.android.ide.eclipse.adt.package.product -keyring /Users/alexbujduveanu/.eclipse_keyring -showlocation
+Command-line arguments:  -os macosx -ws cocoa -arch x86_64 -product com.android.ide.eclipse.adt.package.product -data /Users/alexbujduveanu/Desktop/WhereYouApp -product com.android.ide.eclipse.adt.package.product -keyring /Users/alexbujduveanu/.eclipse_keyring -showlocation
+
+!ENTRY org.eclipse.core.resources 2 10035 2014-02-11 22:38:09.498
+!MESSAGE The workspace exited with unsaved changes in the previous session; refreshing workspace to recover changes.
+
+!ENTRY org.eclipse.core.net 1 0 2014-02-11 22:38:13.648
+!MESSAGE System property http.nonProxyHosts has been set to local|*.local|169.254/16|*.169.254/16 by an external source. This value will be overwritten using the values from the preferences
+
+!ENTRY org.eclipse.core.resources 2 2 2014-02-11 22:43:09.918
+!MESSAGE Save operation warnings.
+!SUBENTRY 1 org.eclipse.core.resources 2 234 2014-02-11 22:43:09.918
+!MESSAGE The project description file (.project) for 'google-play-services_lib' was missing.  This file contains important information about the project.  A new project description file has been created, but some information about the project may have been lost.
+
+!ENTRY com.android.ide.eclipse.adt 4 0 2014-02-11 22:47:13.596
+!MESSAGE 
+!STACK 1
+org.eclipse.core.internal.resources.ResourceException: Marker id 85 not found.
+	at org.eclipse.core.internal.resources.Marker.checkInfo(Marker.java:57)
+	at org.eclipse.core.internal.resources.Marker.setAttribute(Marker.java:237)
+	at com.android.ide.eclipse.adt.internal.project.BaseProjectHelper.markProject(BaseProjectHelper.java:213)
+	at com.android.ide.eclipse.adt.internal.project.BaseClasspathContainerInitializer$1.run(BaseClasspathContainerInitializer.java:66)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:53)
+!SUBENTRY 1 org.eclipse.core.resources 4 376 2014-02-11 22:47:13.597
+!MESSAGE Marker id 85 not found.
+!SESSION 2014-02-12 09:37:56.782 -----------------------------------------------
+eclipse.buildId=v22.3.0-887826
+java.version=1.7.0_13
+java.vendor=Oracle Corporation
+BootLoader constants: OS=macosx, ARCH=x86_64, WS=cocoa, NL=en_US
+Framework arguments:  -product com.android.ide.eclipse.adt.package.product -keyring /Users/alexbujduveanu/.eclipse_keyring -showlocation
+Command-line arguments:  -os macosx -ws cocoa -arch x86_64 -product com.android.ide.eclipse.adt.package.product -keyring /Users/alexbujduveanu/.eclipse_keyring -showlocation
+
+!ENTRY org.eclipse.core.resources 2 10035 2014-02-12 09:37:58.905
+!MESSAGE The workspace exited with unsaved changes in the previous session; refreshing workspace to recover changes.
+
+!ENTRY org.eclipse.core.net 1 0 2014-02-12 09:38:02.521
+!MESSAGE System property http.nonProxyHosts has been set to local|*.local|169.254/16|*.169.254/16 by an external source. This value will be overwritten using the values from the preferences
