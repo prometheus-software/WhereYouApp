@@ -8,13 +8,13 @@ import android.content.Intent;
 import android.graphics.PorterDuff;
 import android.view.View;
 import android.widget.Button;
-import android.widget.Spinner;
 public class MainScreen extends Activity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main_screen);
+		//Set button colors to red, green, blue, and red, respectively
 		Button button = (Button) findViewById(R.id.credits);
 		button.getBackground().setColorFilter(0xFFFF0000, PorterDuff.Mode.MULTIPLY);
 		button = (Button) findViewById(R.id.add_route);
@@ -35,21 +35,25 @@ public class MainScreen extends Activity {
 	}
 	public void addRoute(View view)
 	{
+		//Go to AddRouteScreen
 		Intent intent = new Intent(this, AddRouteScreen.class);
 		startActivity(intent);
 	}
 	public void toCredits(View view)
 	{
+		//Go to CreditsScreen
 		Intent intent = new Intent(this, CreditsScreen.class);
 		startActivity(intent);
 	}
 	public void toTutorial(View view)
 	{
+		//Go toTutorialScreen
 		Intent intent = new Intent(this, TutorialScreen.class);
 		startActivity(intent);
 	}
 	public void toSettings (View view)
 	{
+		//Go to SettingsScreen
 		Intent intent = new Intent (this, SettingsScreen.class);
 		startActivity(intent);
 	}
