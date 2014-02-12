@@ -40,8 +40,8 @@ public class Route {
 		
 		//double coordinates array to be possibly replaced with Google's LatLng object
 		this.coordinates = new double[2];
-		this.coordinates[0] = coordinates.substring(0, coordinates.indexOf(" "));
-		this.coordinates[1] = coordinates.substring(coordinates.indexOf(" ")+1, coordinates.length());
+		this.coordinates[0] = Double.parseDouble(coordinates.substring(0, coordinates.indexOf(" ")));
+		this.coordinates[1] = Double.parseDouble(coordinates.substring(coordinates.indexOf(" ")+1, coordinates.length()));
 		
 		addRoute(this);
 	}
@@ -49,12 +49,12 @@ public class Route {
 		//copy constructor
 		//the only thing that changes is the name of the route
 		
-		this.phoneNumber = route.phoneNumber;
-		this.routeName = "Copy of "+route.routeName;
-		this.alertDistance = route.alertDistance;
+		this.phoneNumber = route.getNumber();
+		this.routeName = "Copy of "+route.getName();
+		this.alertDistance = route.getDistance();
 		//this.alertInterval = route.alertInterval;
-		this.message = route.message;
-		this.coordinates = route.coordinates;
+		this.message = route.getMessage();
+		this.coordinates = route.getCoordinates();
 		
 		addRoute(this);
 	}
@@ -100,6 +100,10 @@ public class Route {
 	public void setCoordinates(double[] newCoordinates) {
 		this.coordinates = newCoordinates;
 	}
+	
+	public double[] getCoordinates() {
+		return coordinates;
+	}
 
 	public static void addRoute(Route route) {
 		routeList.add(route);
@@ -109,12 +113,53 @@ public class Route {
 		routeList.remove(route);
 	}
 	
-	public static void duplicateRoute() {
-		routeList.add(new route(this));
+	public static void duplicateRoute(Route route) {
+		Route duplicate = new Route(route);
 	}
 	
 	public static ArrayList<Route> getRouteList() {
 		return routeList;
+	}
+	
+	public static String listData() {
+		Route temp;
+		double[] coords;
+		String listData = ""+routeList.size()+"|";
+		for(int i = 0; i < routeList.size(); i++) {
+			temp = routeList.get(i);
+			coords = temp.getCoordinates();
+			listData += temp.getName() + "|" + coords[0] + "|" + coords[1] + "|" + temp.getNumber() + "|" + temp.getDistance() + "|" + temp.getMessage() + "|";
+		}
+		return listData;
+	}
+	
+	public static void printRoute(Route r) {
+		System.out.println(r.getName());
+	}
+	
+	public static void populateList(String listData) {
+		String[] routeInfo = listData.split("\\|");
+		int n = Integer.parseInt(routeInfo[0]);
+		Route temp;
+		int index = 1;
+		int routesCreated = 0;
+		String tempName; String tempCoords; String tempNumber; double tempDistance; String tempMessage;
+		while(routesCreated < n) {
+			tempName = routeInfo[index];
+			index++;
+			tempCoords = routeInfo[index];
+			index++;
+			tempCoords += " "+routeInfo[index];
+			index++;
+			tempNumber = routeInfo[index];
+			index++;
+			tempDistance = Double.parseDouble(routeInfo[index]);
+			index++;
+			tempMessage = routeInfo[index];
+			index++;
+			temp = new Route(tempName, tempCoords, tempNumber, tempDistance, tempMessage);
+			routesCreated++;
+		}
 	}
 }
 
