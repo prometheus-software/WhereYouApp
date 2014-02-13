@@ -26,7 +26,7 @@ public class Route {
 	//private String alertInterval;
 	private String message;
 	private double[] coordinates;
-	
+
 	//list of all routes
 	//is it best to use an arraylist here?
 	private static ArrayList<Route> routeList = new ArrayList<Route>();
@@ -37,32 +37,32 @@ public class Route {
 		this.alertDistance = alertDistance;
 		//this.alertInterval = alertInterval;
 		this.message = message;
-		
+
 		//double coordinates array to be possibly replaced with Google's LatLng object
 		this.coordinates = new double[2];
 		this.coordinates[0] = Double.parseDouble(coordinates.substring(0, coordinates.indexOf(" ")));
 		this.coordinates[1] = Double.parseDouble(coordinates.substring(coordinates.indexOf(" ")+1, coordinates.length()));
-		
+
 		addRoute(this);
 	}
 	public Route(Route route) {
 		//copy constructor
 		//the only thing that changes is the name of the route
-		
-		this.phoneNumber = route.phoneNumber;
-		this.routeName = "Copy of "+route.routeName;
-		this.alertDistance = route.alertDistance;
+
+		this.phoneNumber = route.getNumber();
+		this.routeName = "Copy of "+route.getName();
+		this.alertDistance = route.getDistance();
 		//this.alertInterval = route.alertInterval;
-		this.message = route.message;
-		this.coordinates = route.coordinates;
-		
+		this.message = route.getMessage();
+		this.coordinates = route.getCoordinates();
+
 		addRoute(this);
 	}
-	
+
 	public void setNumber(String newNumber) {
 		this.phoneNumber = newNumber;
 	}
-	
+
 	public String getNumber() {
 		return phoneNumber;
 	}
@@ -70,7 +70,7 @@ public class Route {
 	public void setName(String newName) {
 		this.routeName = newName;
 	}
-	
+
 	public String getName() {
 		return routeName;
 	}
@@ -78,7 +78,7 @@ public class Route {
 	public void setDistance(double newDistance) {
 		this.alertDistance = newDistance;
 	}
-	
+
 	public double getDistance() {
 		return alertDistance;
 	}
@@ -88,58 +88,77 @@ public class Route {
 		this.alertInterval = newInterval;
 	}
 	*/
-	
+
 	public void setMessage(String newMessage) {
 		this.message = newMessage;
 	}
-	
+
 	public String getMessage() {
 		return message;
 	}
-	
+
 	public void setCoordinates(double[] newCoordinates) {
 		this.coordinates = newCoordinates;
+	}
+
+	public double[] getCoordinates() {
+		return coordinates;
 	}
 
 	public static void addRoute(Route route) {
 		routeList.add(route);
 	}
-	
+
 	public static void removeRoute(Route route) {
 		routeList.remove(route);
 	}
-	
-	public static void duplicateRoute() {
-		routeList.add(new route(this)); //There's an error with this, and I believe it lies in the static nature of the variables
+
+	public static void duplicateRoute(Route route) {
+		Route duplicate = new Route(route);
 	}
-	
+
 	public static ArrayList<Route> getRouteList() {
 		return routeList;
 	}
-}
 
-/*
-public class Route {
-	String routeName;
-	String address;
-	String phoneNumber;
-	double radius;
-	String message;
-	public Route (String rn, String a, String p, double r, String m)
-	{
-		routeName = rn;
-		address = a;
-		phoneNumber = p;
-		radius = r;
-		message = m;
+	public static String listData() {
+		Route temp;
+		double[] coords;
+		String listData = ""+routeList.size()+"|";
+		for(int i = 0; i < routeList.size(); i++) {
+			temp = routeList.get(i);
+			coords = temp.getCoordinates();
+			listData += temp.getName() + "|" + coords[0] + "|" + coords[1] + "|" + temp.getNumber() + "|" + temp.getDistance() + "|" + temp.getMessage() + "|";
+		}
+		return listData;
 	}
-	public void sendToRouteClass (Route r)
-	{
-		routeName = r.routeName;
-		address = r.address;
-		phoneNumber = r.phoneNumber;
-		radius = r.radius;
-		message = r.message;
+
+	public static void printRoute(Route r) {
+		System.out.println(r.getName());
+	}
+
+	public static void populateList(String listData) {
+		String[] routeInfo = listData.split("\\|");
+		int n = Integer.parseInt(routeInfo[0]);
+		Route temp;
+		int index = 1;
+		int routesCreated = 0;
+		String tempName; String tempCoords; String tempNumber; double tempDistance; String tempMessage;
+		while(routesCreated < n) {
+			tempName = routeInfo[index];
+			index++;
+			tempCoords = routeInfo[index];
+			index++;
+			tempCoords += " "+routeInfo[index];
+			index++;
+			tempNumber = routeInfo[index];
+			index++;
+			tempDistance = Double.parseDouble(routeInfo[index]);
+			index++;
+			tempMessage = routeInfo[index];
+			index++;
+			temp = new Route(tempName, tempCoords, tempNumber, tempDistance, tempMessage);
+			routesCreated++;
+		}
 	}
 }
-*/
