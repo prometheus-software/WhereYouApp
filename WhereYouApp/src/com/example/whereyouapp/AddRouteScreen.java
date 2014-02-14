@@ -91,7 +91,7 @@ public class AddRouteScreen extends Activity {
 		editText = (EditText) findViewById(R.id.enter_message);
 		String message1 = editText.getText().toString();
 		Route route = new Route (name, address, phoneNumber, radius, message1);
-		route.sendToRouteClass(route);
+		//route.sendToRouteClass(route);
 		intent.putExtra(EXTRA_MESSAGE, message);
 		startActivity(intent);
 	}
