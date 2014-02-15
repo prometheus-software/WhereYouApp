@@ -23,12 +23,14 @@ public class AddRouteScreen extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_add_route_screen);
+		//Set button colors to green and red, respectively
 		Button button = (Button) findViewById(R.id.save);
 		button.getBackground().setColorFilter(0xFF00FF00, PorterDuff.Mode.MULTIPLY);
 		button = (Button) findViewById(R.id.cancel);
 		button.getBackground().setColorFilter(0xFFFF0000, PorterDuff.Mode.MULTIPLY);
 		spinner1 = (Spinner) findViewById(R.id.enter_radius);
 		List<String> list = new ArrayList<String>();
+		//Set choices for Spinner
 		list.add("Choose one of the choices below for a target radius (in miles)");
 		list.add(".1");
 		list.add(".25");
@@ -50,6 +52,7 @@ public class AddRouteScreen extends Activity {
 	}
 	public void addListenerOnSpinnerItemSelection()
 	{
+		//Give the Spinner an item listener
 		spinner1.setOnItemSelectedListener(new CustomOnItemSelectedListener ());
 	}
 	/** Called when the user clicks the Send button */
@@ -76,6 +79,7 @@ public class AddRouteScreen extends Activity {
 		double radius = Double.parseDouble(String.valueOf(spinner1.getSelectedItem()));
 		editText = (EditText) findViewById (R.id.enter_contact);
 		String phoneNumber = editText.getText().toString();
+		//Error check
 		if (phoneNumber.length() != 10)
 		{
 			message = "Invalid phone number entered!";
@@ -91,12 +95,13 @@ public class AddRouteScreen extends Activity {
 		editText = (EditText) findViewById(R.id.enter_message);
 		String message1 = editText.getText().toString();
 		Route route = new Route (name, address, phoneNumber, radius, message1);
-		//route.sendToRouteClass(route);
 		intent.putExtra(EXTRA_MESSAGE, message);
+		//Start AddRouteScreenMessage or MapScreen (whatever comes next)
 		startActivity(intent);
 	}
 	public void onRestart(View view)
 	{
+		//Clears all text fields and resets the Spinner to the first choice, going back to MainScreen
 		EditText editText = (EditText) findViewById(R.id.route_name);
 		editText.setText("", TextView.BufferType.EDITABLE);
 		editText = (EditText) findViewById(R.id.enter_address);
@@ -110,3 +115,4 @@ public class AddRouteScreen extends Activity {
 		startActivity(intent);
 	}
 }
+

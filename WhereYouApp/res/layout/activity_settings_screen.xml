@@ -16,18 +16,24 @@
     android:layout_width = "wrap_content"
     android:layout_height = "match_parent"
     android:orientation = "horizontal" >
+
     <Button
         android:id="@+id/save_settings"
         android:layout_width="100dp"
         android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
         android:onClick="saveSettings"
         android:text="@string/save" />
+
     <Button
         android:id="@+id/cancel_settings"
         android:layout_width="100dp"
         android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
         android:onClick="cancelSettings"
-        android:text="@string/cancel"
-        android:layout_alignParentRight = "true" />
+        android:text="@string/cancel" />
+
 </RelativeLayout>
 </LinearLayout>

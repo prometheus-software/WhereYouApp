@@ -19,6 +19,7 @@ public class CreditsScreen extends Activity {
 		textView.setTextSize(20);
 		textView.bringToFront();
 		Button button = (Button) findViewById(R.id.back);
+		//Sets color to red
 		button.getBackground().setColorFilter(0xFFFF0000, PorterDuff.Mode.MULTIPLY);
 	}
 
@@ -31,6 +32,7 @@ public class CreditsScreen extends Activity {
 	
 	public void toMain(View view)
 	{
+		//Go back to MainScreen
 		Intent intent = new Intent(this, MainScreen.class);
 		startActivity(intent);
 	}

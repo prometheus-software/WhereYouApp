@@ -73,14 +73,14 @@ public class MapManager
 		return mapStatePrefs.getInt(MAPTYPE, GoogleMap.MAP_TYPE_NORMAL);
 	}
 	
-	/*private boolean initializeMap()
+	private boolean initializeMap()
 	{
 		if(map == null)
 		{
 			//Use support map fragment to support a variety of android devices
 			//Add map field to appropriate XML layout
 			SupportMapFragment mapFrag = (SupportMapFragment)
-					//findFragmentById(R.id.map);
+					findFragmentById(R.id.map);
 			
 			map = mapFrag.getMap();
 			
@@ -88,7 +88,7 @@ public class MapManager
 		}
 		//Checks if map was instantiated
 		return (map != null);
-	}*/
+	}
 	
 	private void goToLocation(double lat, double lng)
 	{
@@ -110,7 +110,7 @@ public class MapManager
 	}
 	
 	//Assumes this will be called via the "onclick" attribute defined in the XML
-	/*private void geoLocate(View v, Context context) throws IOException 
+	private void geoLocate(View v, Context context) throws IOException 
 	{
 		//Might want to hide the soft keyboard in a later iteration
 		
@@ -140,6 +140,6 @@ public class MapManager
 		double lng = destAddress.getLongitude();
 		goToLocation(lat, lng, zoomLevel);
 		
-	}*/
+	}
 
 }
