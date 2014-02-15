@@ -5,81 +5,90 @@
     android:paddingLeft = "16dp"
     android:paddingRight = "16dp"
     android:orientation= "vertical">
-<RelativeLayout
-    android:layout_width = "wrap_content"
-    android:layout_height = "match_parent"
-    android:orientation = "horizontal" >
 
-	<Button
-	    android:id="@+id/save"
-	    android:layout_width="100dp"
-	    android:layout_height="wrap_content"
-	    android:layout_alignParentBottom="true"
-	    android:layout_alignParentLeft="true"
-	    android:onClick="sendMessage"
-	    android:text="@string/save" />
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:orientation="horizontal" >
 
-	<Button
-	    android:id="@+id/cancel"
-	    android:layout_width="100dp"
-	    android:layout_height="wrap_content"
-	    android:layout_alignParentBottom="true"
-	    android:layout_alignParentRight="true"
-	    android:onClick="onRestart"
-	    android:text="@string/cancel" />
+        <Button
+            android:id="@+id/save"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:onClick="sendMessage"
+            android:text="@string/save" />
 
-	<Spinner
-	    android:id="@+id/enter_radius"
-	    android:layout_width="fill_parent"
-	    android:layout_height="wrap_content"
-	    android:layout_alignParentLeft="true"
-	    android:layout_below="@+id/enter_address"
-	    android:layout_marginTop="60dp"
-	    android:hint="@string/enter_radius"
-	    android:prompt="@string/enter_radius" />
+        <Button
+            android:id="@+id/cancel"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:onClick="onRestart"
+            android:text="@string/cancel" />
 
-	<EditText
-	    android:id="@+id/enter_contact"
-	    android:layout_width="fill_parent"
-	    android:layout_height="wrap_content"
-	    android:layout_alignParentLeft="true"
-	    android:layout_below="@+id/enter_radius"
-	    android:layout_marginTop="24dp"
-	    android:ems="10"
-	    android:hint="@string/enter_contact" />
+        <EditText
+            android:id="@+id/enter_contact"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/enter_radius"
+            android:layout_marginTop="24dp"
+            android:ems="10"
+            android:hint="@string/enter_contact" />
 
-	<EditText
-	    android:id="@+id/enter_message"
-	    android:layout_width="fill_parent"
-	    android:layout_height="wrap_content"
-	    android:layout_alignParentLeft="true"
-	    android:layout_below="@+id/enter_contact"
-	    android:layout_marginTop="22dp"
-	    android:ems="10"
-	    android:hint="@string/enter_message" />
+        <EditText
+            android:id="@+id/enter_message"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/enter_contact"
+            android:layout_marginTop="22dp"
+            android:ems="10"
+            android:hint="@string/enter_message" />
 
-	<EditText
-	    android:id="@+id/enter_address"
-	    android:layout_width="fill_parent"
-	    android:layout_height="wrap_content"
-	    android:layout_alignParentLeft="true"
-	    android:layout_alignParentTop="true"
-	    android:layout_marginTop="68dp"
-	    android:ems="10"
-	    android:hint="@string/enter_address" >
+        <Spinner
+            android:id="@+id/enter_radius"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/display_address"
+            android:layout_marginTop="20dp"
+            android:hint="@string/enter_radius"
+            android:prompt="@string/enter_radius" />
 
-	    <requestFocus />
-	</EditText>
+        <TextView
+            android:id="@+id/display_address"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/route_name"
+            android:layout_marginTop="38dp"
+            android:text="@string/no_address"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
 
-	<EditText
-	    android:id="@+id/route_name"
-	    android:layout_width="fill_parent"
-	    android:layout_height="wrap_content"
-	    android:layout_alignParentLeft="true"
-	    android:layout_alignParentTop="true"
-	    android:ems="10"
-	    android:hint="@string/route_name" />
+        <Button
+            android:id="@+id/set_address"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/display_address"
+            android:layout_alignBottom="@+id/display_address"
+            android:layout_alignParentRight="true"
+            android:text="@string/set_address" />
 
-</RelativeLayout>
+        <EditText
+            android:id="@+id/route_name"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="37dp"
+            android:ems="10"
+            android:hint="@string/route_name" />
+
+    </RelativeLayout>
+
 </LinearLayout>
 

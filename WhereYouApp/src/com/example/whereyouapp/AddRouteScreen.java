@@ -65,8 +65,8 @@ public class AddRouteScreen extends Activity {
 		Intent intent = new Intent(this, AddRouteScreenMessage.class);
 		EditText editText = (EditText) findViewById(R.id.route_name);
 		String message = "Your route name is " + editText.getText().toString() + ".\n";
-		editText = (EditText) findViewById(R.id.enter_address);
-		message += "The entered address is " + editText.getText().toString() + ".\n";
+		//editText = (EditText) findViewById(R.id.enter_address);
+		//message += "The entered address is " + editText.getText().toString() + ".\n";
 		editText = (EditText) findViewById (R.id.enter_contact);
 		message += "The entered radius is " + String.valueOf(spinner1.getSelectedItem()) + ".\n";
 		message += "The contact phone number is " + editText.getText().toString() + ".\n";
@@ -74,8 +74,8 @@ public class AddRouteScreen extends Activity {
 		message += "The text message is " + editText.getText().toString() + ".\n";
 		editText = (EditText) findViewById(R.id.route_name);
 		String name = editText.getText().toString();
-		editText = (EditText) findViewById (R.id.enter_address);
-		String address = editText.getText().toString();
+		//editText = (EditText) findViewById (R.id.enter_address);
+		//String address = editText.getText().toString();
 		double radius = Double.parseDouble(String.valueOf(spinner1.getSelectedItem()));
 		editText = (EditText) findViewById (R.id.enter_contact);
 		String phoneNumber = editText.getText().toString();
@@ -94,7 +94,8 @@ public class AddRouteScreen extends Activity {
 		}
 		editText = (EditText) findViewById(R.id.enter_message);
 		String message1 = editText.getText().toString();
-		Route route = new Route (name, address, phoneNumber, radius, message1);
+		//Route route = new Route (name, address, phoneNumber, radius, message1);
+		Route route = new Route (name, "test", phoneNumber, radius, message1);
 		intent.putExtra(EXTRA_MESSAGE, message);
 		//Start AddRouteScreenMessage or MapScreen (whatever comes next)
 		startActivity(intent);
@@ -104,7 +105,7 @@ public class AddRouteScreen extends Activity {
 		//Clears all text fields and resets the Spinner to the first choice, going back to MainScreen
 		EditText editText = (EditText) findViewById(R.id.route_name);
 		editText.setText("", TextView.BufferType.EDITABLE);
-		editText = (EditText) findViewById(R.id.enter_address);
+		//editText = (EditText) findViewById(R.id.enter_address);
 		editText.setText("", TextView.BufferType.EDITABLE);
 		spinner1.setSelection(0);
 		editText = (EditText) findViewById(R.id.enter_contact);
