@@ -2,6 +2,8 @@
 <resources>
 
     <string name="app_name">Where You App?</string>
+    <string name="no_address">No Address Selected</string>
+    <string name ="set_address">Set</string>
     <string name="route_name">Route name</string>
     <string name="enter_address">Address</string>
     <string name="enter_radius">Choose target radius (in miles)</string>
