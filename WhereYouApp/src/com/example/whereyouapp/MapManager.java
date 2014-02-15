@@ -110,7 +110,7 @@ public class MapManager
 	}
 	
 	//Assumes this will be called via the "onclick" attribute defined in the XML
-	private void geoLocate(View v, Context context) throws IOException 
+	/*private void geoLocate(View v, Context context) throws IOException 
 	{
 		//Might want to hide the soft keyboard in a later iteration
 		
@@ -141,5 +141,5 @@ public class MapManager
 		goToLocation(lat, lng, zoomLevel);
 		
 	}
-
+*/
 }

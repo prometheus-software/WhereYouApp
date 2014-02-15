@@ -286,6 +286,4 @@ GooglePlayServicesClient.OnConnectionFailedListener, LocationListener{
 		Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
 	}
 	
-	//DSGDFJKLHFHU
 }
-//TRDTFYGUIU;I;LJKHGH

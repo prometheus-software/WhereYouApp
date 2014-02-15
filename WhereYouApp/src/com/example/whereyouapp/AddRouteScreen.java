@@ -104,7 +104,7 @@ public class AddRouteScreen extends Activity {
 		//Clears all text fields and resets the Spinner to the first choice, going back to MainScreen
 		EditText editText = (EditText) findViewById(R.id.route_name);
 		editText.setText("", TextView.BufferType.EDITABLE);
-		editText = (EditText) findViewById(R.id.enter_address);
+		//editText = (EditText) findViewById(R.id.enter_address);
 		editText.setText("", TextView.BufferType.EDITABLE);
 		spinner1.setSelection(0);
 		editText = (EditText) findViewById(R.id.enter_contact);
@@ -117,7 +117,7 @@ public class AddRouteScreen extends Activity {
 	
 	public void startMapActivity(View v)
 	{
-		Intent setAddressIntent = new Intent(this, )
+		Intent setAddressIntent = new Intent(this, SetAddressScreen.class);
 		startActivity(setAddressIntent);
 	}
 }
