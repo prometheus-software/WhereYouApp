@@ -288,3 +288,4 @@ GooglePlayServicesClient.OnConnectionFailedListener, LocationListener{
 	
 	
 }
+//TRDTFYGUIU;I;LJKHGH
