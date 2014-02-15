@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:paddingLeft = "16dp"
+    android:paddingRight = "16dp"
+    android:orientation= "vertical">
+    <EditText
+	    android:id="@+id/route_name"
+	    android:layout_width="fill_parent"
+	    android:layout_height="wrap_content"
+	    android:hint="@string/route_name" />
+    <EditText
+	    android:id="@+id/enter_address"
+	    android:layout_width="fill_parent"
+	    android:layout_height="wrap_content"
+	    android:hint="@string/enter_address" />
+    <Spinner
+	    android:id="@+id/enter_radius"
+	    android:layout_width="fill_parent"
+	    android:layout_height="wrap_content"
+	    android:hint="@string/enter_radius"
+	    android:prompt="@string/enter_radius" />
+    <EditText
+	    android:id="@+id/enter_contact"
+	    android:layout_width="fill_parent"
+	    android:layout_height="wrap_content"
+	    android:hint="@string/enter_contact" />
+    <EditText
+	    android:id="@+id/enter_message"
+	    android:layout_width="fill_parent"
+	    android:layout_height="wrap_content"
+	    android:hint="@string/enter_message" />
+    <RelativeLayout
+    	android:layout_width = "wrap_content"
+    	android:layout_height = "match_parent"
+    	android:orientation = "horizontal" >
+    <Button
+        android:id="@+id/save"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_gravity="center"
+        android:gravity="center_vertical|center_horizontal"
+        android:onClick="sendMessage"
+        android:text="@string/save" />
+    <Button
+	    android:id="@+id/cancel"
+	    android:layout_width="150dp"
+	    android:layout_height="wrap_content"
+	    android:layout_alignParentBottom="true"
+	    android:layout_alignParentRight="true"
+	    android:layout_gravity = "center"
+	    android:onClick="onRestart"
+	    android:text="@string/cancel" />
+ </RelativeLayout>
+ </LinearLayout>
