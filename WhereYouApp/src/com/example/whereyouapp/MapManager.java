@@ -9,7 +9,6 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
-
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.location.Address;
@@ -17,7 +16,7 @@ import android.location.Geocoder;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
-
+import android.support.v4.app.Fragment;
 public class MapManager 
 {
 	private static final String LONGITUDE = "longitude";
@@ -71,23 +70,6 @@ public class MapManager
 	public int getSavedMapType() 
 	{
 		return mapStatePrefs.getInt(MAPTYPE, GoogleMap.MAP_TYPE_NORMAL);
-	}
-	
-	private boolean initializeMap()
-	{
-		if(map == null)
-		{
-			//Use support map fragment to support a variety of android devices
-			//Add map field to appropriate XML layout
-			SupportMapFragment mapFrag = (SupportMapFragment)
-					findFragmentById(R.id.map);
-			
-			map = mapFrag.getMap();
-			
-			//Make toast message come up on the calling context?
-		}
-		//Checks if map was instantiated
-		return (map != null);
 	}
 	
 	private void goToLocation(double lat, double lng)
