@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
     <string name="app_name">Where You App?</string>
     <string name="no_address">No Address Selected</string>
     <string name ="set_address">Set</string>
@@ -34,5 +33,5 @@
     <string name = "enter_message1">Enter text message:</string>
     <string name = "back">Back</string>
     <string name = "tutorial_message">How to use Where You App?</string>
-
+    <string name = "title_activity_set_address_screen">Set Address</string>
 </resources>
