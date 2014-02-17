@@ -5,12 +5,10 @@
     android:paddingLeft = "16dp"
     android:paddingRight = "16dp"
     android:orientation= "vertical">
-
     <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:orientation="horizontal" >
-
         <Button
             android:id="@+id/save"
             android:layout_width="100dp"
@@ -19,7 +17,6 @@
             android:layout_alignParentLeft="true"
             android:onClick="sendMessage"
             android:text="@string/save" />
-
         <Button
             android:id="@+id/cancel"
             android:layout_width="100dp"
@@ -28,7 +25,6 @@
             android:layout_alignParentRight="true"
             android:onClick="onRestart"
             android:text="@string/cancel" />
-
         <EditText
             android:id="@+id/enter_contact"
             android:layout_width="fill_parent"
@@ -38,7 +34,6 @@
             android:layout_marginTop="24dp"
             android:ems="10"
             android:hint="@string/enter_contact" />
-
         <EditText
             android:id="@+id/enter_message"
             android:layout_width="fill_parent"
@@ -48,7 +43,6 @@
             android:layout_marginTop="22dp"
             android:ems="10"
             android:hint="@string/enter_message" />
-
         <Spinner
             android:id="@+id/enter_radius"
             android:layout_width="fill_parent"
@@ -58,7 +52,6 @@
             android:layout_marginTop="20dp"
             android:hint="@string/enter_radius"
             android:prompt="@string/enter_radius" />
-
         <TextView
             android:id="@+id/display_address"
             android:layout_width="wrap_content"
@@ -68,7 +61,6 @@
             android:layout_marginTop="38dp"
             android:text="@string/no_address"
             android:textAppearance="?android:attr/textAppearanceLarge" />
-
         <Button
             android:id="@+id/set_address"
             android:layout_width="wrap_content"
@@ -76,8 +68,8 @@
             android:layout_alignBaseline="@+id/display_address"
             android:layout_alignBottom="@+id/display_address"
             android:layout_alignParentRight="true"
+            android:onClick = "startMapActivity"
             android:text="@string/set_address" />
-
         <EditText
             android:id="@+id/route_name"
             android:layout_width="fill_parent"
@@ -87,8 +79,5 @@
             android:layout_marginTop="37dp"
             android:ems="10"
             android:hint="@string/route_name" />
-
-    </RelativeLayout>
-
+</RelativeLayout>
 </LinearLayout>
-
