@@ -61,6 +61,14 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.whereyouapp.AddRouteScreen" />
         </activity>
+        <activity
+            android:name = "com.example.whereyouapp.SetAddressScreen"
+            android:label = "@string/title_activity_set_address_screen"
+            android:parentActivityName = "com.example.whereyouapp.AddRouteScreen" >
+            <meta-data
+                android:name = "android.support.PARENT_ACTIVITY"
+                android:value = "com.example.whereyouapp.AddRouteScreen" />
+        </activity>
         <meta-data
             android:name="com.google.android.maps.v2.API_KEY"
             android:value="AIzaSyDxDrvWoRS6mR6FQayfSVQ0oOIz1WOc7mw"/>
