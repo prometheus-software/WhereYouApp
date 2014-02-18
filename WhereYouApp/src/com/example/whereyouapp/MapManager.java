@@ -9,6 +9,7 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
+
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.location.Address;
@@ -16,7 +17,7 @@ import android.location.Geocoder;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
-import android.support.v4.app.Fragment;
+
 public class MapManager 
 {
 	private static final String LONGITUDE = "longitude";
@@ -33,6 +34,7 @@ public class MapManager
 	{
 		mapStatePrefs = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
 	}
+	
 	
 	public void saveMapState() 
 	{
@@ -71,6 +73,7 @@ public class MapManager
 	{
 		return mapStatePrefs.getInt(MAPTYPE, GoogleMap.MAP_TYPE_NORMAL);
 	}
+	
 	
 	private void goToLocation(double lat, double lng)
 	{

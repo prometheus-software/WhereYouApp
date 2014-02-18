@@ -80,8 +80,8 @@ int id enter_contact 0x7f050007
 int id enter_message 0x7f050009
 int id enter_radius 0x7f050008
 int id hybrid 0x7f050004
-int id map 0x7f050017
 int id menu_settings 0x7f05001d
+int id myMap 0x7f050017
 int id none 0x7f050000
 int id normal 0x7f050001
 int id route_name 0x7f05000b
