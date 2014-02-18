@@ -76,6 +76,7 @@
             android:layout_alignBaseline="@+id/display_address"
             android:layout_alignBottom="@+id/display_address"
             android:layout_alignParentRight="true"
+            android:onClick="startMapActivity"
             android:text="@string/set_address" />
 
         <EditText

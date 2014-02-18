@@ -35,6 +35,7 @@ public class MapManager
 		mapStatePrefs = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
 	}
 	
+	
 	public void saveMapState() 
 	{
 		SharedPreferences.Editor editor = mapStatePrefs.edit();
@@ -73,22 +74,6 @@ public class MapManager
 		return mapStatePrefs.getInt(MAPTYPE, GoogleMap.MAP_TYPE_NORMAL);
 	}
 	
-	private boolean initializeMap()
-	{
-		if(map == null)
-		{
-			//Use support map fragment to support a variety of android devices
-			//Add map field to appropriate XML layout
-			SupportMapFragment mapFrag = (SupportMapFragment)
-					findFragmentById(R.id.map);
-			
-			map = mapFrag.getMap();
-			
-			//Make toast message come up on the calling context?
-		}
-		//Checks if map was instantiated
-		return (map != null);
-	}
 	
 	private void goToLocation(double lat, double lng)
 	{
