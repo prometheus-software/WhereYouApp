@@ -28,6 +28,8 @@ public class AddRouteScreen extends Activity {
 		button.getBackground().setColorFilter(0xFF00FF00, PorterDuff.Mode.MULTIPLY);
 		button = (Button) findViewById(R.id.cancel);
 		button.getBackground().setColorFilter(0xFFFF0000, PorterDuff.Mode.MULTIPLY);
+		button = (Button) findViewByID(R.id.set_address);
+		button.getBackground().setColorFilter(0xFFFFFF00, PorterDuff.Mode.MULTIPLY);
 		spinner1 = (Spinner) findViewById(R.id.enter_radius);
 		List<String> list = new ArrayList<String>();
 		//Set choices for Spinner
