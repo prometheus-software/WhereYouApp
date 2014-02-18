@@ -7,6 +7,24 @@
     <uses-sdk
         android:minSdkVersion="8"
         android:targetSdkVersion="19" />
+    
+      <permission 
+        android:name="com.example.gmapsapp.permission.MAPS_RECEIVE"
+        android:protectionLevel="signature"/>
+    	<uses-permission android:name="android.permission.SEND_SMS" />
+	    <uses-permission android:name="com.example.gmapsapp.permission.MAPS_RECEIVE"/>
+	    <uses-permission android:name="android.permission.INTERNET"/>
+	    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+	    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+	    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+	    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+	    
+		<uses-permission 
+			android:name="com.google.android.providers.gsf.permission.READ_GSERVICES"/>
+	    
+		<uses-feature 
+		    android:glEsVersion="0x00020000"
+		    android:required="true"/>
 
 <application
         android:allowBackup="true"
@@ -61,13 +79,13 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.whereyouapp.AddRouteScreen" />
         </activity>
-        <activity
-            android:name = "com.example.whereyouapp.SetAddressScreen"
-            android:label = "@string/title_activity_set_address_screen"
-            android:parentActivityName = "com.example.whereyouapp.AddRouteScreen" >
+         <activity
+            android:name="com.example.whereyouapp.SetAddressScreen"
+            android:label="Set Address Screen"
+            android:parentActivityName="com.example.whereyouapp.AddRouteScreen" >
             <meta-data
-                android:name = "android.support.PARENT_ACTIVITY"
-                android:value = "com.example.whereyouapp.AddRouteScreen" />
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.whereyouapp.AddRouteScreen" />
         </activity>
         <meta-data
             android:name="com.google.android.maps.v2.API_KEY"
