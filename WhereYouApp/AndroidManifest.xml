@@ -11,10 +11,7 @@
       <permission 
         android:name="com.example.gmapsapp.permission.MAPS_RECEIVE"
         android:protectionLevel="signature"/>
-      	<uses-permission android:name="android.permission.SMS" />
     	<uses-permission android:name="android.permission.SEND_SMS" />
-    	<uses-permission android:name="android.permission.WRITE_SMS" />
-		<uses-permission android:name="android.permission.READ_SMS" />
 	    <uses-permission android:name="com.example.gmapsapp.permission.MAPS_RECEIVE"/>
 	    <uses-permission android:name="android.permission.INTERNET"/>
 	    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
@@ -84,7 +81,7 @@
         </activity>
          <activity
             android:name="com.example.whereyouapp.SetAddressScreen"
-            android:label="Set Address"
+            android:label="Set Address Screen"
             android:parentActivityName="com.example.whereyouapp.AddRouteScreen" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"

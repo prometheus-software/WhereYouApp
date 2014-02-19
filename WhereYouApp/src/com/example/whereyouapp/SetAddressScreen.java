@@ -1,5 +1,8 @@
 package com.example.whereyouapp;
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.io.StringWriter;
+import java.io.Writer;
 import java.util.List;
 
 import com.google.android.gms.common.ConnectionResult;
@@ -33,9 +36,7 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.Toast;
-import android.widget.Button;
-import android.graphics.PorterDuff;
-import android.content.Intent;
+
 public class SetAddressScreen extends FragmentActivity implements
 GooglePlayServicesClient.ConnectionCallbacks,
 GooglePlayServicesClient.OnConnectionFailedListener, LocationListener{
@@ -49,7 +50,7 @@ GooglePlayServicesClient.OnConnectionFailedListener, LocationListener{
 			NEWYORK_LNG = -74.005973;
 	private static final float DEFAULTZOOM = 12;
 	GoogleMap myMap;
-	private String message;
+	
 	LocationClient myLocationClient;
 	
 	
@@ -60,10 +61,7 @@ GooglePlayServicesClient.OnConnectionFailedListener, LocationListener{
 		if(servicesOK())
 		{
 			setContentView(R.layout.activity_set_address_screen);
-			Button button = (Button) findViewById(R.id.button1);
-			button.getBackground().setColorFilter(0xFF00FF00, PorterDuff.Mode.MULTIPLY);
-			Intent intent = getIntent();
-			message = intent.getStringExtra(AddRouteScreen.EXTRA_MESSAGE);
+			
 			if(initializeMap())
 			{
 				Toast.makeText(this, "Ready to map! :D", Toast.LENGTH_SHORT).show();
@@ -149,6 +147,7 @@ GooglePlayServicesClient.OnConnectionFailedListener, LocationListener{
 	
 	public void geoLocate(View v) throws IOException
 	{
+		String locality = null;
 		hideSoftKeyboard(v);
 		
 		EditText et = (EditText) findViewById(R.id.editText1);
@@ -160,12 +159,12 @@ GooglePlayServicesClient.OnConnectionFailedListener, LocationListener{
 			Toast.makeText(this, "Please enter a valid location", Toast.LENGTH_SHORT).show();
 			return;
 		}
-		
+		try{
 		Geocoder geocoder = new Geocoder(this);
 		//4 represents the maximum number of results 
 		List<Address> list = geocoder.getFromLocationName(location, 4);
 		Address theAddress = list.get(0);
-		String locality = theAddress.getLocality();
+		locality = theAddress.getLocality();
 		
 		double lat = theAddress.getLatitude();
 		double lng = theAddress.getLongitude();
@@ -173,9 +172,15 @@ GooglePlayServicesClient.OnConnectionFailedListener, LocationListener{
 		goToLocation(lat, lng, DEFAULTZOOM);
 		
 		CharSequence addresses[] = new CharSequence[4];
+		String addressString[] = new String[4];
 		for(int i = 0; i < 4; i++)
 		{
-			addresses[i] = list.get(i).toString();
+			Address theAddress2 = list.get(i);
+			String locationLine = theAddress2.getAddressLine(0);
+			String addressLine = theAddress2.getAddressLine(1);
+			String cityAndZipLine = theAddress2.getAddressLine(2);
+			String completeAddress = locationLine +  " \n" + addressLine + "\n" + cityAndZipLine;
+			addresses[i] = completeAddress;
 		}
 
 		
@@ -189,7 +194,15 @@ GooglePlayServicesClient.OnConnectionFailedListener, LocationListener{
 		});
 		builder.show();
 		
-		
+		}
+		catch(Exception e)
+		{
+			Writer writer = new StringWriter();
+			PrintWriter printWriter = new PrintWriter(writer);
+			e.printStackTrace(printWriter);
+			String s = writer.toString();
+			Toast.makeText(this, s, Toast.LENGTH_LONG);
+		}
 		
 		//AddressDialog a = new AddressDialog();
 		//a.show(getSupportFragmentManager(), "blah");
