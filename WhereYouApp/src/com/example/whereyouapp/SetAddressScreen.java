@@ -18,7 +18,9 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.DialogInterface;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
@@ -45,7 +47,7 @@ GooglePlayServicesClient.OnConnectionFailedListener, LocationListener{
 			SYDNEY_LNG = 151.20699,
 			NEWYORK_LAT = 40.714353,
 			NEWYORK_LNG = -74.005973;
-	private static final float DEFAULTZOOM = 8;
+	private static final float DEFAULTZOOM = 12;
 	GoogleMap myMap;
 	private String message;
 	LocationClient myLocationClient;
@@ -160,8 +162,8 @@ GooglePlayServicesClient.OnConnectionFailedListener, LocationListener{
 		}
 		
 		Geocoder geocoder = new Geocoder(this);
-		//1 represents the maximum number of results 
-		List<Address> list = geocoder.getFromLocationName(location, 1);
+		//4 represents the maximum number of results 
+		List<Address> list = geocoder.getFromLocationName(location, 4);
 		Address theAddress = list.get(0);
 		String locality = theAddress.getLocality();
 		
@@ -170,10 +172,32 @@ GooglePlayServicesClient.OnConnectionFailedListener, LocationListener{
 		
 		goToLocation(lat, lng, DEFAULTZOOM);
 		
-		MarkerOptions options = new MarkerOptions()
+		CharSequence addresses[] = new CharSequence[4];
+		for(int i = 0; i < 4; i++)
+		{
+			addresses[i] = list.get(i).toString();
+		}
+
+		
+		AlertDialog.Builder builder = new AlertDialog.Builder(this);
+		builder.setTitle("Select an Address:");
+		builder.setItems(addresses, new DialogInterface.OnClickListener() {
+		    @Override
+		    public void onClick(DialogInterface dialog, int which) {
+		        // the user clicked on colors[which]
+		    }
+		});
+		builder.show();
+		
+		
+		
+		//AddressDialog a = new AddressDialog();
+		//a.show(getSupportFragmentManager(), "blah");
+		// Sets a marker on the map
+		/*MarkerOptions options = new MarkerOptions()
 			.title(locality)
 			.position(new LatLng(lat, lng));
-		myMap.addMarker(options);
+		myMap.addMarker(options);*/
 		
 		Toast.makeText(this, locality, Toast.LENGTH_LONG).show();
 	}
@@ -255,10 +279,11 @@ GooglePlayServicesClient.OnConnectionFailedListener, LocationListener{
 		
 		LocationRequest request = LocationRequest.create();
 		request.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
-		request.setInterval(5000);
-		request.setFastestInterval(1000);
+		request.setInterval(50000);
+		request.setFastestInterval(10000);
 		
 		myLocationClient.requestLocationUpdates(request, this);
+		goToCurrentLocation();
 	}
 
 	@Override
