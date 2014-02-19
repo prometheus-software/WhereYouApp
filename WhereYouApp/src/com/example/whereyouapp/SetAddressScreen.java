@@ -33,6 +33,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 import android.widget.Button;
 import android.graphics.PorterDuff;
+import android.content.Intent;
 public class SetAddressScreen extends FragmentActivity implements
 GooglePlayServicesClient.ConnectionCallbacks,
 GooglePlayServicesClient.OnConnectionFailedListener, LocationListener{
@@ -46,7 +47,7 @@ GooglePlayServicesClient.OnConnectionFailedListener, LocationListener{
 			NEWYORK_LNG = -74.005973;
 	private static final float DEFAULTZOOM = 8;
 	GoogleMap myMap;
-	
+	private String message;
 	LocationClient myLocationClient;
 	
 	
@@ -59,6 +60,8 @@ GooglePlayServicesClient.OnConnectionFailedListener, LocationListener{
 			setContentView(R.layout.activity_set_address_screen);
 			Button button = (Button) findViewById(R.id.button1);
 			button.getBackground().setColorFilter(0xFF00FF00, PorterDuff.Mode.MULTIPLY);
+			Intent intent = getIntent();
+			message = intent.getStringExtra(AddRouteScreen.EXTRA_MESSAGE);
 			if(initializeMap())
 			{
 				Toast.makeText(this, "Ready to map! :D", Toast.LENGTH_SHORT).show();
