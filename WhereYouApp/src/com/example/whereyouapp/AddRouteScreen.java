@@ -120,7 +120,14 @@ public class AddRouteScreen extends Activity {
 	public void startMapActivity(View v)
 	{
 		Intent setAddressIntent = new Intent(this, SetAddressScreen.class);
+		EditText editText = (EditText) findViewById(R.id.route_name);
+		String message = "Route name: " + editText.getText().toString();
+		message += "Radius: " + String.valueOf(spinner1.getSelectedItem());
+		editText = (EditText) findViewById(R.id.enter_contact);
+		message += "Contact: " + editText.getText().toString();
+		editText = (EditText) findViewById(R.id.enter_message);
+		message += "Message: " + editText.getText().toString();
+		setAddressIntent.putExtra(EXTRA_MESSAGE, message);
 		startActivity(setAddressIntent);
 	}
 }
-
