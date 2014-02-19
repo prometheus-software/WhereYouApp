@@ -1,4 +1,4 @@
-//This class wil be used to test controller functions, it will consist of a screen with buttons that do various functions
+//This class will be used to test controller functions, it will consist of a screen with buttons that do various functions
 package com.example.whereyouapp;
 
 import android.net.Uri;
@@ -7,6 +7,7 @@ import android.app.Activity;
 import android.telephony.SmsManager;
 import android.view.Menu;
 import android.view.View.OnClickListener;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.content.ContentValues;
 import android.content.Intent;
@@ -24,7 +25,9 @@ public class ControllerTestingScreen extends Activity{
 		button.getBackground().setColorFilter(0xFFFF0000, PorterDuff.Mode.MULTIPLY);
 		OnClickListener buttonListener = new View.OnClickListener(){
 			public void onClick(View arg0) {
-				sendSMS("PutPhoneNumberHereForTesting","WhereYouApp Text Message Test");
+				EditText pText = (EditText) findViewById(R.id.ptext);
+				EditText mText = (EditText) findViewById(R.id.mtext);
+				sendSMS(pText.getText().toString(), mText.getText().toString());
 			}
 		};
 		button.setOnClickListener(buttonListener);

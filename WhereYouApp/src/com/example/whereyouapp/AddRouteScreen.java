@@ -28,6 +28,8 @@ public class AddRouteScreen extends Activity {
 		button.getBackground().setColorFilter(0xFF00FF00, PorterDuff.Mode.MULTIPLY);
 		button = (Button) findViewById(R.id.cancel);
 		button.getBackground().setColorFilter(0xFFFF0000, PorterDuff.Mode.MULTIPLY);
+		button = (Button) findViewById(R.id.set_address);
+		button.getBackground().setColorFilter(0xFFFFFF00, PorterDuff.Mode.MULTIPLY);
 		spinner1 = (Spinner) findViewById(R.id.enter_radius);
 		List<String> list = new ArrayList<String>();
 		//Set choices for Spinner
@@ -118,7 +120,14 @@ public class AddRouteScreen extends Activity {
 	public void startMapActivity(View v)
 	{
 		Intent setAddressIntent = new Intent(this, SetAddressScreen.class);
+		EditText editText = (EditText) findViewById(R.id.route_name);
+		String message = "Route name: " + editText.getText().toString();
+		message += "Radius: " + String.valueOf(spinner1.getSelectedItem());
+		editText = (EditText) findViewById(R.id.enter_contact);
+		message += "Contact: " + editText.getText().toString();
+		editText = (EditText) findViewById(R.id.enter_message);
+		message += "Message: " + editText.getText().toString();
+		setAddressIntent.putExtra(EXTRA_MESSAGE, message);
 		startActivity(setAddressIntent);
 	}
 }
-
