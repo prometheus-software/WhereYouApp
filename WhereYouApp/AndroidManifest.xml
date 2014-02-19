@@ -84,7 +84,7 @@
         </activity>
          <activity
             android:name="com.example.whereyouapp.SetAddressScreen"
-            android:label="Set Address Screen"
+            android:label="Set Address"
             android:parentActivityName="com.example.whereyouapp.AddRouteScreen" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
