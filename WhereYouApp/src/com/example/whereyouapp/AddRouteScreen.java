@@ -123,4 +123,3 @@ public class AddRouteScreen extends Activity {
 		startActivity(setAddressIntent);
 	}
 }
-
