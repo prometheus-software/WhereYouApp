@@ -1,6 +1,8 @@
 package com.example.whereyouapp;
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -8,6 +10,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.graphics.PorterDuff;
 import java.util.*;
 import android.widget.ArrayAdapter;
@@ -18,6 +21,8 @@ public class AddRouteScreen extends Activity {
 	private static final String TAG = "WhereYouApp";
 	private Spinner spinner1;
 	public final static String EXTRA_MESSAGE = "com.example.whereyouapp.MESSAGE";
+	public SharedPreferences userInfo;
+	public SharedPreferences.Editor editor;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -28,8 +33,6 @@ public class AddRouteScreen extends Activity {
 		button.getBackground().setColorFilter(0xFF00FF00, PorterDuff.Mode.MULTIPLY);
 		button = (Button) findViewById(R.id.cancel);
 		button.getBackground().setColorFilter(0xFFFF0000, PorterDuff.Mode.MULTIPLY);
-		button = (Button) findViewById(R.id.set_address);
-		button.getBackground().setColorFilter(0xFFFFFF00, PorterDuff.Mode.MULTIPLY);
 		spinner1 = (Spinner) findViewById(R.id.enter_radius);
 		List<String> list = new ArrayList<String>();
 		//Set choices for Spinner
@@ -44,6 +47,9 @@ public class AddRouteScreen extends Activity {
 		dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 		spinner1.setAdapter(dataAdapter);
 		addListenerOnSpinnerItemSelection();
+		
+		userInfo = this.getSharedPreferences("User supplied info", Context.MODE_PRIVATE);
+		editor = userInfo.edit();
 	}
 
 	@Override
@@ -119,7 +125,63 @@ public class AddRouteScreen extends Activity {
 	
 	public void startMapActivity(View v)
 	{
+		//Save the state of the screen
+	    EditText routeName = (EditText) findViewById(R.id.route_name);
+	    String route = routeName.getText().toString();
+	    editor.putString("name", route);
+	    
+	    EditText message = (EditText) findViewById(R.id.enter_message);
+	    String theMessage = message.getText().toString();
+	    editor.putString("message", theMessage);
+	    
+	    //Note that I'm storing this as a string and not a numeric value
+	    EditText phone  = (EditText) findViewById(R.id.enter_contact);
+	    String phoneNum = phone.getText().toString();
+	    editor.putString("phone", phoneNum);
+	    
+	    Spinner radiusSelector = (Spinner) findViewById(R.id.enter_radius);
+	    Float radius = Float.parseFloat(radiusSelector.getSelectedItem().toString());
+	    editor.putFloat("radius", radius);
+	    
+	    //Save all changes to SharedPrefs object
+	    editor.commit();
+	    
+	    //Go to new activity
 		Intent setAddressIntent = new Intent(this, SetAddressScreen.class);
 		startActivity(setAddressIntent);
 	}
+	
+	@Override
+	public void onResume()
+	{
+	    
+		//Check receipt of address object
+		if(getIntent().getSerializableExtra("address") != null)
+		{
+			Toast.makeText(this, "Got an address back!!!", Toast.LENGTH_SHORT).show();
+		}
+	  		
+	  	EditText routeName = (EditText) findViewById(R.id.route_name);
+	  	routeName.setText(userInfo.getString("name", null));
+	  	
+	  	EditText message = (EditText) findViewById(R.id.enter_message);
+	  	message.setText(userInfo.getString("message", null));
+	  	
+	    EditText phone  = (EditText) findViewById(R.id.enter_contact);
+		phone.setText(userInfo.getString("phone", null));
+		    
+		Spinner radiusSelector = (Spinner) findViewById(R.id.enter_radius);
+		ArrayAdapter radiusAdapter = (ArrayAdapter) radiusSelector.getAdapter();
+		int position = radiusAdapter.getPosition(userInfo.getFloat("radius", 0));
+		radiusSelector.setSelection(position);
+	  	super.onResume();
+	}
+	
+	
+	@Override
+	public void onPause()
+	{
+	    super.onPause();
+	}
+	
 }
