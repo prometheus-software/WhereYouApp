@@ -188,5 +188,14 @@ public class AddRouteScreen extends Activity {
 	{
 	    super.onPause();
 	}
+	
+	public void saveRoute()
+	{
+		//Again, clear shared preferences
+		editor = userInfo.edit();
+		
+		//Grab info from text fields
+		//SaveRoute.saveRoute(new Route())
+	}
 }
 
