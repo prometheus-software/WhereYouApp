@@ -31,8 +31,6 @@ public class AddRouteScreen extends Activity {
 		//Set button colors to green and red, respectively
 		Button button = (Button) findViewById(R.id.save);
 		button.getBackground().setColorFilter(0xFF00FF00, PorterDuff.Mode.MULTIPLY);
-		button = (Button) findViewById(R.id.cancel);
-		button.getBackground().setColorFilter(0xFFFF0000, PorterDuff.Mode.MULTIPLY);
 		button = (Button) findViewById(R.id.set_address);
 		button.getBackground().setColorFilter(0xFFFFFF00, PorterDuff.Mode.MULTIPLY);
 		spinner1 = (Spinner) findViewById(R.id.enter_radius);
@@ -111,6 +109,11 @@ public class AddRouteScreen extends Activity {
 	}
 	public void onRestart(View view)
 	{
+		//Clear sharedPreferences info
+		editor = userInfo.edit();
+		editor.clear();
+		editor.commit();
+		
 		//Clears all text fields and resets the Spinner to the first choice, going back to MainScreen
 		EditText editText = (EditText) findViewById(R.id.route_name);
 		editText.setText("", TextView.BufferType.EDITABLE);
@@ -141,9 +144,9 @@ public class AddRouteScreen extends Activity {
 	    String phoneNum = phone.getText().toString();
 	    editor.putString("phone", phoneNum);
 	    
-	    Spinner radiusSelector = (Spinner) findViewById(R.id.enter_radius);
+	    /*Spinner radiusSelector = (Spinner) findViewById(R.id.enter_radius);
 	    Float radius = Float.parseFloat(radiusSelector.getSelectedItem().toString());
-	    editor.putFloat("radius", radius);
+	    editor.putFloat("radius", radius);*/
 	    
 	    //Save all changes to SharedPrefs object
 	    editor.commit();
@@ -185,5 +188,5 @@ public class AddRouteScreen extends Activity {
 	{
 	    super.onPause();
 	}
-	
 }
+
