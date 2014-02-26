@@ -16,7 +16,6 @@ import android.graphics.PorterDuff;
 import java.util.*;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
-
 import java.io.IOException;
 import java.lang.String;
 public class AddRouteScreen extends Activity {
@@ -169,8 +168,7 @@ public class AddRouteScreen extends Activity {
 		Bundle b = getIntent().getExtras(); 
 		if(b != null) {
 			Address addr = b.getParcelable("com.android.location.Address");
-			Toast.makeText(this, "Got an address back!!!", Toast.LENGTH_SHORT).show();
-			
+			//Toast.makeText(this, "Got an address back!!!", Toast.LENGTH_SHORT).show();
 			String locationLine = addr.getAddressLine(0);
 			String addressLine = addr.getAddressLine(1);
 			String cityAndZipLine = addr.getAddressLine(2);
@@ -237,10 +235,6 @@ public class AddRouteScreen extends Activity {
 			
 			SaveRoute.saveRoute(new Route(name, coord, phoneNum, 0.25, theMessage));
 		}
-		
-		
-		
-		
 		//Clear saved text fields and whatnot
 		editor = userInfo.edit();
 		editor.clear();
@@ -252,4 +246,3 @@ public class AddRouteScreen extends Activity {
 		
 	}
 }
-
