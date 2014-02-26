@@ -3,7 +3,7 @@
     package="com.example.whereyouapp"
     android:versionCode="1"
     android:versionName="1.0" >
-
+<!--  IM A REAL APP!! -->
     <uses-sdk
         android:minSdkVersion="8"
         android:targetSdkVersion="19" />
