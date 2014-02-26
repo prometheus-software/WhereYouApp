@@ -67,7 +67,7 @@ GooglePlayServicesClient.OnConnectionFailedListener, LocationListener{
 			button.getBackground().setColorFilter(0xFF00FF00, PorterDuff.Mode.MULTIPLY);
 			if(initializeMap())
 			{
-				Toast.makeText(this, "Ready to map! :D", Toast.LENGTH_SHORT).show();
+				//Toast.makeText(this, "Ready to map! :D", Toast.LENGTH_SHORT).show();
 				myLocationClient = new LocationClient(this, this, this);
 				myLocationClient.connect();
 				//myMap.setMyLocationEnabled(true);
@@ -343,4 +343,3 @@ GooglePlayServicesClient.OnConnectionFailedListener, LocationListener{
 	}
 	
 }
-
