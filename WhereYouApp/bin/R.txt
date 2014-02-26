@@ -64,6 +64,7 @@ int drawable ic_plusone_medium_off_client 0x7f020019
 int drawable ic_plusone_small_off_client 0x7f02001a
 int drawable ic_plusone_standard_off_client 0x7f02001b
 int drawable ic_plusone_tall_off_client 0x7f02001c
+int drawable main_background 0x7f02001d
 int id action_settings 0x7f05001e
 int id add_route 0x7f05000f
 int id back 0x7f05000e
@@ -103,7 +104,8 @@ int layout activity_main 0x7f030003
 int layout activity_main_screen 0x7f030004
 int layout activity_set_address_screen 0x7f030005
 int layout activity_settings_screen 0x7f030006
-int layout activity_tutorial_screen 0x7f030007
+int layout activity_splash_screen 0x7f030007
+int layout activity_tutorial_screen 0x7f030008
 int menu add_route_screen 0x7f0a0000
 int menu add_route_screen_message 0x7f0a0001
 int menu credits_screen 0x7f0a0002
