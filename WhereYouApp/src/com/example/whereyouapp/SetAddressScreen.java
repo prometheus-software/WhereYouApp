@@ -19,7 +19,7 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
-
+import android.graphics.PorterDuff;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -37,7 +37,7 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.Toast;
-
+import android.widget.Button;
 public class SetAddressScreen extends FragmentActivity implements
 GooglePlayServicesClient.ConnectionCallbacks,
 GooglePlayServicesClient.OnConnectionFailedListener, LocationListener{
@@ -63,7 +63,8 @@ GooglePlayServicesClient.OnConnectionFailedListener, LocationListener{
 		if(servicesOK())
 		{
 			setContentView(R.layout.activity_set_address_screen);
-			
+			Button button = (Button) findViewById(R.id.button1);
+			button.getBackground().setColorFilter(0xFF00FF00, PorterDuff.Mode.MULTIPLY);
 			if(initializeMap())
 			{
 				Toast.makeText(this, "Ready to map! :D", Toast.LENGTH_SHORT).show();
@@ -342,3 +343,4 @@ GooglePlayServicesClient.OnConnectionFailedListener, LocationListener{
 	}
 	
 }
+
