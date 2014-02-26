@@ -215,7 +215,11 @@ public class AddRouteScreen extends Activity {
 	  	
 	    EditText phone  = (EditText) findViewById(R.id.enter_contact);
 		String phoneNum = phone.getText().toString();
-		
+		boolean error = false;
+		if (phoneNum.length() != 10)
+		{
+			error = true;
+		}
 		TextView displayAddress = (TextView) findViewById(R.id.display_address);
 		String addr = displayAddress.getText().toString();
 		
@@ -241,8 +245,13 @@ public class AddRouteScreen extends Activity {
 		editor.commit();
 		
 		//Restart the activity..maybe redirect to routes screen later?
-		Intent i = new Intent(this, AddRouteScreen.class);
-		startActivity(i);
-		
+		if (error)
+		{
+			Toast.makeText(this, "Error with phone number; fix and save again.", Toast.LENGTH_LONG).show();
+			Intent intent = new Intent (this, AddRouteScreen.class);
+			startActivity(intent);
+		}
+		Intent i = new Intent(this, MainScreen.class);
+		startActivity(i);	
 	}
 }
