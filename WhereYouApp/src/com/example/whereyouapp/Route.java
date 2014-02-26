@@ -1,4 +1,5 @@
 package com.example.whereyouapp;
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /*
@@ -16,7 +17,7 @@ Included access modifiers for those fields, as well as addRoute, removeRoute, an
 
 */
 
-public class Route {
+public class Route implements Serializable{
 
 	//how are phone numbers stored best?
 	//10-digit longs?
@@ -45,6 +46,19 @@ public class Route {
 
 		addRoute(this);
 	}
+	
+	public Route(String routeName, double[] coordinates, String phoneNumber, double alertDistance, String message) 
+	{
+		this.coordinates = new double[2];
+		this.coordinates[0] = coordinates[0];
+		this.coordinates[1] = coordinates[1];
+		this.phoneNumber = phoneNumber;
+		this.routeName = routeName;
+		this.alertDistance = alertDistance;
+		//this.alertInterval = alertInterval;
+		this.message = message;
+	}
+	
 	public Route(Route route) {
 		//copy constructor
 		//the only thing that changes is the name of the route
@@ -157,7 +171,7 @@ public class Route {
 			index++;
 			tempMessage = routeInfo[index];
 			index++;
-			temp = new Route(tempName, tempCoords, tempNumber, tempDistance, tempMessage);
+			//temp = new Route(tempName, tempCoords, tempNumber, tempDistance, tempMessage);
 			routesCreated++;
 		}
 	}

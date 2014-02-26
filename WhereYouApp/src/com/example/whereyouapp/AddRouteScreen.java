@@ -3,6 +3,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.location.Address;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -15,6 +16,8 @@ import android.graphics.PorterDuff;
 import java.util.*;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
+
+import java.io.IOException;
 import java.lang.String;
 public class AddRouteScreen extends Activity {
 
@@ -144,9 +147,9 @@ public class AddRouteScreen extends Activity {
 	    String phoneNum = phone.getText().toString();
 	    editor.putString("phone", phoneNum);
 	    
-	    /*Spinner radiusSelector = (Spinner) findViewById(R.id.enter_radius);
-	    Float radius = Float.parseFloat(radiusSelector.getSelectedItem().toString());
-	    editor.putFloat("radius", radius);*/
+	    Spinner radiusSelector = (Spinner) findViewById(R.id.enter_radius);
+	    int radiusCode = radiusSelector.getSelectedItemPosition();
+	    editor.putInt("radius", radiusCode);
 	    
 	    //Save all changes to SharedPrefs object
 	    editor.commit();
@@ -161,11 +164,19 @@ public class AddRouteScreen extends Activity {
 	{
 	    
 		//Check receipt of address object
-		if(getIntent().getSerializableExtra("address") != null)
-		{
+		Bundle b = getIntent().getExtras(); 
+		if(b != null) {
+			Address addr = b.getParcelable("com.android.location.Address");
 			Toast.makeText(this, "Got an address back!!!", Toast.LENGTH_SHORT).show();
-		}
+			
+			String locationLine = addr.getAddressLine(0);
+			String addressLine = addr.getAddressLine(1);
+			String cityAndZipLine = addr.getAddressLine(2);
+			String completeAddress = locationLine +  " \n" + addressLine + "\n" + cityAndZipLine;
+		  	TextView displayAddress = (TextView) findViewById(R.id.display_address);
+		  	displayAddress.setText(completeAddress);
 	  		
+		}
 	  	EditText routeName = (EditText) findViewById(R.id.route_name);
 	  	routeName.setText(userInfo.getString("name", null));
 	  	
@@ -176,10 +187,10 @@ public class AddRouteScreen extends Activity {
 		phone.setText(userInfo.getString("phone", null));
 		    
 		Spinner radiusSelector = (Spinner) findViewById(R.id.enter_radius);
-		ArrayAdapter radiusAdapter = (ArrayAdapter) radiusSelector.getAdapter();
-		int position = radiusAdapter.getPosition(userInfo.getFloat("radius", 0));
-		radiusSelector.setSelection(position);
-	  	super.onResume();
+		radiusSelector.setSelection(userInfo.getInt("radius", 0));
+		
+		
+		super.onResume();
 	}
 	
 	
@@ -189,13 +200,54 @@ public class AddRouteScreen extends Activity {
 	    super.onPause();
 	}
 	
-	public void saveRoute()
+	public void saveRoute(View v) throws IOException
 	{
 		//Again, clear shared preferences
 		editor = userInfo.edit();
 		
 		//Grab info from text fields
 		//SaveRoute.saveRoute(new Route())
+		EditText routeName = (EditText) findViewById(R.id.route_name);
+	  	String name = routeName.getText().toString();
+	  	
+	  	EditText message = (EditText) findViewById(R.id.enter_message);
+	  	String theMessage = message.getText().toString();
+	  	
+	    EditText phone  = (EditText) findViewById(R.id.enter_contact);
+		String phoneNum = phone.getText().toString();
+		
+		TextView displayAddress = (TextView) findViewById(R.id.display_address);
+		String addr = displayAddress.getText().toString();
+		
+		Spinner radiusSelector = (Spinner) findViewById(R.id.enter_radius);
+		int radiusCode = radiusSelector.getSelectedItemPosition();
+		Address theAddress = null;
+		
+		Bundle b = getIntent().getExtras(); 
+		if(b != null) 
+		{
+			theAddress = b.getParcelable("com.android.location.Address");
+			double lat = theAddress.getLatitude();
+			double lng = theAddress.getLongitude();
+			double[] coord = new double[2];
+			coord[0] = lat;
+			coord[1] = lng;
+			
+			SaveRoute.saveRoute(new Route(name, coord, phoneNum, 0.25, theMessage));
+		}
+		
+		
+		
+		
+		//Clear saved text fields and whatnot
+		editor = userInfo.edit();
+		editor.clear();
+		editor.commit();
+		
+		//Restart the activity..maybe redirect to routes screen later?
+		Intent i = new Intent(this, AddRouteScreen.class);
+		startActivity(i);
+		
 	}
 }
 

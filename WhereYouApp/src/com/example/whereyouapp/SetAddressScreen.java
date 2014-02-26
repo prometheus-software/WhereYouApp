@@ -19,12 +19,12 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
-import android.widget.Button;
-import android.graphics.PorterDuff;
+
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
@@ -53,6 +53,7 @@ GooglePlayServicesClient.OnConnectionFailedListener, LocationListener{
 	GoogleMap myMap;
 	
 	LocationClient myLocationClient;
+	List<Address> list;
 	
 	
 	@Override
@@ -62,8 +63,7 @@ GooglePlayServicesClient.OnConnectionFailedListener, LocationListener{
 		if(servicesOK())
 		{
 			setContentView(R.layout.activity_set_address_screen);
-			Button button = (Button) findViewById(R.id.button1);
-			button.getBackground().setColorFilter(0xFF00FF00, PorterDuff.Mode.MULTIPLY);
+			
 			if(initializeMap())
 			{
 				Toast.makeText(this, "Ready to map! :D", Toast.LENGTH_SHORT).show();
@@ -149,6 +149,8 @@ GooglePlayServicesClient.OnConnectionFailedListener, LocationListener{
 	
 	public void geoLocate(View v) throws IOException
 	{
+		Intent intent = new Intent(this, AddRouteScreen.class);
+		final int code = 0;
 		String locality = null;
 		hideSoftKeyboard(v);
 		
@@ -164,7 +166,7 @@ GooglePlayServicesClient.OnConnectionFailedListener, LocationListener{
 		try{
 		Geocoder geocoder = new Geocoder(this);
 		//4 represents the maximum number of results 
-		List<Address> list = geocoder.getFromLocationName(location, 4);
+		list = geocoder.getFromLocationName(location, 4);
 		Address theAddress = list.get(0);
 		locality = theAddress.getLocality();
 		
@@ -172,6 +174,10 @@ GooglePlayServicesClient.OnConnectionFailedListener, LocationListener{
 		double lng = theAddress.getLongitude();
 		
 		goToLocation(lat, lng, DEFAULTZOOM);
+		MarkerOptions options = new MarkerOptions()
+		.title("Destination")
+		.position(new LatLng(lat, lng));
+		myMap.addMarker(options);
 		
 		CharSequence addresses[] = new CharSequence[4];
 		String addressString[] = new String[4];
@@ -191,7 +197,7 @@ GooglePlayServicesClient.OnConnectionFailedListener, LocationListener{
 		builder.setItems(addresses, new DialogInterface.OnClickListener() {
 		    @Override
 		    public void onClick(DialogInterface dialog, int which) {
-		        // the user clicked on colors[which]
+		    	startAddRouteScreen(which);
 		    }
 		});
 		builder.show();
@@ -209,10 +215,7 @@ GooglePlayServicesClient.OnConnectionFailedListener, LocationListener{
 		//AddressDialog a = new AddressDialog();
 		//a.show(getSupportFragmentManager(), "blah");
 		// Sets a marker on the map
-		/*MarkerOptions options = new MarkerOptions()
-			.title(locality)
-			.position(new LatLng(lat, lng));
-		myMap.addMarker(options);*/
+		
 		
 		Toast.makeText(this, locality, Toast.LENGTH_LONG).show();
 	}
@@ -255,29 +258,29 @@ GooglePlayServicesClient.OnConnectionFailedListener, LocationListener{
 	protected void onStop()
 	{
 		super.onStop();
-		MapManager manager = new MapManager(this);
-		manager.saveMapState();
+		//MapManager manager = new MapManager(this);
+		//manager.saveMapState();
 	}
 	
 	@Override
 	protected void onResume()
 	{
 		super.onResume();
-		MapManager manager = new MapManager(this);
-		CameraPosition position = manager.getSavedCameraPosition();
+		//MapManager manager = new MapManager(this);
+		//CameraPosition position = manager.getSavedCameraPosition();
 		
-		if(position != null)
+		/*if(position != null)
 		{
 			//Since the position is not null, we store it 
 			CameraUpdate update = CameraUpdateFactory.newCameraPosition(position);
 			myMap.moveCamera(update);
-		}
+		} */
 	}
 	
 	@Override
 	protected void onSaveInstanceState(Bundle outState) {
-		MapManager manager = new MapManager(this);
-		manager.saveMapState();
+		//MapManager manager = new MapManager(this);
+		//manager.saveMapState();
 		super.onSaveInstanceState(outState);
 	}
 
@@ -329,6 +332,13 @@ GooglePlayServicesClient.OnConnectionFailedListener, LocationListener{
 		String message = "Location: " + location.getLatitude() + ", " +
 		location.getLongitude();
 		Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+	}
+	
+	public void startAddRouteScreen(int code)
+	{
+		Intent i = new Intent(this, AddRouteScreen.class);
+		i.putExtra("com.android.location.Address", list.get(code));
+		startActivity(i);
 	}
 	
 }

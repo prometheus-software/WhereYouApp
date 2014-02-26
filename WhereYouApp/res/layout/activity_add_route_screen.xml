@@ -17,7 +17,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:layout_alignParentLeft="true"
-            android:onClick="sendMessage"
+            android:onClick="saveRoute"
             android:text="@string/save" />
 
         <Button
