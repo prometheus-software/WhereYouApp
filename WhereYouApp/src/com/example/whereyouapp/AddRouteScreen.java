@@ -16,6 +16,7 @@ import android.graphics.PorterDuff;
 import java.util.*;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
+
 import java.io.IOException;
 import java.lang.String;
 public class AddRouteScreen extends Activity {
@@ -25,6 +26,7 @@ public class AddRouteScreen extends Activity {
 	public final static String EXTRA_MESSAGE = "com.example.whereyouapp.MESSAGE";
 	public SharedPreferences userInfo;
 	public SharedPreferences.Editor editor;
+	public RouteDataSource dbHandle;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -33,8 +35,6 @@ public class AddRouteScreen extends Activity {
 		//Set button colors to green and red, respectively
 		Button button = (Button) findViewById(R.id.save);
 		button.getBackground().setColorFilter(0xFF00FF00, PorterDuff.Mode.MULTIPLY);
-		button = (Button) findViewById(R.id.cancel);
-		button.getBackground().setColorFilter(0xFFFF0000, PorterDuff.Mode.MULTIPLY);
 		button = (Button) findViewById(R.id.set_address);
 		button.getBackground().setColorFilter(0xFFFFFF00, PorterDuff.Mode.MULTIPLY);
 		spinner1 = (Spinner) findViewById(R.id.enter_radius);
@@ -54,6 +54,9 @@ public class AddRouteScreen extends Activity {
 		
 		userInfo = this.getSharedPreferences("User supplied info", Context.MODE_PRIVATE);
 		editor = userInfo.edit();
+		
+		dbHandle = new RouteDataSource(this);
+		dbHandle.open();
 	}
 
 	@Override
@@ -168,7 +171,8 @@ public class AddRouteScreen extends Activity {
 		Bundle b = getIntent().getExtras(); 
 		if(b != null) {
 			Address addr = b.getParcelable("com.android.location.Address");
-			//Toast.makeText(this, "Got an address back!!!", Toast.LENGTH_SHORT).show();
+			Toast.makeText(this, "Got an address back!!!", Toast.LENGTH_SHORT).show();
+			
 			String locationLine = addr.getAddressLine(0);
 			String addressLine = addr.getAddressLine(1);
 			String cityAndZipLine = addr.getAddressLine(2);
@@ -189,6 +193,7 @@ public class AddRouteScreen extends Activity {
 		Spinner radiusSelector = (Spinner) findViewById(R.id.enter_radius);
 		radiusSelector.setSelection(userInfo.getInt("radius", 0));
 		
+		dbHandle.open();
 		
 		super.onResume();
 	}
@@ -197,6 +202,7 @@ public class AddRouteScreen extends Activity {
 	@Override
 	public void onPause()
 	{
+		dbHandle.close();
 	    super.onPause();
 	}
 	
@@ -237,8 +243,10 @@ public class AddRouteScreen extends Activity {
 			coord[0] = lat;
 			coord[1] = lng;
 			
-			SaveRoute.saveRoute(new Route(name, coord, phoneNum, 0.25, theMessage));
+			dbHandle.insertRoute(new Route(name, coord, phoneNum, 0.25, theMessage, addr));
 		}
+		
+		
 		//Clear saved text fields and whatnot
 		editor = userInfo.edit();
 		editor.clear();
@@ -255,3 +263,4 @@ public class AddRouteScreen extends Activity {
 		startActivity(i);	
 	}
 }
+

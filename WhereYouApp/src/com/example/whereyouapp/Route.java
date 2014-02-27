@@ -27,10 +27,14 @@ public class Route implements Serializable{
 	//private String alertInterval;
 	private String message;
 	private double[] coordinates;
+	private String address;
 
 	//list of all routes
 	//is it best to use an arraylist here?
 	private static ArrayList<Route> routeList = new ArrayList<Route>();
+	
+	//Used for unique id (database purposes)
+	public static int routeID = 0;
 
 	public Route(String routeName, String coordinates, String phoneNumber, double alertDistance, String message) {
 		this.phoneNumber = phoneNumber;
@@ -45,9 +49,10 @@ public class Route implements Serializable{
 		this.coordinates[1] = Double.parseDouble(coordinates.substring(coordinates.indexOf(" ")+1, coordinates.length()));
 
 		addRoute(this);
+		routeID++;
 	}
 	
-	public Route(String routeName, double[] coordinates, String phoneNumber, double alertDistance, String message) 
+	public Route(String routeName, double[] coordinates, String phoneNumber, double alertDistance, String message, String address) 
 	{
 		this.coordinates = new double[2];
 		this.coordinates[0] = coordinates[0];
@@ -57,6 +62,8 @@ public class Route implements Serializable{
 		this.alertDistance = alertDistance;
 		//this.alertInterval = alertInterval;
 		this.message = message;
+		this.address = address;
+		routeID++;
 	}
 	
 	public Route(Route route) {
@@ -109,6 +116,11 @@ public class Route implements Serializable{
 
 	public String getMessage() {
 		return message;
+	}
+	
+	public String getAddress()
+	{
+		return address;
 	}
 
 	public void setCoordinates(double[] newCoordinates) {
