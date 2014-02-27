@@ -39,8 +39,6 @@ public class AddRouteScreen extends Activity {
 		button.getBackground().setColorFilter(0xFF00FF00, PorterDuff.Mode.MULTIPLY);
 		button = (Button) findViewById(R.id.set_address);
 		button.getBackground().setColorFilter(0xFFFFFF00, PorterDuff.Mode.MULTIPLY);
-		button = (Button) findViewById(R.id.cancel);
-		button.getBackground().setColorFilter(0xFFFF0000, PorterDuff.Mode.MULTIPLY);
 		spinner1 = (Spinner) findViewById(R.id.enter_radius);
 		List<String> list = new ArrayList<String>();
 		//Set choices for Spinner
@@ -175,7 +173,7 @@ public class AddRouteScreen extends Activity {
 		Bundle b = getIntent().getExtras(); 
 		if(b != null) {
 			Address addr = b.getParcelable("com.android.location.Address");
-			//Toast.makeText(this, "Got an address back!!!", Toast.LENGTH_SHORT).show();
+			Toast.makeText(this, "Got an address back!!!", Toast.LENGTH_SHORT).show();
 			
 			String locationLine = addr.getAddressLine(0);
 			String addressLine = addr.getAddressLine(1);
@@ -225,11 +223,7 @@ public class AddRouteScreen extends Activity {
 	  	
 	    EditText phone  = (EditText) findViewById(R.id.enter_contact);
 		String phoneNum = phone.getText().toString();
-		boolean error = false;
-		if (phoneNum.length() != 10)
-		{
-			 error = true;
-		}
+		
 		TextView displayAddress = (TextView) findViewById(R.id.display_address);
 		String addr = displayAddress.getText().toString();
 		
@@ -256,12 +250,8 @@ public class AddRouteScreen extends Activity {
 		editor.clear();
 		editor.commit();
 		
-		if (error)
-		{
-			 Toast.makeText(this, "Error with phone number; fix and save again.", Toast.LENGTH_LONG).show();
-			 Intent intent = new Intent (this, AddRouteScreen.class);
-			 startActivity(intent);
-		}
+		
+		
 		new AlertDialog.Builder(this)
 	    .setTitle("Confirmation")
 	    .setMessage("Route was successfully created")

@@ -30,11 +30,7 @@
     <string name = "route_name1">Enter route name:</string>
     <string name = "enter_address1">Enter address:</string>
     <string name = "enter_radius1">Enter radius of contact (in miles):</string>
-    <string name = "enter_contact1">Emergency number 1 (no dashes or parentheses)</string>
- 	<string name = "enter_contact2">Emergency number 2 (no dashes or parentheses)</string>
-    <string name = "enter_contact3">Emergency number 3 (no dashed or parentheses)</string>
-    <string name = "enter_contact4">Emergency number 4 (no dashes or parentheses)</string>
-    <string name = "enter_contact5">Emergency number 5 (no dashes or parentheses)</string>
+    <string name = "enter_contact1">Enter contact phone number:</string>
     <string name = "enter_message1">Enter text message:</string>
     <string name = "back">Back</string>
     <string name = "tutorial_message">How to use Where You App?</string>
