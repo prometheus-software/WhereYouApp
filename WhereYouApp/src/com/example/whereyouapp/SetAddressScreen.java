@@ -19,7 +19,8 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
-
+import android.graphics.PorterDuff;
+import android.widget.Button;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -66,10 +67,11 @@ GooglePlayServicesClient.OnConnectionFailedListener, LocationListener{
 		if(servicesOK())
 		{
 			setContentView(R.layout.activity_set_address_screen);
-			
+			Button button = (Button) findViewById(R.id.button1);
+			button.getBackground().setColorFilter(0xFF00FF00, PorterDuff.Mode.MULTIPLY);
 			if(initializeMap())
 			{
-				Toast.makeText(this, "Ready to map! :D", Toast.LENGTH_SHORT).show();
+				//Toast.makeText(this, "Ready to map! :D", Toast.LENGTH_SHORT).show();
 				myLocationClient = new LocationClient(this, this, this);
 				myLocationClient.connect();
 				//myMap.setMyLocationEnabled(true);
