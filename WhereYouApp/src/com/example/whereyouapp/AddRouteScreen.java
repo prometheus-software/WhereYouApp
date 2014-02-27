@@ -1,6 +1,8 @@
 package com.example.whereyouapp;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.location.Address;
@@ -221,11 +223,7 @@ public class AddRouteScreen extends Activity {
 	  	
 	    EditText phone  = (EditText) findViewById(R.id.enter_contact);
 		String phoneNum = phone.getText().toString();
-		boolean error = false;
-		if (phoneNum.length() != 10)
-		{
-			error = true;
-		}
+		
 		TextView displayAddress = (TextView) findViewById(R.id.display_address);
 		String addr = displayAddress.getText().toString();
 		
@@ -252,15 +250,24 @@ public class AddRouteScreen extends Activity {
 		editor.clear();
 		editor.commit();
 		
-		//Restart the activity..maybe redirect to routes screen later?
-		if (error)
-		{
-			Toast.makeText(this, "Error with phone number; fix and save again.", Toast.LENGTH_LONG).show();
-			Intent intent = new Intent (this, AddRouteScreen.class);
-			startActivity(intent);
-		}
-		Intent i = new Intent(this, MainScreen.class);
-		startActivity(i);	
+		
+		
+		new AlertDialog.Builder(this)
+	    .setTitle("Confirmation")
+	    .setMessage("Route was successfully created")
+	    .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+	        public void onClick(DialogInterface dialog, int which) { 
+	        	Intent i = new Intent(getBaseContext(), AddRouteScreen.class);
+        		startActivity(i);
+	        }
+	     })
+	   /* .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+	        public void onClick(DialogInterface dialog, int which) { 
+	            // do nothing
+	        } 
+	     }) */
+	     .show();
+		
 	}
 }
 
