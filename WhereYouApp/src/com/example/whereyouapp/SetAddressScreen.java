@@ -51,6 +51,9 @@ GooglePlayServicesClient.OnConnectionFailedListener, LocationListener{
 			NEWYORK_LAT = 40.714353,
 			NEWYORK_LNG = -74.005973;
 	private static final float DEFAULTZOOM = 12;
+	
+	public static double currentLat;
+	public static double currentLong;
 	GoogleMap myMap;
 	
 	LocationClient myLocationClient;
@@ -334,6 +337,19 @@ GooglePlayServicesClient.OnConnectionFailedListener, LocationListener{
 		String message = "Location: " + location.getLatitude() + ", " +
 		location.getLongitude();
 		Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+		
+		currentLat = location.getLatitude();
+		currentLong = location.getLongitude();
+	}
+	
+	public static double getLatitude()
+	{
+		return currentLat;
+	}
+	
+	public static double getLongitude()
+	{
+		return currentLong;
 	}
 	
 	public void startAddRouteScreen(int code)
