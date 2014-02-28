@@ -52,7 +52,7 @@ public class MainScreen extends Activity {
 	{
 		new AlertDialog.Builder(this)
 	    .setTitle("How to use Where You App?")
-	    .setMessage("1. Click on the + button in the top right corner of the main screen." +
+	    .setMessage("1. Click on the Add Route button in the middle of the main screen." +
 	    		"\n\n2. On the AddRouteScreen, put in the following information: route name, address (by picking an address on the dialog box results from the SetAddressScreen), target radius, phone number, and text message.\n" + 
 	    		"\n\n3. Hit the save button and the route will be saved." +
 	    		"\n\n 4. Your contact will be notified as soon as your GPS coordinates are within the target radius of the destination GPS coordinates." + 
