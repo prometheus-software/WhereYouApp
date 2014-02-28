@@ -20,10 +20,7 @@ public class SettingsScreen extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_settings_screen);
-		Button button = (Button) findViewById(R.id.save_settings);
-		button.getBackground().setColorFilter(0xFF00FF00, PorterDuff.Mode.MULTIPLY);
-		button = (Button) findViewById(R.id.cancel_settings);
-		button.getBackground().setColorFilter(0xFFFF0000, PorterDuff.Mode.MULTIPLY);
+		
 		spinner1 = (Spinner) findViewById(R.id.battery_level);
 		List<String> list = new ArrayList<String>();
 		list.add("Select a threshold battery level percentage for notification purposes (in %)");

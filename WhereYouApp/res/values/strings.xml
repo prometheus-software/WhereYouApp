@@ -17,7 +17,7 @@
     <string name="action_settings">Settings</string>
     <string name="cancel">Cancel</string>
     <string name="title_activity_main_screen">Where You App?</string>
-    <string name="add_route_button">+</string>
+    <string name="add_route_button">Add Route</string>
     <string name="welcome_message">Welcome to Where You App?, presented by Prometheus Software</string>
     <string name="title_activity_credits_screen">Credits</string>
     <string name="credits_message">Credits message</string>

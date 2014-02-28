@@ -3,6 +3,7 @@
     android:layout_height="fill_parent"
     android:paddingLeft = "16dp"
     android:paddingRight = "16dp"
+    android:paddingBottom = "16dp"
     android:orientation= "vertical">
 
     <Spinner
@@ -52,7 +53,8 @@
         	android:layout_alignParentBottom="true"
         	android:layout_alignParentLeft="true"
         	android:onClick="saveSettings"
-        	android:text="@string/save" />
+        	android:text="@string/save" 
+        	android:background="@drawable/rounded_button"/>
     	<Button
         	android:id="@+id/cancel_settings"
         	android:layout_width="100dp"
@@ -60,6 +62,7 @@
         	android:layout_alignParentBottom="true"
         	android:layout_alignParentRight="true"
         	android:onClick="cancelSettings"
+        	android:background="@drawable/rounded_button"
         	android:text="@string/cancel" />
 </RelativeLayout>
 </LinearLayout>

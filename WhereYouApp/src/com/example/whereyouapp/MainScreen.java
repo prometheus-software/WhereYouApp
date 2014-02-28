@@ -18,16 +18,15 @@ public class MainScreen extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main_screen);
 		//Set button colors to red, green, blue, and red, respectively
-		Button button = (Button) findViewById(R.id.credits);
-		button.getBackground().setColorFilter(0xFFFF0000, PorterDuff.Mode.MULTIPLY);
+		//FUCK YO COLORS
+		/*Button button; 
 		button = (Button) findViewById(R.id.add_route);
 		button.getBackground().setColorFilter(0xFF00FF00, PorterDuff.Mode.MULTIPLY);
 		button = (Button) findViewById(R.id.tutorial);
 		button.getBackground().setColorFilter(0xFF00FFFF, PorterDuff.Mode.MULTIPLY);
 		button = (Button) findViewById(R.id.settings);
 		button.getBackground().setColorFilter(0xFFFFFF00, PorterDuff.Mode.MULTIPLY);
-		TextView textView = (TextView) findViewById (R.id.welcome_message);
-		textView.setTextSize(25);
+		*/
 	}
 
 	@Override
@@ -42,10 +41,10 @@ public class MainScreen extends Activity {
 		Intent intent = new Intent(this, AddRouteScreen.class);
 		startActivity(intent);
 	}
-	public void toCredits(View view)
+	public void toSettings(View view)
 	{
 		//Go to CreditsScreen
-		Intent intent = new Intent(this, CreditsScreen.class);
+		Intent intent = new Intent(this, SettingsScreen.class);
 		startActivity(intent);
 	}
 	

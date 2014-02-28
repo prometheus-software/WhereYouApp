@@ -50,7 +50,7 @@ GooglePlayServicesClient.OnConnectionFailedListener, LocationListener{
 			SYDNEY_LNG = 151.20699,
 			NEWYORK_LAT = 40.714353,
 			NEWYORK_LNG = -74.005973;
-	private static final float DEFAULTZOOM = 12;
+	private static final float DEFAULTZOOM = 16;
 	
 	public static double currentLat;
 	public static double currentLong;
@@ -67,8 +67,6 @@ GooglePlayServicesClient.OnConnectionFailedListener, LocationListener{
 		if(servicesOK())
 		{
 			setContentView(R.layout.activity_set_address_screen);
-			Button button = (Button) findViewById(R.id.button1);
-			button.getBackground().setColorFilter(0xFF00FF00, PorterDuff.Mode.MULTIPLY);
 			if(initializeMap())
 			{
 				//Toast.makeText(this, "Ready to map! :D", Toast.LENGTH_SHORT).show();
@@ -334,8 +332,8 @@ GooglePlayServicesClient.OnConnectionFailedListener, LocationListener{
 	@Override
 	public void onLocationChanged(Location location) {
 		// TODO Auto-generated method stub
-		String message = "Location: " + location.getLatitude() + ", " +
-		location.getLongitude();
+		String message = "Location: " + location.getLatitude() + " (lat), " +
+		location.getLongitude() + " (lng)";
 		Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
 		
 		currentLat = location.getLatitude();
