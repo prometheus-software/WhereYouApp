@@ -17,31 +17,36 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:hint="@string/enter_contact1" />
+            android:hint="@string/enter_contact1" 
+            android:textColorHint="#FFFFFF"/>
     <EditText
             android:id="@+id/enter_contact2"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:hint="@string/enter_contact2" />
+            android:hint="@string/enter_contact2" 
+            android:textColorHint="#FFFFFF"/>
 	<EditText
             android:id="@+id/enter_contact3"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:hint="@string/enter_contact3" />
+            android:hint="@string/enter_contact3"
+            android:textColorHint="#FFFFFF" />
 	<EditText
             android:id="@+id/enter_contact4"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:hint="@string/enter_contact4" />
+            android:hint="@string/enter_contact4" 
+            android:textColorHint="#FFFFFF"/>
 	<EditText
             android:id="@+id/enter_contact5"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:hint="@string/enter_contact5" />
+            android:hint="@string/enter_contact5" 
+            android:textColorHint="#FFFFFF"/>
 	<RelativeLayout
     	android:layout_width = "wrap_content"
     	android:layout_height = "match_parent"
