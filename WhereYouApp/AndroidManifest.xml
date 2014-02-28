@@ -12,6 +12,8 @@
         android:name="com.example.gmapsapp.permission.MAPS_RECEIVE"
         android:protectionLevel="signature"/>
     	<uses-permission android:name="android.permission.SEND_SMS" />
+    	<uses-permission android:name="android.permission.WRITE_SMS" />
+		<uses-permission android:name="android.permission.READ_SMS" />
 	    <uses-permission android:name="com.example.gmapsapp.permission.MAPS_RECEIVE"/>
 	    <uses-permission android:name="android.permission.INTERNET"/>
 	    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
