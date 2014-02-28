@@ -42,7 +42,7 @@
 
     <Button
         android:id="@+id/tutorial"
-        android:layout_width="wrap_content"
+        android:layout_width="100dp"
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/linearLayout1"
         android:layout_alignParentBottom="true"
@@ -53,7 +53,7 @@
 
     <Button
         android:id="@+id/settings"
-        android:layout_width="wrap_content"
+        android:layout_width="100dp"
         android:layout_height="wrap_content"
         android:layout_alignBaseline="@+id/tutorial"
         android:layout_alignBottom="@+id/tutorial"
