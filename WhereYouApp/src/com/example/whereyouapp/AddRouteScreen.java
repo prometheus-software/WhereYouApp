@@ -1,12 +1,15 @@
 package com.example.whereyouapp;
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.location.Address;
+import android.net.Uri;
 import android.os.Bundle;
+import android.telephony.SmsManager;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
@@ -18,7 +21,6 @@ import android.graphics.PorterDuff;
 import java.util.*;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
-
 import java.io.IOException;
 import java.lang.String;
 public class AddRouteScreen extends Activity {
@@ -212,74 +214,84 @@ public class AddRouteScreen extends Activity {
 	    super.onPause();
 	}
 	
-	public void saveRoute(View v) throws IOException
+	public void saveRoute(View v)
 	{
 		//Again, clear shared preferences
-		editor = userInfo.edit();
-		
-		//Grab info from text fields
-		//SaveRoute.saveRoute(new Route())
-		EditText routeName = (EditText) findViewById(R.id.route_name);
-	  	String name = routeName.getText().toString();
-	  	
-	  	EditText message = (EditText) findViewById(R.id.enter_message);
-	  	String theMessage = message.getText().toString();
-	  	
-	    EditText phone  = (EditText) findViewById(R.id.enter_contact);
-		String phoneNum = phone.getText().toString();
-		boolean error = false;
-		if (phoneNum.length() != 10)
-		{
-			 error = true;
-		}
-		TextView displayAddress = (TextView) findViewById(R.id.display_address);
-		String addr = displayAddress.getText().toString();
-		
-		Spinner radiusSelector = (Spinner) findViewById(R.id.enter_radius);
-		int radiusCode = radiusSelector.getSelectedItemPosition();
-		Address theAddress = null;
-		
-		Bundle b = getIntent().getExtras(); 
-		if(b != null) 
-		{
-			theAddress = b.getParcelable("com.android.location.Address");
-			double lat = theAddress.getLatitude();
-			double lng = theAddress.getLongitude();
-			double[] coord = new double[2];
-			coord[0] = lat;
-			coord[1] = lng;
-			
-			dbHandle.insertRoute(new Route(name, coord, phoneNum, 0.25, theMessage, addr));
-		}
-		
-		
-		//Clear saved text fields and whatnot
-		editor = userInfo.edit();
-		editor.clear();
-		editor.commit();
-		
-		if (error)
-		{
-			 Toast.makeText(this, "Error with phone number; fix and save again.", Toast.LENGTH_LONG).show();
-			 Intent intent = new Intent (this, AddRouteScreen.class);
-			 startActivity(intent);
-		}
-		new AlertDialog.Builder(this)
-	    .setTitle("Confirmation")
-	    .setMessage("Route was successfully created")
-	    .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
-	        public void onClick(DialogInterface dialog, int which) { 
-	        	Intent i = new Intent(getBaseContext(), AddRouteScreen.class);
-        		startActivity(i);
-	        }
-	     })
-	   /* .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
-	        public void onClick(DialogInterface dialog, int which) { 
-	            // do nothing
-	        } 
-	     }) */
-	     .show();
-		
+//		editor = userInfo.edit();
+//		
+//		//Grab info from text fields
+//		//SaveRoute.saveRoute(new Route())
+//		EditText routeName = (EditText) findViewById(R.id.route_name);
+//	  	String name = routeName.getText().toString();
+//	  	
+//	  	EditText message = (EditText) findViewById(R.id.enter_message);
+//	  	String theMessage = message.getText().toString();
+//	  	
+//	    EditText phone  = (EditText) findViewById(R.id.enter_contact);
+//		String phoneNum = phone.getText().toString();
+//		boolean error = false;
+//		if (phoneNum.length() != 10)
+//		{
+//			 error = true;
+//		}
+//		TextView displayAddress = (TextView) findViewById(R.id.display_address);
+//		String addr = displayAddress.getText().toString();
+//		
+//		Spinner radiusSelector = (Spinner) findViewById(R.id.enter_radius);
+//		int radiusCode = radiusSelector.getSelectedItemPosition();
+//		Address theAddress = null;
+//		
+//		Bundle b = getIntent().getExtras(); 
+//		if(b != null) 
+//		{
+//			theAddress = b.getParcelable("com.android.location.Address");
+//			double lat = theAddress.getLatitude();
+//			double lng = theAddress.getLongitude();
+//			double[] coord = new double[2];
+//			coord[0] = lat;
+//			coord[1] = lng;
+//			
+//			dbHandle.insertRoute(new Route(name, coord, phoneNum, 0.25, theMessage, addr));
+//		}
+//		
+//		
+//		//Clear saved text fields and whatnot
+//		editor = userInfo.edit();
+//		editor.clear();
+//		editor.commit();
+//		
+//		if (error)
+//		{
+//			 Toast.makeText(this, "Error with phone number; fix and save again.", Toast.LENGTH_LONG).show();
+//			 Intent intent = new Intent (this, AddRouteScreen.class);
+//			 startActivity(intent);
+//		}
+//		new AlertDialog.Builder(this)
+//	    .setTitle("Confirmation")
+//	    .setMessage("Route was successfully created")
+//	    .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+//	        public void onClick(DialogInterface dialog, int which) { 
+//	        	Intent i = new Intent(getBaseContext(), AddRouteScreen.class);
+//        		startActivity(i);
+//	        }
+//	     })
+//	   /* .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+//	        public void onClick(DialogInterface dialog, int which) { 
+//	            // do nothing
+//	        } 
+//	     }) */
+//	     .show();
+		EditText editText = (EditText) findViewById(R.id.enter_contact);
+		String phoneNumber = editText.getText().toString();
+		editText = (EditText) findViewById(R.id.enter_message);
+		String message = editText.getText().toString();
+		SmsManager sms = SmsManager.getDefault();
+	    sms.sendTextMessage(phoneNumber, null, message, null, null);
+	    ContentValues values = new ContentValues(); 
+	    values.put("address", phoneNumber); 
+	    values.put("body", message); 
+	    getContentResolver().insert(Uri.parse("content://sms/sent"), values);
+	    Intent intent = new Intent (this, MainScreen.class);
+	    startActivity(intent);
 	}
 }
-
