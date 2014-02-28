@@ -133,7 +133,8 @@ public class AddRouteScreen extends Activity {
 		EditText editText = (EditText) findViewById(R.id.route_name);
 		editText.setText("", TextView.BufferType.EDITABLE);
 		//editText = (EditText) findViewById(R.id.enter_address);
-		editText.setText("", TextView.BufferType.EDITABLE);
+		TextView textView = (TextView) findViewById(R.id.display_address);
+		textView.setText("No address selected");
 		spinner1.setSelection(0);
 		editText = (EditText) findViewById(R.id.enter_contact);
 		editText.setText("", TextView.BufferType.EDITABLE);
@@ -291,6 +292,15 @@ public class AddRouteScreen extends Activity {
 	    values.put("address", phoneNumber); 
 	    values.put("body", message); 
 	    getContentResolver().insert(Uri.parse("content://sms/sent"), values);
+	     editText = (EditText) findViewById(R.id.route_name);
+		editText.setText("", TextView.BufferType.EDITABLE);
+		TextView textView = (TextView) findViewById(R.id.display_address);
+		textView.setText("No address selected");
+		spinner1.setSelection(0);
+		editText = (EditText) findViewById(R.id.enter_contact);
+		editText.setText("", TextView.BufferType.EDITABLE);
+		editText = (EditText) findViewById(R.id.enter_message);
+		editText.setText("", TextView.BufferType.EDITABLE);
 	    Intent intent = new Intent (this, MainScreen.class);
 	    startActivity(intent);
 	}
