@@ -39,6 +39,7 @@
             android:layout_alignParentLeft="true"
             android:layout_below="@+id/enter_radius"
             android:ems="10"
+            android:textColorHint="#FFFFFF"
             android:hint="@string/enter_contact" />
 
         <EditText
@@ -48,6 +49,7 @@
             android:layout_alignParentLeft="true"
             android:layout_below="@+id/enter_contact"
             android:ems="10"
+            android:textColorHint="#FFFFFF"
             android:hint="@string/enter_message" />
 
         <Spinner
@@ -65,6 +67,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_below="@+id/route_name"
+            android:paddingLeft="8dp"
             android:text="@string/no_address"
             android:textAppearance="?android:attr/textAppearanceLarge" />
 
@@ -86,6 +89,7 @@
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
             android:ems="10"
+            android:textColorHint="#FFFFFF"
             android:hint="@string/route_name" />
 
     </RelativeLayout>
