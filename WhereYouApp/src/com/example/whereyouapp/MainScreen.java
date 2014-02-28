@@ -2,8 +2,11 @@ package com.example.whereyouapp;
 
 import android.os.Bundle;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.view.Menu;
+import android.view.WindowManager;
 import android.widget.TextView;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.PorterDuff;
 import android.view.View;
@@ -45,16 +48,21 @@ public class MainScreen extends Activity {
 		Intent intent = new Intent(this, CreditsScreen.class);
 		startActivity(intent);
 	}
-	public void toTutorial(View view)
+	
+	public void displayDialog (View v)
 	{
-		//Go toTutorialScreen
-		Intent intent = new Intent(this, TutorialScreen.class);
-		startActivity(intent);
-	}
-	public void toSettings (View view)
-	{
-		//Go to SettingsScreen
-		Intent intent = new Intent (this, SettingsScreen.class);
-		startActivity(intent);
+		new AlertDialog.Builder(this)
+	    .setTitle("How to use Where You App?")
+	    .setMessage("1. Click on the + button in the top right corner of the main screen." +
+	    		"\n\n2. On the AddRouteScreen, put in the following information: route name, address (by picking an address on the dialog box results from the SetAddressScreen), target radius, phone number, and text message.\n" + 
+	    		"\n\n3. Hit the save button and the route will be saved." +
+	    		"\n\n 4. Your contact will be notified as soon as your GPS coordinates are within the target radius of the destination GPS coordinates." + 
+	    		"\n\n 5. Drive/commute safely!\n")
+	    .setPositiveButton("Got it!", new DialogInterface.OnClickListener() {
+	        public void onClick(DialogInterface dialog, int which) { 
+	        	
+	        }
+	     })
+	     .show().getWindow().addFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
 	}
 }

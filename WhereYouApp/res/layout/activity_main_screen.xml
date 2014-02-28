@@ -22,7 +22,7 @@
 	    android:layout_width="wrap_content"
 	    android:layout_height="wrap_content"
 	    android:layout_alignParentLeft="true"
-	    android:onClick="toTutorial"
+	    android:onClick="displayDialog"
 	    android:text="@string/tutorial"/>
 
 	<Button

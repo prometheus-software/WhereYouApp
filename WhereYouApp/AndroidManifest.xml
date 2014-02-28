@@ -5,7 +5,7 @@
     android:versionName="1.0" >
 <!--  IM A REAL APP!! -->
     <uses-sdk
-        android:minSdkVersion="8"
+        android:minSdkVersion="11"
         android:targetSdkVersion="19" />
     
       <permission 
@@ -30,7 +30,7 @@
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme" >
+        android:theme="@android:style/Theme.Holo" >
         <activity
             android:name="com.example.whereyouapp.MainSplashScreen"
             android:label="@string/app_name" >
