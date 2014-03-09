@@ -31,6 +31,7 @@ import android.location.Geocoder;
 import android.location.Location;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
+import android.text.InputType;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -67,6 +68,8 @@ GooglePlayServicesClient.OnConnectionFailedListener, LocationListener{
 		if(servicesOK())
 		{
 			setContentView(R.layout.activity_set_address_screen);
+			EditText et = (EditText) findViewById(R.id.editText1);
+			et.setInputType(InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS);
 			if(initializeMap())
 			{
 				//Toast.makeText(this, "Ready to map! :D", Toast.LENGTH_SHORT).show();
