@@ -101,6 +101,8 @@ public class AddRouteScreen extends Activity {
 		editText = (EditText) findViewById (R.id.enter_contact);
 		message += "The entered radius is " + String.valueOf(spinner1.getSelectedItem()) + ".\n";
 		message += "The contact phone number is " + editText.getText().toString() + ".\n";
+		editText = (EditText) findViewById (R.id.enter_contact6);
+		message += "The second contact phone number is " + editText.getText().toString() + ".\n";
 		editText = (EditText) findViewById (R.id.enter_message);
 		message += "The text message is " + editText.getText().toString() + ".\n";
 		editText = (EditText) findViewById(R.id.route_name);
@@ -121,6 +123,14 @@ public class AddRouteScreen extends Activity {
 		{
 			int part1 = Integer.parseInt(phoneNumber);
 			Log.d(TAG, "" + part1);
+		}catch(NumberFormatException e)
+		{
+			message = "Invalid phone number entered!";
+		}
+		try
+		{
+			int part2 = Integer.parseInt(phoneNumber2);
+			Log.d(TAG, "" + part2);
 		}catch(NumberFormatException e)
 		{
 			message = "Invalid phone number entered!";
@@ -256,6 +266,22 @@ public class AddRouteScreen extends Activity {
 //		if (phoneNum.length() != 10 || (phoneNum2.length () != 0 && phoneNum2.length() != 10))
 //		{
 //			 error = true;
+//		}
+//		try
+//		{
+//			int part1 = Integer.parseInt(phoneNum);
+//			Log.d(TAG, "" + part1);
+//		}catch(NumberFormatException e)
+//		{
+//			error = true;
+//		}
+//		try
+//		{
+//			int part2 = Integer.parseInt(phoneNum2);
+//			Log.d(TAG, "" + part2);
+//		}catch(NumberFormatException e)
+//		{
+//			error = true;
 //		}
 //		TextView displayAddress = (TextView) findViewById(R.id.display_address);
 //		String addr = displayAddress.getText().toString();
