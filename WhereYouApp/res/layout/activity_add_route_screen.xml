@@ -3,6 +3,7 @@
   xmlns:android="http://schemas.android.com/apk/res/android"
   android:layout_width="fill_parent"
   android:layout_height="fill_parent"
+  android:isScrollContainer = "false"
   android:fillViewport="true">
     <RelativeLayout
         android:layout_width="match_parent"
@@ -53,11 +54,19 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
-            android:layout_below="@+id/display_address"
+            android:layout_below="@+id/km_mile"
             android:layout_marginTop="20dp"
             android:hint="@string/enter_radius"
             android:prompt="@string/enter_radius" />
-
+		<Spinner
+            android:id="@+id/km_mile"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/display_address"
+            android:layout_marginTop="20dp"
+            android:hint="@string/km_mile"
+            android:prompt="@string/km_mile" />
         <TextView
             android:id="@+id/display_address"
             android:layout_width="wrap_content"
