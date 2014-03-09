@@ -32,7 +32,7 @@ public class AddRouteScreen extends Activity {
 	public SharedPreferences userInfo;
 	public SharedPreferences.Editor editor;
 	public RouteDataSource dbHandle;
-
+	public String completeAddress;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -96,8 +96,6 @@ public class AddRouteScreen extends Activity {
 		Intent intent = new Intent(this, AddRouteScreenMessage.class);
 		EditText editText = (EditText) findViewById(R.id.route_name);
 		String message = "Your route name is " + editText.getText().toString() + ".\n";
-		//editText = (EditText) findViewById(R.id.enter_address);
-		message += "The entered address is " + editText.getText().toString() + ".\n";
 		editText = (EditText) findViewById (R.id.enter_contact);
 		message += "The entered radius is " + String.valueOf(spinner1.getSelectedItem()) + ".\n";
 		message += "The contact phone number is " + editText.getText().toString() + ".\n";
@@ -213,9 +211,9 @@ public class AddRouteScreen extends Activity {
 			String locationLine = addr.getAddressLine(0);
 			String addressLine = addr.getAddressLine(1);
 			String cityAndZipLine = addr.getAddressLine(2);
-			String completeAddress = locationLine +  " \n" + addressLine + "\n" + cityAndZipLine;
+			completeAddress = locationLine +  " \n" + addressLine + "\n" + cityAndZipLine;
 		  	TextView displayAddress = (TextView) findViewById(R.id.display_address);
-		  	displayAddress.setText(completeAddress);
+		  	displayAddress.setText("Address Selected");
 	  		
 		}
 	  	EditText routeName = (EditText) findViewById(R.id.route_name);
@@ -283,9 +281,6 @@ public class AddRouteScreen extends Activity {
 //		{
 //			error = true;
 //		}
-//		TextView displayAddress = (TextView) findViewById(R.id.display_address);
-//		String addr = displayAddress.getText().toString();
-//		
 //		Spinner radiusSelector = (Spinner) findViewById(R.id.enter_radius);
 //		int radiusCode = radiusSelector.getSelectedItemPosition();
 //		Address theAddress = null;
