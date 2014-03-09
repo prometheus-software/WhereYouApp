@@ -10,6 +10,7 @@ import android.location.Address;
 import android.net.Uri;
 import android.os.Bundle;
 import android.telephony.SmsManager;
+import android.text.InputType;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
@@ -59,7 +60,14 @@ public class AddRouteScreen extends Activity {
 		dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 		spinner1.setAdapter(dataAdapter);
 		addListenerOnSpinnerItemSelection();
-		
+		EditText editText = (EditText) findViewById(R.id.enter_message);
+		editText.setInputType(InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS);
+		editText = (EditText) findViewById(R.id.route_name);
+		editText.setInputType(InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS);
+		editText = (EditText) findViewById(R.id.enter_contact);
+		editText.setInputType(InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS);
+		editText = (EditText) findViewById(R.id.enter_contact6);
+		editText.setInputType(InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS);
 		userInfo = this.getSharedPreferences("User supplied info", Context.MODE_PRIVATE);
 		editor = userInfo.edit();
 		
@@ -102,8 +110,10 @@ public class AddRouteScreen extends Activity {
 		double radius = Double.parseDouble(String.valueOf(spinner1.getSelectedItem()));
 		editText = (EditText) findViewById (R.id.enter_contact);
 		String phoneNumber = editText.getText().toString();
+		editText = (EditText) findViewById(R.id.enter_contact6);
+		String phoneNumber2 = editText.getText().toString();
 		//Error check
-		if (phoneNumber.length() != 10)
+		if (phoneNumber.length() != 10 || (phoneNumber2.length () != 0 && phoneNumber2.length() != 10))
 		{
 			message = "Invalid phone number entered!";
 		}
@@ -117,7 +127,10 @@ public class AddRouteScreen extends Activity {
 		}
 		editText = (EditText) findViewById(R.id.enter_message);
 		String message1 = editText.getText().toString();
-		Route route = new Route (name, address, phoneNumber, radius, message1);
+		String [] phoneNumbers = new String [2];
+		phoneNumbers [0] = phoneNumber;
+		phoneNumbers [1] = phoneNumber2;
+		Route route = new Route (name, address, phoneNumbers, radius, message1);
 		intent.putExtra(EXTRA_MESSAGE, message);
 		//Start AddRouteScreenMessage or MapScreen (whatever comes next)
 		startActivity(intent);
@@ -139,6 +152,8 @@ public class AddRouteScreen extends Activity {
 		editText = (EditText) findViewById(R.id.enter_contact);
 		editText.setText("", TextView.BufferType.EDITABLE);
 		editText = (EditText) findViewById(R.id.enter_message);
+		editText.setText("", TextView.BufferType.EDITABLE);
+		editText = (EditText) findViewById(R.id.enter_contact6);
 		editText.setText("", TextView.BufferType.EDITABLE);
 		Intent intent = new Intent (this, MainScreen.class);
 		startActivity(intent);
@@ -164,6 +179,9 @@ public class AddRouteScreen extends Activity {
 	    int radiusCode = radiusSelector.getSelectedItemPosition();
 	    editor.putInt("radius", radiusCode);
 	    
+	    EditText phone2 = (EditText) findViewById(R.id.enter_contact6);
+	    String phoneNum2 = phone2.getText().toString();
+	    editor.putString("phone2", phoneNum2);
 	    //Save all changes to SharedPrefs object
 	    editor.commit();
 	    
@@ -202,6 +220,8 @@ public class AddRouteScreen extends Activity {
 		Spinner radiusSelector = (Spinner) findViewById(R.id.enter_radius);
 		radiusSelector.setSelection(userInfo.getInt("radius", 0));
 		
+		EditText phone2 = (EditText) findViewById(R.id.enter_contact6);
+		phone2.setText(userInfo.getString("phone2", null));
 		dbHandle.open();
 		
 		super.onResume();
@@ -230,8 +250,10 @@ public class AddRouteScreen extends Activity {
 //	  	
 //	    EditText phone  = (EditText) findViewById(R.id.enter_contact);
 //		String phoneNum = phone.getText().toString();
+//		EditText phone2 = (EditText) findViewById(R.id.enter_contact6);
+//		String phoneNum2 = phone.getText().toString();
 //		boolean error = false;
-//		if (phoneNum.length() != 10)
+//		if (phoneNum.length() != 10 || (phoneNum2.length () != 0 && phoneNum2.length() != 10))
 //		{
 //			 error = true;
 //		}
@@ -241,7 +263,9 @@ public class AddRouteScreen extends Activity {
 //		Spinner radiusSelector = (Spinner) findViewById(R.id.enter_radius);
 //		int radiusCode = radiusSelector.getSelectedItemPosition();
 //		Address theAddress = null;
-//		
+//		String [] phoneNumbers = new String [2];
+//		phoneNumbers [0] = phoneNum;
+//		phoneNumbers [1] = phoneNum2;
 //		Bundle b = getIntent().getExtras(); 
 //		if(b != null) 
 //		{
@@ -252,7 +276,7 @@ public class AddRouteScreen extends Activity {
 //			coord[0] = lat;
 //			coord[1] = lng;
 //			
-//			dbHandle.insertRoute(new Route(name, coord, phoneNum, 0.25, theMessage, addr));
+//			dbHandle.insertRoute(new Route(name, coord, phoneNumbers, 0.25, theMessage, addr));
 //		}
 //		
 //		
@@ -283,21 +307,32 @@ public class AddRouteScreen extends Activity {
 //	     }) */
 //	     .show();
 		EditText editText = (EditText) findViewById(R.id.enter_contact);
-		String phoneNumber = editText.getText().toString();
+		String [] phoneNumbers = new String [2];
+		phoneNumbers [0] = editText.getText().toString();
+		editText = (EditText) findViewById(R.id.enter_contact6);
+		phoneNumbers [1] = editText.getText().toString();
 		editText = (EditText) findViewById(R.id.enter_message);
 		String message = editText.getText().toString();
 		SmsManager sms = SmsManager.getDefault();
-	    sms.sendTextMessage(phoneNumber, null, message, null, null);
-	    ContentValues values = new ContentValues(); 
-	    values.put("address", phoneNumber); 
-	    values.put("body", message); 
-	    getContentResolver().insert(Uri.parse("content://sms/sent"), values);
-	     editText = (EditText) findViewById(R.id.route_name);
+		for (int i = 0; i < 2; i ++)
+		{
+			sms.sendTextMessage(phoneNumbers [i], null, message, null, null);
+		}
+	    ContentValues values = new ContentValues();
+	    for (int j = 0; j < 2; j ++)
+	    {
+	    	values.put("address", phoneNumbers [j]); 
+	    	values.put("body", message); 
+	    	getContentResolver().insert(Uri.parse("content://sms/sent"), values);
+	    }
+	    editText = (EditText) findViewById(R.id.route_name);
 		editText.setText("", TextView.BufferType.EDITABLE);
 		TextView textView = (TextView) findViewById(R.id.display_address);
 		textView.setText("No address selected");
 		spinner1.setSelection(0);
 		editText = (EditText) findViewById(R.id.enter_contact);
+		editText.setText("", TextView.BufferType.EDITABLE);
+		editText = (EditText) findViewById(R.id.enter_contact6);
 		editText.setText("", TextView.BufferType.EDITABLE);
 		editText = (EditText) findViewById(R.id.enter_message);
 		editText.setText("", TextView.BufferType.EDITABLE);
