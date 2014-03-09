@@ -19,6 +19,7 @@ public class RouteDBHelper extends SQLiteOpenHelper {
 	public static final String LAT = "lat";
 	public static final String LNG = "lng";
 	public static final String PHONE = "phoneNumber";
+	public static final String PHONE2 = "phoneNumber2";
 	public static final String ALERTDIST = "alertDistance";
 	public static final String ADDRESS = "address";
 	
@@ -29,7 +30,8 @@ public class RouteDBHelper extends SQLiteOpenHelper {
 			MESSAGE + " TEXT, " + 
 			LAT + " TEXT, " + 
 			LNG + " TEXT, " + 
-			PHONE + " TEXT, " + 
+			PHONE + " TEXT, " +
+			PHONE2 + " TEXT, "+
 			ADDRESS + " TEXT, " + 
 			ALERTDIST + " TEXT " + 
 			")";
