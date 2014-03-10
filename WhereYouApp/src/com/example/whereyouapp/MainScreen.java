@@ -12,7 +12,7 @@ import android.graphics.PorterDuff;
 import android.view.View;
 import android.widget.Button;
 public class MainScreen extends Activity {
-
+	public static RouteDataSource dbHandle;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -27,6 +27,8 @@ public class MainScreen extends Activity {
 		button = (Button) findViewById(R.id.settings);
 		button.getBackground().setColorFilter(0xFFFFFF00, PorterDuff.Mode.MULTIPLY);
 		*/
+		dbHandle = new RouteDataSource(this);
+		
 	}
 
 	@Override
@@ -47,6 +49,13 @@ public class MainScreen extends Activity {
 		Intent intent = new Intent(this, SettingsScreen.class);
 		startActivity(intent);
 	}
+	
+	public void toMyRoutes(View v)
+	{
+		Intent intent = new Intent(this, SavedRoutesScreen.class);
+		startActivity(intent);
+	}
+	
 	
 	public void displayDialog (View v)
 	{

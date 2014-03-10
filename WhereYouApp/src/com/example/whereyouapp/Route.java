@@ -35,6 +35,11 @@ public class Route implements Serializable{
 	
 	//Used for unique id (database purposes)
 	public static int routeID = 0;
+	
+	public Route()
+	{
+		
+	}
 
 	public Route(String routeName, String coordinates, String phoneNumber, double alertDistance, String message) {
 		this.phoneNumber = phoneNumber;

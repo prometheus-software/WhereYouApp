@@ -28,6 +28,7 @@
         android:layout_below="@+id/add_route"
         android:layout_marginTop="56dp"
         android:background="@drawable/rounded_button"
+        android:onClick="toMyRoutes"
         android:text="My Routes" />
 
     <LinearLayout

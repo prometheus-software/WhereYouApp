@@ -3,7 +3,7 @@
     package="com.example.whereyouapp"
     android:versionCode="1"
     android:versionName="1.0" >
-<!--  IM A REAL APP!! -->
+
     <uses-sdk
         android:minSdkVersion="11"
         android:targetSdkVersion="19" />
@@ -56,8 +56,8 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.whereyouapp.MainScreen" />
         </activity>
-         <activity
-            android:name="com.example.whereyouapp.CreditsScreen"
+        <activity
+            android:name="com.example.whereyouapp.SavedRoutesScreen"
             android:label="@string/title_activity_credits_screen"
             android:parentActivityName="com.example.whereyouapp.MainScreen" >
             <meta-data

@@ -124,6 +124,7 @@ GooglePlayServicesClient.OnConnectionFailedListener, LocationListener{
 			//Use support map fragment to support older devices 
 			SupportMapFragment mapFrag = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.myMap);
 			myMap = mapFrag.getMap();
+			myMap.setMyLocationEnabled(true);
 		}
 		//Checks if myMap was instantiated 
 		return (myMap != null);

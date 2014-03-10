@@ -24,7 +24,7 @@ public class RouteDBHelper extends SQLiteOpenHelper {
 	
 	private static final String DATABASE_CREATION = 
 			"CREATE TABLE " + TABLE_NAME + " (" + 
-			COLUMN_ID + " INTEGER PRIMARY KEY, " +
+			COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
 			NAME + " TEXT, " + 
 			MESSAGE + " TEXT, " + 
 			LAT + " TEXT, " + 
