@@ -128,7 +128,7 @@ public class AddRouteScreen extends Activity {
 	            	case 2:
 	            		list2 = new ArrayList<String>();                    
 	            		list2.add("Choose an alert distance in miles");
-	            		list2.add(".1");
+	            		list2.add(".10");
 	            		list2.add(".25");
 	            		list2.add(".5");
 	            		list2.add("1");
