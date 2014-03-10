@@ -75,11 +75,15 @@ public class RouteDataSource {
 				Double lat = cursor.getDouble(cursor.getColumnIndex(RouteDBHelper.LAT));
 				Double lng = cursor.getDouble(cursor.getColumnIndex(RouteDBHelper.LNG));
 				String phoneNum = cursor.getString(cursor.getColumnIndex(RouteDBHelper.PHONE));
+				String phoneNum2 = cursor.getString(cursor.getColumnIndex(RouteDBHelper.PHONE2));
+				String [] phoneNumbers = new String [2];
+				phoneNumbers [0] = phoneNum;
+				phoneNumbers [1] = phoneNum2;
 				Double alertDist = cursor.getDouble(cursor.getColumnIndex(RouteDBHelper.ALERTDIST));
 				String message = cursor.getString(cursor.getColumnIndex(RouteDBHelper.MESSAGE));
 				String fullAddress = cursor.getString(cursor.getColumnIndex(RouteDBHelper.ADDRESS));
 				double[] coordinates = {lat, lng};
-				Route route = new Route(name, coordinates, phoneNum,
+				Route route = new Route(name, coordinates, phoneNumbers,
 						alertDist, message, fullAddress);
 				routes.add(route);
 			}
