@@ -38,5 +38,5 @@
     <string name = "enter_message1">Enter text message:</string>
     <string name = "back">Back</string>
     <string name = "tutorial_message">How to use Where You App?</string>
-
+	<string name = "km_mile">Choose km or mile as measurement</string>
 </resources>

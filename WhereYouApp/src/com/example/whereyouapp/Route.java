@@ -21,7 +21,7 @@ public class Route implements Serializable{
 
 	//how are phone numbers stored best?
 	//10-digit longs?
-	private String phoneNumber;
+	private String [] theNumbers = new String [2];
 	private String routeName;
 	private double alertDistance;
 	//private String alertInterval;
@@ -41,8 +41,11 @@ public class Route implements Serializable{
 		
 	}
 
-	public Route(String routeName, String coordinates, String phoneNumber, double alertDistance, String message) {
-		this.phoneNumber = phoneNumber;
+	public Route(String routeName, String coordinates, String [] phoneNumbers, double alertDistance, String message) {
+		for (int i = 0; i < 2; i ++)
+		{
+			theNumbers [i] = phoneNumbers [i];
+		}
 		this.routeName = routeName;
 		this.alertDistance = alertDistance;
 		//this.alertInterval = alertInterval;
@@ -57,12 +60,15 @@ public class Route implements Serializable{
 		routeID++;
 	}
 	
-	public Route(String routeName, double[] coordinates, String phoneNumber, double alertDistance, String message, String address) 
+	public Route(String routeName, double[] coordinates, String [] phoneNumbers, double alertDistance, String message, String address) 
 	{
 		this.coordinates = new double[2];
 		this.coordinates[0] = coordinates[0];
 		this.coordinates[1] = coordinates[1];
-		this.phoneNumber = phoneNumber;
+		for (int i = 0; i < 2; i ++)
+		{
+			theNumbers [i] = phoneNumbers [i];
+		}
 		this.routeName = routeName;
 		this.alertDistance = alertDistance;
 		//this.alertInterval = alertInterval;
@@ -74,23 +80,21 @@ public class Route implements Serializable{
 	public Route(Route route) {
 		//copy constructor
 		//the only thing that changes is the name of the route
-
-		this.phoneNumber = route.getNumber();
+		this.theNumbers = route.getNumber();
 		this.routeName = "Copy of "+route.getName();
 		this.alertDistance = route.getDistance();
 		//this.alertInterval = route.alertInterval;
 		this.message = route.getMessage();
 		this.coordinates = route.getCoordinates();
-
 		addRoute(this);
 	}
 
-	public void setNumber(String newNumber) {
-		this.phoneNumber = newNumber;
+	public void setNumber(String newNumber, int selection) {
+		theNumbers [selection] = newNumber;
 	}
 
-	public String getNumber() {
-		return phoneNumber;
+	public String [] getNumber() {
+		return theNumbers;
 	}
 
 	public void setName(String newName) {
@@ -155,11 +159,13 @@ public class Route implements Serializable{
 	public static String listData() {
 		Route temp;
 		double[] coords;
+		String [] theNumbers;
 		String listData = ""+routeList.size()+"|";
 		for(int i = 0; i < routeList.size(); i++) {
 			temp = routeList.get(i);
 			coords = temp.getCoordinates();
-			listData += temp.getName() + "|" + coords[0] + "|" + coords[1] + "|" + temp.getNumber() + "|" + temp.getDistance() + "|" + temp.getMessage() + "|";
+			theNumbers = temp.getNumber();
+			listData += temp.getName() + "|" + coords[0] + "|" + coords[1] + "|" + theNumbers [0] + "|" + theNumbers [1] + "|" + temp.getDistance() + "|" + temp.getMessage() + "|";
 		}
 		return listData;
 	}
@@ -174,7 +180,7 @@ public class Route implements Serializable{
 		Route temp;
 		int index = 1;
 		int routesCreated = 0;
-		String tempName; String tempCoords; String tempNumber; double tempDistance; String tempMessage;
+		String tempName; String tempCoords; String tempNumbers; double tempDistance; String tempMessage;
 		while(routesCreated < n) {
 			tempName = routeInfo[index];
 			index++;
@@ -182,7 +188,9 @@ public class Route implements Serializable{
 			index++;
 			tempCoords += " "+routeInfo[index];
 			index++;
-			tempNumber = routeInfo[index];
+			tempNumbers = routeInfo[index];
+			index++;
+			tempNumbers += " " + routeInfo[index];
 			index++;
 			tempDistance = Double.parseDouble(routeInfo[index]);
 			index++;

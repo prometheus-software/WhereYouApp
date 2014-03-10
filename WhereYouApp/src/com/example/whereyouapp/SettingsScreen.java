@@ -1,6 +1,7 @@
 package com.example.whereyouapp;
 import android.os.Bundle;
 import android.app.Activity;
+import android.text.InputType;
 import android.view.Menu;
 import android.widget.Spinner;
 import java.util.List;
@@ -33,6 +34,16 @@ public class SettingsScreen extends Activity {
 		dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 		spinner1.setAdapter(dataAdapter);
 		addListenerOnSpinnerItemSelection();
+		EditText editText = (EditText) findViewById(R.id.enter_contact1);
+		editText.setInputType(InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS);
+		editText = (EditText) findViewById(R.id.enter_contact2);
+		editText.setInputType(InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS);
+		editText = (EditText) findViewById(R.id.enter_contact3);
+		editText.setInputType(InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS);
+		editText = (EditText) findViewById(R.id.enter_contact4);
+		editText.setInputType(InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS);
+		editText = (EditText) findViewById(R.id.enter_contact5);
+		editText.setInputType(InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS);
 	}
 
 	@Override
