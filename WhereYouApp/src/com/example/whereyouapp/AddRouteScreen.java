@@ -1,6 +1,7 @@
 package com.example.whereyouapp;
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.PendingIntent;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -27,6 +28,9 @@ import java.lang.String;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.view.*;
+import android.app.NotificationManager;
+import android.support.v4.app.NotificationCompat;
+import android.support.v4.app.TaskStackBuilder;
 public class AddRouteScreen extends Activity {
 
 	private static final String TAG = "WhereYouApp";
@@ -378,7 +382,26 @@ public class AddRouteScreen extends Activity {
 		Spinner radiusSelector = (Spinner) findViewById(R.id.enter_radius);
 		int radiusCode = radiusSelector.getSelectedItemPosition();
 		Address theAddress = null;
-		
+		NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(this);
+		mBuilder.setAutoCancel(true);
+		mBuilder.setSmallIcon(R.drawable.ic_launcher);
+		mBuilder.setContentTitle("Text message sent!");
+		if (phoneNum2.equals(""))
+		{
+			mBuilder.setContentText("Your text message to " + phoneNum + " has been sent.");
+		}
+		else
+		{
+			mBuilder.setContentText("Your text message to " + phoneNum + " and " + phoneNum2 + " has been sent.");
+		}
+		Intent resultIntent = new Intent (this, MainScreen.class);
+		TaskStackBuilder stackBuilder = TaskStackBuilder.create(this);
+		stackBuilder.addParentStack(MainScreen.class);
+		stackBuilder.addNextIntent(resultIntent);
+		PendingIntent resultPendingIntent = stackBuilder.getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT);
+		mBuilder.setContentIntent(resultPendingIntent);
+		NotificationManager mNotificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+		mNotificationManager.notify(0, mBuilder.build());
 		Bundle b = getIntent().getExtras(); 
 		if(b != null) 
 		{
@@ -416,5 +439,6 @@ public class AddRouteScreen extends Activity {
         		startActivity(i);
 	        }
 	     });
+		
 	}
 }
