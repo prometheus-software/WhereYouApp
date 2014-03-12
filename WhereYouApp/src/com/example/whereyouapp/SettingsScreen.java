@@ -1,12 +1,17 @@
 package com.example.whereyouapp;
 import android.os.Bundle;
 import android.app.Activity;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.support.v4.app.NotificationCompat;
+import android.support.v4.app.TaskStackBuilder;
 import android.text.InputType;
 import android.view.Menu;
 import android.widget.Spinner;
 import java.util.List;
 import java.util.ArrayList;
 import android.widget.ArrayAdapter;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.PorterDuff;
 import android.view.View;
@@ -17,6 +22,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 public class SettingsScreen extends Activity {
 	private Spinner spinner1;
+	private double batteryLevel;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -56,7 +62,7 @@ public class SettingsScreen extends Activity {
 	{
 		spinner1.setOnItemSelectedListener(new CustomOnItemSelectedListener ());
 	}
-	public void saveSettings (View view)
+	public void saveMySettings (View view)
 	{
 		Intent intent = new Intent(this, MainScreen.class);
 		EditText editText = (EditText) findViewById(R.id.enter_contact1);
@@ -75,12 +81,55 @@ public class SettingsScreen extends Activity {
 		{
 			 error = true;
 		}
-		double batteryLevel = Double.parseDouble(String.valueOf(spinner1.getSelectedItem()));
+		try
+		{
+			batteryLevel = Double.parseDouble(String.valueOf(spinner1.getSelectedItem()));
+		}
+		catch (NumberFormatException e)
+		{
+			Toast.makeText(this, "Error with battery level", Toast.LENGTH_LONG).show();
+		}
 		if (error)
 		{
 			Toast.makeText(this, "Error with at least phone number", Toast.LENGTH_LONG).show();
 			intent = new Intent (this, SettingsScreen.class);
 		}
+		NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(this);
+		mBuilder.setAutoCancel(true);
+		mBuilder.setSmallIcon(R.drawable.ic_launcher);
+		mBuilder.setContentTitle("Your battery level is below " + batteryLevel + "%.");
+		if (phoneNumbers [0].equals(""))
+		{
+			mBuilder.setContentText("Your phone is about to die. Are you sure you don't want to let someone know your location?");
+		}
+		else if (phoneNumbers [1].equals(""))
+		{
+			mBuilder.setContentText("Your location has been sent to " + phoneNumbers [0] + " before your phone dies.");
+		}
+		else if (phoneNumbers [2].equals (""))
+		{
+			mBuilder.setContentText("Your location has been sent to " + phoneNumbers [0] + " and " + phoneNumbers [1] + " before your phone dies.");
+		}
+		else if (phoneNumbers [3].equals (""))
+		{
+			mBuilder.setContentText("Your location has been sent to " + phoneNumbers [0] + " , " + phoneNumbers [1] + " , " + " and " + phoneNumbers [2] +  " before your phone dies.");
+		}
+		else if (phoneNumbers [4].equals(""))
+		{
+			mBuilder.setContentText("Your location has been sent to " + phoneNumbers [0] + " , " + phoneNumbers [1] + " , " + phoneNumbers [2] + " and " + phoneNumbers [3] +  " before your phone dies.");
+		}
+		else
+		{
+			mBuilder.setContentText("Your location has been sent to " + phoneNumbers [0] + " , " + phoneNumbers [1] + " , " + phoneNumbers [2] + " , " + phoneNumbers [3] + " and " + phoneNumbers[4] + " before your phone dies.");
+		}
+		Intent resultIntent = new Intent (this, MainScreen.class);
+		TaskStackBuilder stackBuilder = TaskStackBuilder.create(this);
+		stackBuilder.addParentStack(MainScreen.class);
+		stackBuilder.addNextIntent(resultIntent);
+		PendingIntent resultPendingIntent = stackBuilder.getPendingIntent(1, PendingIntent.FLAG_UPDATE_CURRENT);
+		mBuilder.setContentIntent(resultPendingIntent);
+		NotificationManager mNotificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+		mNotificationManager.notify(1, mBuilder.build());
 		startActivity(intent);
 	}
 	public void cancelSettings (View view)
@@ -100,3 +149,4 @@ public class SettingsScreen extends Activity {
 		startActivity(intent);
 	}
 }
+
