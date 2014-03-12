@@ -57,7 +57,7 @@
         	android:layout_height="wrap_content"
         	android:layout_alignParentBottom="true"
         	android:layout_alignParentLeft="true"
-        	android:onClick="saveSettings"
+        	android:onClick="saveMySettings"
         	android:text="@string/save" 
         	android:background="@drawable/rounded_button"/>
     	<Button
