@@ -1,6 +1,7 @@
 package com.example.whereyouapp;
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.Notification;
 import android.app.PendingIntent;
 import android.content.ContentValues;
 import android.content.Context;
@@ -401,6 +402,7 @@ public class AddRouteScreen extends Activity {
 		PendingIntent resultPendingIntent = stackBuilder.getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT);
 		mBuilder.setContentIntent(resultPendingIntent);
 		NotificationManager mNotificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+		mBuilder.setDefaults(Notification.DEFAULT_ALL);
 		mNotificationManager.notify(0, mBuilder.build());
 		Bundle b = getIntent().getExtras(); 
 		if(b != null) 
