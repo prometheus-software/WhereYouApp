@@ -1,6 +1,7 @@
 package com.example.whereyouapp;
 import android.os.Bundle;
 import android.app.Activity;
+import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.support.v4.app.NotificationCompat;
@@ -129,6 +130,7 @@ public class SettingsScreen extends Activity {
 		PendingIntent resultPendingIntent = stackBuilder.getPendingIntent(1, PendingIntent.FLAG_UPDATE_CURRENT);
 		mBuilder.setContentIntent(resultPendingIntent);
 		NotificationManager mNotificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+		mBuilder.setDefaults(Notification.DEFAULT_ALL);
 		mNotificationManager.notify(1, mBuilder.build());
 		startActivity(intent);
 	}
