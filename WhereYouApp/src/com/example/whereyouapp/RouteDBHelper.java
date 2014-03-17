@@ -22,6 +22,7 @@ public class RouteDBHelper extends SQLiteOpenHelper {
 	public static final String PHONE2 = "phoneNumber2";
 	public static final String ALERTDIST = "alertDistance";
 	public static final String ADDRESS = "address";
+	public static final String ISACTIVE = "isActive";
 	
 	private static final String DATABASE_CREATION = 
 			"CREATE TABLE " + TABLE_NAME + " (" + 
@@ -33,7 +34,8 @@ public class RouteDBHelper extends SQLiteOpenHelper {
 			PHONE + " TEXT, " +
 			PHONE2 + " TEXT, "+
 			ADDRESS + " TEXT, " + 
-			ALERTDIST + " TEXT " + 
+			ALERTDIST + " TEXT, " + 
+			ISACTIVE + " INTEGER" + 
 			")";
 			
 	//Context describes how this DB will connect to the activity
