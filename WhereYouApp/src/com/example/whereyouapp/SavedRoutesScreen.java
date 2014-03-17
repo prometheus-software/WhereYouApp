@@ -13,6 +13,7 @@ import android.database.Cursor;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
@@ -22,9 +23,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class SavedRoutesScreen extends Activity {
-	RouteDataSource dbHandle;
+	static RouteDataSource dbHandle;
 	static List<Route> routes;
 	static Context context;
+	static int currentRouteIndex;
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -34,7 +36,6 @@ public class SavedRoutesScreen extends Activity {
 		
 		//Build the layout from SQLite database query
 		dbHandle = MainScreen.dbHandle;
-		dbHandle.open();
 		routes = dbHandle.getAllRoutes();
 		
 
@@ -77,7 +78,7 @@ public class SavedRoutesScreen extends Activity {
 		}
 		
 		
-		dbHandle.close();
+		//dbHandle.close();
 		
 	}
 	
@@ -88,6 +89,7 @@ public class SavedRoutesScreen extends Activity {
 	
 	public static void showRouteOptions(int i)
 	{
+		currentRouteIndex = i;
 		Route selectedRoute = routes.get(i);
 		String message = "Name: " + selectedRoute.getName();
 		message += "\n";
@@ -113,10 +115,25 @@ public class SavedRoutesScreen extends Activity {
 		        public void onClick(DialogInterface dialog, int which) { 
 		        	//Intent i = new Intent(getBaseContext(), AddRouteScreen.class);
 	        		//startActivity(i);
+		        	SavedRoutesScreen.deleteRoute(SavedRoutesScreen.currentRouteIndex);
+		        	
 		        }
 		  })
-		  .show();
+		  .show().getWindow().addFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);;
 	}
 
-
+	public static void deleteRoute(int i)
+	{
+		String deletedRouteName = routes.get(i).getName();
+		dbHandle.deleteRoute(deletedRouteName);
+		Intent intent = new Intent(SavedRoutesScreen.context, SavedRoutesScreen.class);
+		context.startActivity(intent);
+	}
+	
+	public void restartActivity()
+	{
+		Intent intent = getIntent();
+		finish();
+		startActivity(intent);
+	}
 }
