@@ -20,6 +20,7 @@ public class RouteDataSource {
 			RouteDBHelper.LAT,
 			RouteDBHelper.LNG,
 			RouteDBHelper.PHONE,
+			RouteDBHelper.PHONE2,
 			RouteDBHelper.ADDRESS,
 			RouteDBHelper.ALERTDIST
 		};
@@ -60,13 +61,14 @@ public class RouteDataSource {
 	
 	public List<Route> getAllRoutes()
 	{
-		List<Route> routes = new ArrayList<Route>();
+		List<Route> routes = null;
 		
 		Cursor cursor = database.query(RouteDBHelper.TABLE_NAME, allColumns, 
 				null, null, null, null, null);
 		
 		if(cursor.getCount() > 0)
 		{
+			routes = new ArrayList<Route>();
 			//If it can move to a new row, then it will return true
 			while(cursor.moveToNext())
 			{

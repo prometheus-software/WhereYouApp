@@ -58,7 +58,7 @@
         </activity>
         <activity
             android:name="com.example.whereyouapp.SavedRoutesScreen"
-            android:label="@string/title_activity_credits_screen"
+            android:label="@string/title_activity_saved_routes_screen"
             android:parentActivityName="com.example.whereyouapp.MainScreen" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
