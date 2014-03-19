@@ -11,11 +11,13 @@ import android.content.SharedPreferences;
 import android.location.Address;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.telephony.SmsManager;
 import android.text.InputType;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.EditText;
 import android.widget.Button;
 import android.widget.TextView;
@@ -89,6 +91,19 @@ public class AddRouteScreen extends Activity {
 
 		dbHandle = new RouteDataSource(this);
 		dbHandle.open();
+		
+		//Creates 
+		((Button)findViewById(R.id.contact_list_button)).setOnClickListener( new OnClickListener() {
+	        @Override
+	        public void onClick(View v) {
+	    	    Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+	            intent.setType(ContactsContract.CommonDataKinds.Phone.CONTENT_ITEM_TYPE);
+	            startActivityForResult(intent, 1);                
+	        }
+	        
+	        
+	    });
+		
 
 	}
 
