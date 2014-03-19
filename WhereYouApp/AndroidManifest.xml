@@ -101,7 +101,7 @@
 	        android:name="com.example.whereyouapp.Controller"
 	        android:enabled="true"
 	        android:icon="@drawable/ic_launcher" >
-   		 </service>
+   	</service>
         <meta-data
             android:name="com.google.android.maps.v2.API_KEY"
             android:value="AIzaSyDxDrvWoRS6mR6FQayfSVQ0oOIz1WOc7mw"/>
