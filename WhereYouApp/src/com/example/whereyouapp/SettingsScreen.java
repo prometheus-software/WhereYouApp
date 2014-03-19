@@ -9,6 +9,7 @@ import android.app.PendingIntent;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.TaskStackBuilder;
 import android.text.InputType;
+import android.util.Log;
 import android.view.Menu;
 import android.widget.Spinner;
 import java.util.List;
@@ -29,6 +30,7 @@ public class SettingsScreen extends Activity {
 	private Spinner spinner1;
 	private double batteryLevel;
 	public int timesClicked;
+	private static final String TAG = "WhereYouApp";
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -148,9 +150,45 @@ public class SettingsScreen extends Activity {
 		phoneNumbers [3] = editText.getText().toString();
 		editText = (EditText) findViewById(R.id.enter_contact5);
 		phoneNumbers [4] = editText.getText().toString();
-		if ((phoneNumbers[0].length() != 10 && phoneNumbers[0].length() != 0) || (phoneNumbers[1].length() != 10 && phoneNumbers [1].length() != 0) || (phoneNumbers [2].length() != 10 && phoneNumbers [2].length() != 0) || (phoneNumbers [3].length() != 10 && phoneNumbers [3].length() != 0) || (phoneNumbers [4].length() != 10 && phoneNumbers [4].length() != 0))
+		try
 		{
-			 error = true;
+			int part1 = Integer.parseInt(phoneNumbers [0]);
+			Log.d(TAG, "" + part1);
+		}catch(NumberFormatException e)
+		{
+			error = true;
+		}
+		try
+		{
+			int part2 = Integer.parseInt(phoneNumbers [1]);
+			Log.d(TAG, "" + part2);
+		}catch(NumberFormatException e)
+		{
+			error = true;
+		}
+		try
+		{
+			int part3 = Integer.parseInt(phoneNumbers [2]);
+			Log.d(TAG, "" + part3);
+		}catch(NumberFormatException e)
+		{
+			error = true;
+		}
+		try
+		{
+			int part4 = Integer.parseInt(phoneNumbers [3]);
+			Log.d(TAG, "" + part4);
+		}catch(NumberFormatException e)
+		{
+			error = true;
+		}
+		try
+		{
+			int part5 = Integer.parseInt(phoneNumbers [4]);
+			Log.d(TAG, "" + part5);
+		}catch(NumberFormatException e)
+		{
+			error = true;
 		}
 		try
 		{
