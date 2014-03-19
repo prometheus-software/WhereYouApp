@@ -139,6 +139,7 @@ public class SettingsScreen extends Activity {
 	{
 		Intent intent = new Intent(this, MainScreen.class);
 		EditText editText = (EditText) findViewById(R.id.enter_contact1);
+		timesClicked = 0;
 		String [] phoneNumbers = new String [5];
 		String phoneNum = editText.getText().toString();
 		String delims = "()-+";
@@ -271,6 +272,7 @@ public class SettingsScreen extends Activity {
 	public void cancelSettings (View view)
 	{
 		spinner1.setSelection(0);
+		timesClicked = 0;
 		EditText editText = (EditText) findViewById(R.id.enter_contact1);
 		editText.setText("", TextView.BufferType.EDITABLE);
 		editText = (EditText) findViewById(R.id.enter_contact2);
