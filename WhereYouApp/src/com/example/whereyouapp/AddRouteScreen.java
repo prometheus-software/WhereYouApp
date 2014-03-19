@@ -8,6 +8,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.database.Cursor;
 import android.location.Address;
 import android.net.Uri;
 import android.os.Bundle;
@@ -98,7 +99,9 @@ public class AddRouteScreen extends Activity {
 	        public void onClick(View v) {
 	    	    Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
 	            intent.setType(ContactsContract.CommonDataKinds.Phone.CONTENT_ITEM_TYPE);
-	            startActivityForResult(intent, 1);                
+	            startActivityForResult(intent, 1); 
+	            
+	            
 	        }
 	        
 	        
@@ -112,6 +115,37 @@ public class AddRouteScreen extends Activity {
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.add_route_screen, menu);
 		return true;
+	}
+	
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+	    if (data != null) {
+	        Uri uri = data.getData();
+
+	        if (uri != null) {
+	            Cursor c = null;
+	            try {
+	                c = getContentResolver().query(uri, new String[]{ 
+	                            ContactsContract.CommonDataKinds.Phone.NUMBER,  
+	                            ContactsContract.CommonDataKinds.Phone.TYPE },
+	                        null, null, null);
+
+	                if (c != null && c.moveToFirst()) {
+	                    String number = c.getString(0);
+	                    int type = c.getInt(1);
+	                    showSelectedNumber(type, number);
+	                }
+	            } finally {
+	                if (c != null) {
+	                    c.close();
+	                }
+	            }
+	        }
+	    }
+	}
+
+	public void showSelectedNumber(int type, String number) {
+	    Toast.makeText(this, type + ": " + number, Toast.LENGTH_LONG).show();      
 	}
 	public void addListenerOnSpinnerItemSelection()
 	{
