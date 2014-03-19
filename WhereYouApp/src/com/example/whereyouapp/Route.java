@@ -28,6 +28,9 @@ public class Route implements Serializable{
 	private String message;
 	private double[] coordinates;
 	private String address;
+	
+	//Represented as an int because the database doesn't support boolean types
+	private int isActive;
 
 	//list of all routes
 	//is it best to use an arraylist here?
@@ -57,6 +60,7 @@ public class Route implements Serializable{
 		this.coordinates[1] = Double.parseDouble(coordinates.substring(coordinates.indexOf(" ")+1, coordinates.length()));
 
 		addRoute(this);
+		this.isActive = 0;
 		routeID++;
 	}
 	
@@ -74,6 +78,7 @@ public class Route implements Serializable{
 		//this.alertInterval = alertInterval;
 		this.message = message;
 		this.address = address;
+		this.isActive = 0;
 		routeID++;
 	}
 	
@@ -111,6 +116,11 @@ public class Route implements Serializable{
 
 	public double getDistance() {
 		return alertDistance;
+	}
+	
+	public int getIsActive()
+	{
+		return isActive;
 	}
 
 	/*
@@ -172,6 +182,11 @@ public class Route implements Serializable{
 
 	public static void printRoute(Route r) {
 		System.out.println(r.getName());
+	}
+	
+	public void setIsActive(int i)
+	{
+		this.isActive = i;
 	}
 
 	public static void populateList(String listData) {

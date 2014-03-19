@@ -1,5 +1,7 @@
 package com.example.whereyouapp;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.app.Activity;
 import android.app.Notification;
 import android.app.NotificationManager;
@@ -7,6 +9,7 @@ import android.app.PendingIntent;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.TaskStackBuilder;
 import android.text.InputType;
+import android.util.Log;
 import android.view.Menu;
 import android.widget.Spinner;
 import java.util.List;
@@ -14,8 +17,10 @@ import java.util.ArrayList;
 import android.widget.ArrayAdapter;
 import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.PorterDuff;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView.BufferType;
@@ -24,6 +29,8 @@ import android.widget.Toast;
 public class SettingsScreen extends Activity {
 	private Spinner spinner1;
 	private double batteryLevel;
+	public int timesClicked;
+	private static final String TAG = "WhereYouApp";
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -51,6 +58,17 @@ public class SettingsScreen extends Activity {
 		editText.setInputType(InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS);
 		editText = (EditText) findViewById(R.id.enter_contact5);
 		editText.setInputType(InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS);
+		timesClicked = 0;
+		((Button)findViewById(R.id.contact_list_button)).setOnClickListener( new OnClickListener() {
+	        @Override
+	        public void onClick(View v) {
+	        	timesClicked++;
+	        	Toast.makeText(v.getContext(), "Times clicked: " + timesClicked, Toast.LENGTH_LONG).show();
+	    	    Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+	            intent.setType(ContactsContract.CommonDataKinds.Phone.CONTENT_ITEM_TYPE);
+	            startActivityForResult(intent, 1); 	            
+	        } 
+	    });
 	}
 
 	@Override
@@ -63,24 +81,141 @@ public class SettingsScreen extends Activity {
 	{
 		spinner1.setOnItemSelectedListener(new CustomOnItemSelectedListener ());
 	}
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+	    if (data != null) {
+	        Uri uri = data.getData();
+
+	        if (uri != null) {
+	            Cursor c = null;
+	            try {
+	                c = getContentResolver().query(uri, new String[]{ 
+	                            ContactsContract.CommonDataKinds.Phone.NUMBER,  
+	                            ContactsContract.CommonDataKinds.Phone.TYPE },
+	                        null, null, null);
+
+	                if (c != null && c.moveToFirst()) {
+	                    String number = c.getString(0);
+	                    int type = c.getInt(1);
+	                    showSelectedNumber(type, number);
+	                }
+	            } finally {
+	                if (c != null) {
+	                    c.close();
+	                }
+	            }
+	        }
+	    }
+	}
+	public void showSelectedNumber(int type, String number) {
+	    Toast.makeText(this, type + ": " + number, Toast.LENGTH_LONG).show();
+	    if (timesClicked % 5 == 1)
+	    {
+	    	EditText editText = (EditText) findViewById(R.id.enter_contact1);
+	    	editText.setText(number, TextView.BufferType.EDITABLE);
+	    }
+	    else if (timesClicked % 5 == 2)
+	    {
+	    	EditText editText = (EditText) findViewById(R.id.enter_contact2);
+	    	editText.setText(number, TextView.BufferType.EDITABLE);
+	    }
+	    else if (timesClicked % 5 == 3)
+	    {
+	    	EditText editText = (EditText) findViewById(R.id.enter_contact3);
+	    	editText.setText(number, TextView.BufferType.EDITABLE);
+	    }
+	    else if (timesClicked % 5 == 4)
+	    {
+	    	EditText editText = (EditText) findViewById(R.id.enter_contact4);
+	    	editText.setText(number, TextView.BufferType.EDITABLE);
+	    }
+	    else
+	    {
+	    	EditText editText = (EditText) findViewById(R.id.enter_contact5);
+	    	editText.setText(number, TextView.BufferType.EDITABLE);
+	    }
+	}
 	public void saveMySettings (View view)
 	{
 		Intent intent = new Intent(this, MainScreen.class);
 		EditText editText = (EditText) findViewById(R.id.enter_contact1);
+		timesClicked = 0;
 		String [] phoneNumbers = new String [5];
-		phoneNumbers [0] = editText.getText().toString();
+		String phoneNum = editText.getText().toString();
+		String delims = "()-+";
+		String [] tokens = phoneNum.split(delims);
+		for (int i = 0; i < tokens.length; i ++)
+		{
+			phoneNumbers [0] += tokens [i];
+		}
 		boolean error = false;
 		editText = (EditText) findViewById(R.id.enter_contact2);
-		phoneNumbers [1] = editText.getText().toString();
-		editText = (EditText) findViewById(R.id.enter_contact3);
-		phoneNumbers [2] = editText.getText().toString();
-		editText = (EditText) findViewById(R.id.enter_contact4);
-		phoneNumbers [3] = editText.getText().toString();
-		editText = (EditText) findViewById(R.id.enter_contact5);
-		phoneNumbers [4] = editText.getText().toString();
-		if ((phoneNumbers[0].length() != 10 && phoneNumbers[0].length() != 0) || (phoneNumbers[1].length() != 10 && phoneNumbers [1].length() != 0) || (phoneNumbers [2].length() != 10 && phoneNumbers [2].length() != 0) || (phoneNumbers [3].length() != 10 && phoneNumbers [3].length() != 0) || (phoneNumbers [4].length() != 10 && phoneNumbers [4].length() != 0))
+		String phoneNum1 = editText.getText().toString();
+		tokens = phoneNum1.split(delims);
+		for (int i = 0; i < tokens.length; i ++)
 		{
-			 error = true;
+			phoneNumbers [1] += tokens [i];
+		}
+		editText = (EditText) findViewById(R.id.enter_contact3);
+		String phoneNum2 = editText.getText().toString();
+		tokens = phoneNum2.split(delims);
+		for (int i = 0; i < tokens.length; i ++)
+		{
+			phoneNumbers [2] += tokens [i];
+		}
+		editText = (EditText) findViewById(R.id.enter_contact4);
+		String phoneNum3 = editText.getText().toString();
+		tokens = phoneNum3.split(delims);
+		for (int i = 0; i < tokens.length; i ++)
+		{
+			phoneNumbers [3] += tokens [i];
+		}
+		editText = (EditText) findViewById(R.id.enter_contact5);
+		String phoneNum4 = editText.getText().toString();
+		tokens = phoneNum4.split(delims);
+		for (int i = 0; i < tokens.length; i ++)
+		{
+			phoneNumbers [4] += tokens [i];
+		}
+		try
+		{
+			int part1 = Integer.parseInt(phoneNumbers [0]);
+			Log.d(TAG, "" + part1);
+		}catch(NumberFormatException e)
+		{
+			error = true;
+		}
+		try
+		{
+			int part2 = Integer.parseInt(phoneNumbers [1]);
+			Log.d(TAG, "" + part2);
+		}catch(NumberFormatException e)
+		{
+			error = true;
+		}
+		try
+		{
+			int part3 = Integer.parseInt(phoneNumbers [2]);
+			Log.d(TAG, "" + part3);
+		}catch(NumberFormatException e)
+		{
+			error = true;
+		}
+		try
+		{
+			int part4 = Integer.parseInt(phoneNumbers [3]);
+			Log.d(TAG, "" + part4);
+		}catch(NumberFormatException e)
+		{
+			error = true;
+		}
+		try
+		{
+			int part5 = Integer.parseInt(phoneNumbers [4]);
+			Log.d(TAG, "" + part5);
+		}catch(NumberFormatException e)
+		{
+			error = true;
 		}
 		try
 		{
@@ -137,6 +272,7 @@ public class SettingsScreen extends Activity {
 	public void cancelSettings (View view)
 	{
 		spinner1.setSelection(0);
+		timesClicked = 0;
 		EditText editText = (EditText) findViewById(R.id.enter_contact1);
 		editText.setText("", TextView.BufferType.EDITABLE);
 		editText = (EditText) findViewById(R.id.enter_contact2);

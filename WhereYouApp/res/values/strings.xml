@@ -7,7 +7,7 @@
     <string name="route_name">Route name</string>
     <string name="enter_address">Address</string>
     <string name="enter_radius">Choose target radius (in miles)</string>
-    <string name="enter_contact">Phone number (no dashes or parentheses)</string>
+    <string name="enter_contact">Phone number</string>
     <string name="enter_message">Message</string>
     <string name="save">Save</string>
     <string name="menu_settings">Settings</string>
@@ -31,13 +31,14 @@
     <string name = "route_name1">Enter route name:</string>
     <string name = "enter_address1">Enter address:</string>
     <string name = "enter_radius1">Enter radius of contact (in miles):</string>
-    <string name = "enter_contact1">Emergency number 1 (no dashes or parentheses)</string>
- 	<string name = "enter_contact2">Emergency number 2 (no dashes or parentheses)</string>
-    <string name = "enter_contact3">Emergency number 3 (no dashed or parentheses)</string>
-    <string name = "enter_contact4">Emergency number 4 (no dashes or parentheses)</string>
-    <string name = "enter_contact5">Emergency number 5 (no dashes or parentheses)</string>
+    <string name = "enter_contact1">Emergency number 1</string>
+    <string name = "enter_contact2">Emergency number 2</string>
+    <string name = "enter_contact3">Emergency number 3</string>
+    <string name = "enter_contact4">Emergency number 4</string>
+    <string name = "enter_contact5">Emergency number 5</string>
     <string name = "enter_message1">Enter text message:</string>
     <string name = "back">Back</string>
     <string name = "tutorial_message">How to use Where You App?</string>
-	<string name = "km_mile">Choose km or mile as measurement</string>
+    <string name = "km_mile">Choose km or mile as measurement</string>
+    <string name = "contact_list">Contacts</string>
 </resources>

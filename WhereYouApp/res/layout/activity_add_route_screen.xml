@@ -108,7 +108,17 @@
             android:layout_marginTop="24dp"
             android:ems="10"
             android:textColorHint="#FFFFFF"
-            android:hint="@string/enter_contact" /> 
+            android:hint="@string/enter_contact" />
+
+        <Button
+            android:id="@+id/contact_list_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom ="true"
+            android:layout_centerHorizontal ="true"
+            android:background="@drawable/rounded_button"
+            android:text="@string/contact_list" />
+ 
 </RelativeLayout>
 </ScrollView>
 
