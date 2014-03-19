@@ -69,5 +69,13 @@
         	android:onClick="cancelSettings"
         	android:background="@drawable/rounded_button"
         	android:text="@string/cancel" />
+    	 <Button
+            android:id="@+id/contact_list_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom ="true"
+            android:layout_centerHorizontal ="true"
+            android:background="@drawable/rounded_button"
+            android:text="@string/contact_list" />
 </RelativeLayout>
 </LinearLayout>
