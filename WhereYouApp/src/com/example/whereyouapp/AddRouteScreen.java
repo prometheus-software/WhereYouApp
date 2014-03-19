@@ -292,7 +292,7 @@ public class AddRouteScreen extends Activity {
 		editor = userInfo.edit();
 		editor.clear();
 		editor.commit();
-		
+		timesClicked = 0;
 		//Clears all text fields and resets the Spinner to the first choice, going back to MainScreen
 		EditText editText = (EditText) findViewById(R.id.route_name);
 		editText.setText("", TextView.BufferType.EDITABLE);
@@ -395,6 +395,7 @@ public class AddRouteScreen extends Activity {
 	public void saveRoute(View v)
 	{
 		//Again, clear shared preferences
+		timesClicked = 0;
 		editor = userInfo.edit();		
 		//Grab info from text fields
 		//SaveRoute.saveRoute(new Route())
