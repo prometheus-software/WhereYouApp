@@ -13,15 +13,15 @@ public class MainSplashScreen extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash_screen);  
          
-         /****** Create Thread that will sleep for 5 seconds *************/        
+         /****** Create Thread that will sleep for 2 seconds *************/        
         Thread background = new Thread() {
             public void run() {
                  
                 try {
-                    // Thread will sleep for 5 seconds
-                    sleep(5000);
+                    // Thread will sleep for 2 seconds
+                    sleep(2000);
                      
-                    // After 5 seconds redirect to another intent
+                    // After 2 seconds redirect to another intent
                     Intent i=new Intent(getBaseContext(), MainScreen.class);
                     startActivity(i);
                      
