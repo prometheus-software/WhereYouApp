@@ -1,5 +1,7 @@
 package com.example.whereyouapp;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.app.Activity;
 import android.app.Notification;
 import android.app.NotificationManager;
@@ -14,8 +16,10 @@ import java.util.ArrayList;
 import android.widget.ArrayAdapter;
 import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.PorterDuff;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView.BufferType;
@@ -24,6 +28,7 @@ import android.widget.Toast;
 public class SettingsScreen extends Activity {
 	private Spinner spinner1;
 	private double batteryLevel;
+	public int timesClicked;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -51,6 +56,17 @@ public class SettingsScreen extends Activity {
 		editText.setInputType(InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS);
 		editText = (EditText) findViewById(R.id.enter_contact5);
 		editText.setInputType(InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS);
+		timesClicked = 0;
+		((Button)findViewById(R.id.contact_list_button)).setOnClickListener( new OnClickListener() {
+	        @Override
+	        public void onClick(View v) {
+	        	timesClicked++;
+	        	Toast.makeText(v.getContext(), "Times clicked: " + timesClicked, Toast.LENGTH_LONG).show();
+	    	    Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+	            intent.setType(ContactsContract.CommonDataKinds.Phone.CONTENT_ITEM_TYPE);
+	            startActivityForResult(intent, 1); 	            
+	        } 
+	    });
 	}
 
 	@Override
@@ -62,6 +78,60 @@ public class SettingsScreen extends Activity {
 	public void addListenerOnSpinnerItemSelection()
 	{
 		spinner1.setOnItemSelectedListener(new CustomOnItemSelectedListener ());
+	}
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+	    if (data != null) {
+	        Uri uri = data.getData();
+
+	        if (uri != null) {
+	            Cursor c = null;
+	            try {
+	                c = getContentResolver().query(uri, new String[]{ 
+	                            ContactsContract.CommonDataKinds.Phone.NUMBER,  
+	                            ContactsContract.CommonDataKinds.Phone.TYPE },
+	                        null, null, null);
+
+	                if (c != null && c.moveToFirst()) {
+	                    String number = c.getString(0);
+	                    int type = c.getInt(1);
+	                    showSelectedNumber(type, number);
+	                }
+	            } finally {
+	                if (c != null) {
+	                    c.close();
+	                }
+	            }
+	        }
+	    }
+	}
+	public void showSelectedNumber(int type, String number) {
+	    Toast.makeText(this, type + ": " + number, Toast.LENGTH_LONG).show();
+	    if (timesClicked % 5 == 1)
+	    {
+	    	EditText editText = (EditText) findViewById(R.id.enter_contact1);
+	    	editText.setText(number, TextView.BufferType.EDITABLE);
+	    }
+	    else if (timesClicked % 5 == 2)
+	    {
+	    	EditText editText = (EditText) findViewById(R.id.enter_contact2);
+	    	editText.setText(number, TextView.BufferType.EDITABLE);
+	    }
+	    else if (timesClicked % 5 == 3)
+	    {
+	    	EditText editText = (EditText) findViewById(R.id.enter_contact3);
+	    	editText.setText(number, TextView.BufferType.EDITABLE);
+	    }
+	    else if (timesClicked % 5 == 4)
+	    {
+	    	EditText editText = (EditText) findViewById(R.id.enter_contact4);
+	    	editText.setText(number, TextView.BufferType.EDITABLE);
+	    }
+	    else
+	    {
+	    	EditText editText = (EditText) findViewById(R.id.enter_contact5);
+	    	editText.setText(number, TextView.BufferType.EDITABLE);
+	    }
 	}
 	public void saveMySettings (View view)
 	{
