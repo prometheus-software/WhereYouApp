@@ -47,6 +47,7 @@ public class AddRouteScreen extends Activity {
 	public static Context context;
 	public String completeAddress;
 	public int pos;
+	public int timesClicked;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -93,21 +94,19 @@ public class AddRouteScreen extends Activity {
 		dbHandle = new RouteDataSource(this);
 		dbHandle.open();
 		
+		timesClicked = 0;
+		
 		//Creates 
 		((Button)findViewById(R.id.contact_list_button)).setOnClickListener( new OnClickListener() {
 	        @Override
 	        public void onClick(View v) {
+	        	timesClicked++;
+	        	Toast.makeText(v.getContext(), "Times clicked: " + timesClicked, Toast.LENGTH_LONG).show();
 	    	    Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
 	            intent.setType(ContactsContract.CommonDataKinds.Phone.CONTENT_ITEM_TYPE);
-	            startActivityForResult(intent, 1); 
-	            
-	            
-	        }
-	        
-	        
+	            startActivityForResult(intent, 1); 	            
+	        } 
 	    });
-		
-
 	}
 
 	@Override
@@ -145,7 +144,17 @@ public class AddRouteScreen extends Activity {
 	}
 
 	public void showSelectedNumber(int type, String number) {
-	    Toast.makeText(this, type + ": " + number, Toast.LENGTH_LONG).show();      
+	    Toast.makeText(this, type + ": " + number, Toast.LENGTH_LONG).show();
+	    if (timesClicked % 2 != 0)
+	    {
+	    	EditText editText = (EditText) findViewById(R.id.enter_contact);
+	    	editText.setText(number, TextView.BufferType.EDITABLE);
+	    }
+	    else
+	    {
+	    	EditText editText = (EditText) findViewById(R.id.enter_contact6);
+	    	editText.setText(number, TextView.BufferType.EDITABLE);
+	    }
 	}
 	public void addListenerOnSpinnerItemSelection()
 	{
@@ -251,10 +260,6 @@ public class AddRouteScreen extends Activity {
 		editText = (EditText) findViewById(R.id.enter_contact6);
 		String phoneNumber2 = editText.getText().toString();
 		//Error check
-		if (phoneNumber.length() != 10 || (phoneNumber2.length () != 0 && phoneNumber2.length() != 10))
-		{
-			message = "Invalid phone number entered!";
-		}
 		try
 		{
 			int part1 = Integer.parseInt(phoneNumber);
@@ -406,10 +411,6 @@ public class AddRouteScreen extends Activity {
 		String [] phoneNumbers = new String [2];
 		phoneNumbers [0] = phoneNum;
 		phoneNumbers [1] = phoneNum2;
-		if (phoneNum.length() != 10 || (phoneNum2.length() != 0 && phoneNum2.length() != 10))
-		{
-			 error = true;
-		}
 		try
 		{
 			int part1 = Integer.parseInt(phoneNum);
@@ -428,7 +429,6 @@ public class AddRouteScreen extends Activity {
 		}
 		TextView displayAddress = (TextView) findViewById(R.id.display_address);
 		String addr = displayAddress.getText().toString();
-	
 		Spinner radiusSelector = (Spinner) findViewById(R.id.enter_radius);
 		int radiusCode = radiusSelector.getSelectedItemPosition();
 		Address theAddress = null;
