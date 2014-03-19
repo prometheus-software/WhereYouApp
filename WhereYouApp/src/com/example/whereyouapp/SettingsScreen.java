@@ -140,16 +140,42 @@ public class SettingsScreen extends Activity {
 		Intent intent = new Intent(this, MainScreen.class);
 		EditText editText = (EditText) findViewById(R.id.enter_contact1);
 		String [] phoneNumbers = new String [5];
-		phoneNumbers [0] = editText.getText().toString();
+		String phoneNum = editText.getText().toString();
+		String delims = "()-+";
+		String [] tokens = phoneNum.split(delims);
+		for (int i = 0; i < tokens.length; i ++)
+		{
+			phoneNumbers [0] += tokens [i];
+		}
 		boolean error = false;
 		editText = (EditText) findViewById(R.id.enter_contact2);
-		phoneNumbers [1] = editText.getText().toString();
+		String phoneNum1 = editText.getText().toString();
+		tokens = phoneNum1.split(delims);
+		for (int i = 0; i < tokens.length; i ++)
+		{
+			phoneNumbers [1] += tokens [i];
+		}
 		editText = (EditText) findViewById(R.id.enter_contact3);
-		phoneNumbers [2] = editText.getText().toString();
+		String phoneNum2 = editText.getText().toString();
+		tokens = phoneNum2.split(delims);
+		for (int i = 0; i < tokens.length; i ++)
+		{
+			phoneNumbers [2] += tokens [i];
+		}
 		editText = (EditText) findViewById(R.id.enter_contact4);
-		phoneNumbers [3] = editText.getText().toString();
+		String phoneNum3 = editText.getText().toString();
+		tokens = phoneNum3.split(delims);
+		for (int i = 0; i < tokens.length; i ++)
+		{
+			phoneNumbers [3] += tokens [i];
+		}
 		editText = (EditText) findViewById(R.id.enter_contact5);
-		phoneNumbers [4] = editText.getText().toString();
+		String phoneNum4 = editText.getText().toString();
+		tokens = phoneNum4.split(delims);
+		for (int i = 0; i < tokens.length; i ++)
+		{
+			phoneNumbers [4] += tokens [i];
+		}
 		try
 		{
 			int part1 = Integer.parseInt(phoneNumbers [0]);
