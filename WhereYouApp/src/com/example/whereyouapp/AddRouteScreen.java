@@ -405,15 +405,24 @@ public class AddRouteScreen extends Activity {
 	  	
 	    EditText phone  = (EditText) findViewById(R.id.enter_contact);
 		String phoneNum = phone.getText().toString();
+		String delims = "()-+";
+		String [] tokens = phoneNum.split(delims);
+		String [] phoneNumbers = new String [2];
+		for (int i = 0; i < tokens.length; i ++)
+		{
+			phoneNumbers [0] += tokens [i];
+		}
 		boolean error = false;
 		EditText phone2 = (EditText) findViewById(R.id.enter_contact6);
 		String phoneNum2 = phone2.getText().toString();
-		String [] phoneNumbers = new String [2];
-		phoneNumbers [0] = phoneNum;
-		phoneNumbers [1] = phoneNum2;
+		tokens = phoneNum2.split(delims);
+		for (int i = 0; i < tokens.length; i ++)
+		{
+			phoneNumbers [1] += tokens [i];
+		}
 		try
 		{
-			int part1 = Integer.parseInt(phoneNum);
+			int part1 = Integer.parseInt(phoneNumbers [0]);
 			Log.d(TAG, "" + part1);
 		}catch(NumberFormatException e)
 		{
@@ -421,7 +430,7 @@ public class AddRouteScreen extends Activity {
 		}
 		try
 		{
-			int part2 = Integer.parseInt(phoneNum2);
+			int part2 = Integer.parseInt(phoneNumbers [1]);
 			Log.d(TAG, "" + part2);
 		}catch(NumberFormatException e)
 		{
