@@ -102,8 +102,9 @@ public class RouteDataSource {
 				String message = cursor.getString(cursor.getColumnIndex(RouteDBHelper.MESSAGE));
 				String fullAddress = cursor.getString(cursor.getColumnIndex(RouteDBHelper.ADDRESS));
 				double[] coordinates = {lat, lng};
+				int isActive = cursor.getInt(cursor.getColumnIndex(RouteDBHelper.ISACTIVE));
 				Route route = new Route(name, coordinates, phoneNumbers,
-						alertDist, message, fullAddress);
+						alertDist, message, fullAddress, isActive);
 				routes.add(route);
 			}
 		}
@@ -126,5 +127,19 @@ public class RouteDataSource {
 		database.execSQL("DELETE FROM " + RouteDBHelper.TABLE_NAME + " WHERE " +
 							RouteDBHelper.NAME + "=" + "'" + routeName + "'");
 		
+	}
+	
+	public void setActive(String routeName)
+	{
+		database.execSQL("UPDATE " + RouteDBHelper.TABLE_NAME + " SET " + 
+						RouteDBHelper.ISACTIVE + "=1" + " WHERE " + RouteDBHelper.NAME
+						+ "="+ "'" + routeName + "'");
+	}
+	
+	public void setInactive(String routeName)
+	{
+		database.execSQL("UPDATE " + RouteDBHelper.TABLE_NAME + " SET " + 
+				RouteDBHelper.ISACTIVE + "=0" + " WHERE " + RouteDBHelper.NAME
+				+ "="+ "'" + routeName + "'");
 	}
 }

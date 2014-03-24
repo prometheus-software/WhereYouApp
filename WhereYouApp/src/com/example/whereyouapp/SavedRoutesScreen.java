@@ -87,6 +87,13 @@ public class SavedRoutesScreen extends Activity {
 		super.onPause();
 	}
 	
+	public void onResume()
+	{
+		//Update routes to reflect any changes in the database
+		routes = dbHandle.getAllRoutes();
+		super.onResume();
+	}
+	
 	public static void showRouteOptions(int i)
 	{
 		currentRouteIndex = i;
@@ -95,19 +102,33 @@ public class SavedRoutesScreen extends Activity {
 		message += "\n";
 		message += "Address: " + selectedRoute.getAddress();
 		message += "\n";
-		message += "Phone number: " + selectedRoute.getNumber()[0];
+		String[] numbers = selectedRoute.getNumber();
+		message += "First number: " + numbers[0];
+		message += "\n";
+		message += "Second number: " + numbers[1];
 		message += "\n";
 		message += "Radius: " + selectedRoute.getDistance();
 		message += "\n";
 		message += "Message: " + selectedRoute.getMessage();
+		message += "\n";
+		message += "Active: ";
+		if(selectedRoute.getIsActive() == 1)
+		{
+			message += "Yes";
+		}
+		else
+		{
+			message += "No";
+		}
 		
 		new AlertDialog.Builder(context)
 	    .setTitle("Route Info")
 	    .setMessage(message)
-	    .setPositiveButton("Make active", new DialogInterface.OnClickListener() {
+	    .setPositiveButton("Toggle active", new DialogInterface.OnClickListener() {
 	        public void onClick(DialogInterface dialog, int which) { 
 	        	//Intent i = new Intent(getBaseContext(), AddRouteScreen.class);
         		//startActivity(i);
+	        	SavedRoutesScreen.toggleActive(SavedRoutesScreen.currentRouteIndex);
 	        }
 	     
 	     })
@@ -126,6 +147,24 @@ public class SavedRoutesScreen extends Activity {
 	{
 		String deletedRouteName = routes.get(i).getName();
 		dbHandle.deleteRoute(deletedRouteName);
+		Intent intent = new Intent(SavedRoutesScreen.context, SavedRoutesScreen.class);
+		context.startActivity(intent);
+	}
+	
+	public static void toggleActive(int i)
+	{
+		String updateRoute = routes.get(i).getName();
+		int isActive = routes.get(i).getIsActive();
+		
+		if(isActive == 0)
+		{
+			dbHandle.setActive(updateRoute);
+		}
+		else
+		{
+			dbHandle.setInactive(updateRoute);
+		}
+		
 		Intent intent = new Intent(SavedRoutesScreen.context, SavedRoutesScreen.class);
 		context.startActivity(intent);
 	}

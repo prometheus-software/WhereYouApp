@@ -14,10 +14,12 @@ import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.GoogleMap.OnMarkerClickListener;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import android.graphics.PorterDuff;
 import android.widget.Button;
@@ -55,6 +57,7 @@ GooglePlayServicesClient.OnConnectionFailedListener, LocationListener{
 	
 	public static double currentLat;
 	public static double currentLong;
+	public static Intent destinationIntent;
 	GoogleMap myMap;
 	
 	LocationClient myLocationClient;
@@ -156,10 +159,11 @@ GooglePlayServicesClient.OnConnectionFailedListener, LocationListener{
 	
 	public void geoLocate(View v) throws IOException
 	{
-		Intent intent = new Intent(this, AddRouteScreen.class);
+		destinationIntent = new Intent(this, AddRouteScreen.class);
 		final int code = 0;
 		String locality = null;
 		hideSoftKeyboard(v);
+		CharSequence addresses[] = null;
 		
 		EditText et = (EditText) findViewById(R.id.editText1);
 		String location = et.getText().toString();
@@ -173,7 +177,17 @@ GooglePlayServicesClient.OnConnectionFailedListener, LocationListener{
 		try{
 		Geocoder geocoder = new Geocoder(this);
 		//4 represents the maximum number of results 
-		list = geocoder.getFromLocationName(location, 4);
+		for(int i = 0; i < 5; i++)
+		{
+			list = geocoder.getFromLocationName(location, 4);
+		}
+		
+		if(list == null || list.size() == 0)
+		{
+			Toast.makeText(this, "Could not find location. Please modify search or try again.", Toast.LENGTH_SHORT).show();
+			return;
+		}
+		
 		Address theAddress = list.get(0);
 		locality = theAddress.getLocality();
 		
@@ -182,11 +196,19 @@ GooglePlayServicesClient.OnConnectionFailedListener, LocationListener{
 		
 		goToLocation(lat, lng, DEFAULTZOOM);
 		MarkerOptions options = new MarkerOptions()
-		.title("Destination")
+		.title("Destination (tap to confirm)")
 		.position(new LatLng(lat, lng));
-		myMap.addMarker(options);
+		Marker marker = myMap.addMarker(options);
+		marker.showInfoWindow();
+		myMap.setOnMarkerClickListener(new OnMarkerClickListener()
+		{
+			public boolean onMarkerClick(Marker arg0) {    
+				startAddRouteScreen(SetAddressScreen.destinationIntent);
+			return true;
+			}
+		});
 		
-		CharSequence addresses[] = new CharSequence[4];
+		addresses = new CharSequence[4];
 		String addressString[] = new String[4];
 		for(int i = 0; i < 4; i++)
 		{
@@ -219,12 +241,11 @@ GooglePlayServicesClient.OnConnectionFailedListener, LocationListener{
 			Toast.makeText(this, s, Toast.LENGTH_LONG);
 		}
 		
-		//AddressDialog a = new AddressDialog();
-		//a.show(getSupportFragmentManager(), "blah");
-		// Sets a marker on the map
+		if(list.size() == 1)
+		{
+			Toast.makeText(this, addresses[0], Toast.LENGTH_LONG).show();
+		}
 		
-		
-		Toast.makeText(this, locality, Toast.LENGTH_LONG).show();
 	}
 	
 	private void hideSoftKeyboard(View v)
@@ -359,6 +380,12 @@ GooglePlayServicesClient.OnConnectionFailedListener, LocationListener{
 		Intent i = new Intent(this, AddRouteScreen.class);
 		i.putExtra("com.android.location.Address", list.get(code));
 		startActivity(i);
+	}
+	
+	public void startAddRouteScreen(Intent destination)
+	{
+		destination.putExtra("com.android.location.Address", list.get(0));
+		startActivity(destination);
 	}
 	
 }

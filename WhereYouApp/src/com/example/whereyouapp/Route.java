@@ -64,6 +64,24 @@ public class Route implements Serializable{
 		routeID++;
 	}
 	
+	public Route(String routeName, double[] coordinates, String [] phoneNumbers, double alertDistance, String message, String address, int isActive) 
+	{
+		this.coordinates = new double[2];
+		this.coordinates[0] = coordinates[0];
+		this.coordinates[1] = coordinates[1];
+		for (int i = 0; i < 2; i ++)
+		{
+			theNumbers [i] = phoneNumbers [i];
+		}
+		this.routeName = routeName;
+		this.alertDistance = alertDistance;
+		//this.alertInterval = alertInterval;
+		this.message = message;
+		this.address = address;
+		this.isActive = isActive;
+		routeID++;
+	}
+	
 	public Route(String routeName, double[] coordinates, String [] phoneNumbers, double alertDistance, String message, String address) 
 	{
 		this.coordinates = new double[2];
@@ -81,6 +99,7 @@ public class Route implements Serializable{
 		this.isActive = 0;
 		routeID++;
 	}
+	
 	
 	public Route(Route route) {
 		//copy constructor
