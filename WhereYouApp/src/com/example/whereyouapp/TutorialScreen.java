@@ -1,4 +1,4 @@
-package com.example.whereyouapp;
+ppackage com.whereyouapp.ufl.edu;
 
 import android.os.Bundle;
 import android.app.Activity;
@@ -34,3 +34,4 @@ public class TutorialScreen extends Activity {
 		startActivity(intent);
 	}
 }
+
