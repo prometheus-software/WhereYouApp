@@ -54,6 +54,7 @@ public class SettingsScreen extends Activity {
 		addListenerOnSpinnerItemSelection();
 		//if the settings database holds a battery threshold level set
 		//the batter lvl spinner... "spinner1" to that level
+		//values are hard coded...
 		if(setdbHandle.containsValue()) {
 			int savedBatteryLevel = setdbHandle.getSavedBatteryLevel();
 			if(savedBatteryLevel > -1)
