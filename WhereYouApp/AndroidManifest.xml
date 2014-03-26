@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.whereyouapp"
+    package="com.whereyouapp.ufl.edu"
     android:versionCode="1"
     android:versionName="1.0" >
 
@@ -34,7 +34,7 @@
         android:label="@string/app_name"
         android:theme="@android:style/Theme.Holo" >
         <activity
-            android:name="com.example.whereyouapp.MainSplashScreen"
+            android:name="com.whereyouapp.ufl.edu.MainSplashScreen"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -42,63 +42,63 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.example.whereyouapp.MainScreen"
+            android:name="com.whereyouapp.ufl.edu.MainScreen"
             android:label="@string/app_name" >
                 <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.whereyouapp.MainSplashScreen" />
+                android:value="com.whereyouapp.ufl.edu.MainSplashScreen" />
         </activity>
         <activity
-            android:name="com.example.whereyouapp.AddRouteScreen"
+            android:name="com.whereyouapp.ufl.edu.AddRouteScreen"
             android:label="@string/title_activity_add_route_screen"
-            android:parentActivityName="com.example.whereyouapp.MainScreen" >
+            android:parentActivityName="com.whereyouapp.ufl.edu.MainScreen" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.whereyouapp.MainScreen" />
+                android:value="com.whereyouapp.ufl.edu.MainScreen" />
         </activity>
         <activity
-            android:name="com.example.whereyouapp.SavedRoutesScreen"
+            android:name="com.whereyouapp.ufl.edu.SavedRoutesScreen"
             android:label="@string/title_activity_saved_routes_screen"
-            android:parentActivityName="com.example.whereyouapp.MainScreen" >
+            android:parentActivityName="com.whereyouapp.ufl.edu.MainScreen" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.whereyouapp.MainScreen" />
+                android:value="com.whereyouapp.ufl.edu.MainScreen" />
         </activity>
         <activity
-            android:name="com.example.whereyouapp.TutorialScreen"
+            android:name="com.whereyouapp.ufl.edu.TutorialScreen"
             android:label="@string/title_activity_tutorial_screen"
-            android:parentActivityName="com.example.whereyouapp.MainScreen" >
+            android:parentActivityName="com.whereyouapp.ufl.edu.MainScreen" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.whereyouapp.MainScreen" />
+                android:value="com.whereyouapp.ufl.edu.MainScreen" />
         </activity>
         <activity
-            android:name="com.example.whereyouapp.SettingsScreen"
+            android:name="com.whereyouapp.ufl.edu.SettingsScreen"
             android:label="@string/title_activity_settings_screen"
-            android:parentActivityName="com.example.whereyouapp.MainScreen" >
+            android:parentActivityName="com.whereyouapp.ufl.edu.MainScreen" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.whereyouapp.MainScreen" />
+                android:value="com.whereyouapp.ufl.edu.MainScreen" />
         </activity>
         <activity
-            android:name="com.example.whereyouapp.AddRouteScreenMessage"
+            android:name="com.whereyouapp.ufl.edu.AddRouteScreenMessage"
             android:label="@string/title_activity_add_route_screen_message"
-            android:parentActivityName="com.example.whereyouapp.AddRouteScreen" >
+            android:parentActivityName="com.whereyouapp.ufl.edu.AddRouteScreen" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.whereyouapp.AddRouteScreen" />
+                android:value="com.whereyouapp.ufl.edu.AddRouteScreen" />
         </activity>
          <activity
-            android:name="com.example.whereyouapp.SetAddressScreen"
+            android:name="com.whereyouapp.ufl.edu.SetAddressScreen"
             android:label="Set Address"
-            android:parentActivityName="com.example.whereyouapp.AddRouteScreen" >
+            android:parentActivityName="com.whereyouapp.ufl.edu.AddRouteScreen" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.whereyouapp.AddRouteScreen" />
+                android:value="com.whereyouapp.ufl.edu.AddRouteScreen" />
         </activity>
         
         <service
-	        android:name="com.example.whereyouapp.Controller"
+	        android:name="com.whereyouapp.ufl.edu.Controller"
 	        android:enabled="true"
 	        android:icon="@drawable/ic_launcher" >
    	</service>
@@ -108,3 +108,4 @@
         <meta-data android:name="com.google.android.gms.version" android:value="4132500" />
     </application>
 </manifest>
+
