@@ -1,4 +1,4 @@
-package com.example.whereyouapp;
+package com.whereyouapp.ufl.edu;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringWriter;
@@ -389,3 +389,4 @@ GooglePlayServicesClient.OnConnectionFailedListener, LocationListener{
 	}
 	
 }
+
