@@ -1,4 +1,4 @@
-package com.example.whereyouapp;
+package com.whereyouapp.ufl.edu;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Notification;
@@ -503,4 +503,5 @@ public class AddRouteScreen extends Activity {
 		
 	}
 }
+
 
