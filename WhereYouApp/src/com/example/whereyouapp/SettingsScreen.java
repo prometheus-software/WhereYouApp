@@ -1,4 +1,4 @@
-package com.example.whereyouapp;
+package com.whereyouapp.ufl.edu;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.ContactsContract;
