@@ -1,4 +1,4 @@
-package com.example.whereyouapp;
+package com.whereyouapp.ufl.edu;
 
 import android.os.Bundle;
 import android.os.Handler;
@@ -45,3 +45,4 @@ public class MainSplashScreen extends Activity {
          
     }
 }
+
