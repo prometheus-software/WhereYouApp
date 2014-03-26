@@ -5,53 +5,17 @@
     android:paddingRight = "16dp"
     android:paddingBottom = "16dp"
     android:orientation= "vertical">
-
     <Spinner
         android:id="@+id/battery_level"
         android:layout_width = "fill_parent"
         android:layout_height = "wrap_content"
         android:hint = "@string/battery_level"
         android:prompt = "@string/battery_level" />
-    <EditText
-            android:id="@+id/enter_contact1"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="@string/enter_contact1" 
-            android:textColorHint="#FFFFFF"/>
-    <EditText
-            android:id="@+id/enter_contact2"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="@string/enter_contact2" 
-            android:textColorHint="#FFFFFF"/>
-	<EditText
-            android:id="@+id/enter_contact3"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="@string/enter_contact3"
-            android:textColorHint="#FFFFFF" />
-	<EditText
-            android:id="@+id/enter_contact4"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="@string/enter_contact4" 
-            android:textColorHint="#FFFFFF"/>
-	<EditText
-            android:id="@+id/enter_contact5"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="@string/enter_contact5" 
-            android:textColorHint="#FFFFFF"/>
 	<RelativeLayout
     	android:layout_width = "wrap_content"
     	android:layout_height = "match_parent"
     	android:orientation = "horizontal" >
-   		 <Button
+   	<Button
         	android:id="@+id/save_settings"
         	android:layout_width="100dp"
         	android:layout_height="wrap_content"
@@ -69,13 +33,5 @@
         	android:onClick="cancelSettings"
         	android:background="@drawable/rounded_button"
         	android:text="@string/cancel" />
-    	 <Button
-            android:id="@+id/contact_list_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom ="true"
-            android:layout_centerHorizontal ="true"
-            android:background="@drawable/rounded_button"
-            android:text="@string/contact_list" />
 </RelativeLayout>
 </LinearLayout>
