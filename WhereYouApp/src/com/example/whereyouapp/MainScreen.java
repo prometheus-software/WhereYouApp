@@ -13,6 +13,7 @@ import android.view.View;
 import android.widget.Button;
 public class MainScreen extends Activity {
 	public static RouteDataSource dbHandle;
+	public static SettingsDataSource setdbHandle;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -27,9 +28,14 @@ public class MainScreen extends Activity {
 		button = (Button) findViewById(R.id.settings);
 		button.getBackground().setColorFilter(0xFFFFFF00, PorterDuff.Mode.MULTIPLY);
 		*/
+		setdbHandle = new SettingsDataSource(this);
+		setdbHandle.open();
+		setdbHandle.recreateTable();
+		
 		dbHandle = new RouteDataSource(this);
 		dbHandle.open();
 		dbHandle.recreateTable();
+		
 		
 	}
 
