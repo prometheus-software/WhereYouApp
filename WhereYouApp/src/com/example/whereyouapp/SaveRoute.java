@@ -1,4 +1,4 @@
-package com.example.whereyouapp;
+package com.whereyouapp.ufl.edu;
 
 import java.io.File;
 import java.io.FileInputStream;
