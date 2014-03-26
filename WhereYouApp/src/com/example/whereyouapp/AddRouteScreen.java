@@ -421,22 +421,22 @@ public class AddRouteScreen extends Activity {
 		{
 			phoneNumbers [1] += tokens [i];
 		}
-		try
-		{
-			int part1 = Integer.parseInt(phoneNumbers [0]);
-			Log.d(TAG, "" + part1);
-		}catch(NumberFormatException e)
-		{
-			error = true;
-		}
-		try
-		{
-			int part2 = Integer.parseInt(phoneNumbers [1]);
-			Log.d(TAG, "" + part2);
-		}catch(NumberFormatException e)
-		{
-			error = true;
-		}
+//		try
+//		{
+//			int part1 = Integer.parseInt(phoneNumbers [0]);
+//			Log.d(TAG, "" + part1);
+//		}catch(NumberFormatException e)
+//		{
+//			error = true;
+//		}
+//		try
+//		{
+//			int part2 = Integer.parseInt(phoneNumbers [1]);
+//			Log.d(TAG, "" + part2);
+//		}catch(NumberFormatException e)
+//		{
+//			error = true;
+//		}
 		TextView displayAddress = (TextView) findViewById(R.id.display_address);
 		String addr = displayAddress.getText().toString();
 		Spinner radiusSelector = (Spinner) findViewById(R.id.enter_radius);
@@ -503,3 +503,4 @@ public class AddRouteScreen extends Activity {
 		
 	}
 }
+
