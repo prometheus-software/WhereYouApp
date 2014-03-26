@@ -46,7 +46,6 @@ public class SavedRoutesScreen extends Activity {
 		ListView lv = new ListView(this);
 		lv.setClickable(true);
 		String[] routeNames;
-		
 		if(routes == null)
 		{
 			TextView tv = new TextView(this);
@@ -59,8 +58,7 @@ public class SavedRoutesScreen extends Activity {
 			
 			for(int i = 0; i < routes.size(); i++)
 			{
-				routeNames[i] = routes.get(i).getName();
-				
+				routeNames[i] = routes.get(i).getName();		
 			}
 			
 			ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.activity_saved_routes_screen, R.id.label, routeNames);
@@ -103,9 +101,9 @@ public class SavedRoutesScreen extends Activity {
 		message += "Address: " + selectedRoute.getAddress();
 		message += "\n";
 		String[] numbers = selectedRoute.getNumber();
-		message += "First number: " + numbers[0].substring(3);
+		message += "First number: " + numbers[0].substring(4);
 		message += "\n";
-		message += "Second number: " + numbers[1].substring(3);
+		message += "Second number: " + numbers[1].substring(4);
 		message += "\n";
 		message += "Radius: " + selectedRoute.getDistance();
 		message += "\n";
@@ -176,3 +174,4 @@ public class SavedRoutesScreen extends Activity {
 		startActivity(intent);
 	}
 }
+
