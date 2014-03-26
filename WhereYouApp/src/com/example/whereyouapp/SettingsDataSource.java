@@ -1,4 +1,4 @@
-package com.example.whereyouapp;
+package com.whereyouapp.ufl.edu;
 
 import java.util.List;
 
@@ -16,12 +16,12 @@ public class SettingsDataSource {
 	private static String[] allColumns = 
 		{
 			SettingsDBHelper.COLUMN_ID,
-			SettingsDBHelper.BATTERY_LVL
+			SettingsDBHelper.BATTERY_LVL,
 		};
 	public static final String DATABASE_CREATION = 
 			"CREATE TABLE IF NOT EXISTS " + SettingsDBHelper.TABLE_NAME + " (" + 
 					SettingsDBHelper.COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
-					SettingsDBHelper.BATTERY_LVL + " INTEGER " + 
+					SettingsDBHelper.BATTERY_LVL + " INTEGER " +
 			")";
 			
 	public SettingsDataSource(Context context)
@@ -47,7 +47,6 @@ public class SettingsDataSource {
 		values.put(SettingsDBHelper.COLUMN_ID, 1);
 		values.put(SettingsDBHelper.BATTERY_LVL, batteryLevel);
 		setdatabase.insert(SettingsDBHelper.TABLE_NAME, null, values);
-		
 	}
 	
 	public boolean containsValue() {
@@ -76,7 +75,6 @@ public class SettingsDataSource {
 		cursor.close();
 		return savedBatteryLevel;
 	}
-			
 	public void deleteBatterySetting()
 	{
 		setdatabase.delete(SettingsDBHelper.TABLE_NAME, null, null);
