@@ -1,5 +1,5 @@
 //This class wil be used to test controller functions, it will consist of a screen with buttons that do various functions
-package com.example.whereyouapp;
+package com.whereyouapp.ufl.edu;
 
 import android.net.Uri;
 import android.os.Bundle;
