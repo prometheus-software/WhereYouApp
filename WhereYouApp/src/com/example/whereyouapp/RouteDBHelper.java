@@ -1,4 +1,4 @@
-package com.example.whereyouapp;
+package com.whereyouapp.ufl.edu;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
