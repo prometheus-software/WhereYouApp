@@ -1,4 +1,4 @@
-package com.example.whereyouapp;
+package com.whereyouapp.ufl.edu;
 
 import android.location.Location;
 import android.os.Bundle;
@@ -57,3 +57,4 @@ GooglePlayServicesClient.OnConnectionFailedListener, LocationListener{
 	}
 
 }
+
