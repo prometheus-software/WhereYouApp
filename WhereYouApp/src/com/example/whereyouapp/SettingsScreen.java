@@ -28,13 +28,17 @@ import android.widget.TextView;
 import android.widget.Toast;
 public class SettingsScreen extends Activity {
 	private Spinner spinner1;
-	private double batteryLevel;
+	//changed batteryLevel to an int value
+	private int batteryLevel;
 	public int timesClicked;
+	public static SettingsDataSource setdbHandle;
 	private static final String TAG = "WhereYouApp";
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_settings_screen);
+		
+		setdbHandle = MainScreen.setdbHandle;
 		
 		spinner1 = (Spinner) findViewById(R.id.battery_level);
 		List<String> list = new ArrayList<String>();
@@ -48,6 +52,23 @@ public class SettingsScreen extends Activity {
 		dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 		spinner1.setAdapter(dataAdapter);
 		addListenerOnSpinnerItemSelection();
+		//if the settings database holds a battery threshold level set
+		//the batter lvl spinner... "spinner1" to that level
+		//values are hard coded...
+		if(setdbHandle.containsValue()) {
+			int savedBatteryLevel = setdbHandle.getSavedBatteryLevel();
+			if(savedBatteryLevel > -1)
+				if(setdbHandle.getSavedBatteryLevel()==5)
+					spinner1.setSelection(1);
+				if(setdbHandle.getSavedBatteryLevel()==10)
+					spinner1.setSelection(2);
+				if(setdbHandle.getSavedBatteryLevel()==15)
+					spinner1.setSelection(3);
+				if(setdbHandle.getSavedBatteryLevel()==20)
+					spinner1.setSelection(4);
+				if(setdbHandle.getSavedBatteryLevel()==25)
+					spinner1.setSelection(5);
+		}
 		EditText editText = (EditText) findViewById(R.id.enter_contact1);
 		editText.setInputType(InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS);
 		editText = (EditText) findViewById(R.id.enter_contact2);
@@ -219,7 +240,7 @@ public class SettingsScreen extends Activity {
 		}
 		try
 		{
-			batteryLevel = Double.parseDouble(String.valueOf(spinner1.getSelectedItem()));
+			batteryLevel = Integer.parseInt(String.valueOf(spinner1.getSelectedItem()));
 		}
 		catch (NumberFormatException e)
 		{
@@ -234,6 +255,10 @@ public class SettingsScreen extends Activity {
 		mBuilder.setAutoCancel(true);
 		mBuilder.setSmallIcon(R.drawable.ic_launcher);
 		mBuilder.setContentTitle("Your battery level is below " + batteryLevel + "%.");
+		
+		setdbHandle.deleteBatterySetting();
+		setdbHandle.insertBatteryLevel(batteryLevel);
+		
 		if (phoneNumbers [0].equals(""))
 		{
 			mBuilder.setContentText("Your phone is about to die. Are you sure you don't want to let someone know your location?");
