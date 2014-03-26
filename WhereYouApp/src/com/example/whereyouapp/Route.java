@@ -1,4 +1,4 @@
-package com.example.whereyouapp;
+package com.whereyouapp.ufl.edu;
 import java.io.Serializable;
 import java.util.ArrayList;
 
