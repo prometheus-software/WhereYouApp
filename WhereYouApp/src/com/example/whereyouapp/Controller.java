@@ -1,4 +1,4 @@
-package com.example.whereyouapp;
+package com.whereyouapp.ufl.edu;
 
 public class Controller {
 
