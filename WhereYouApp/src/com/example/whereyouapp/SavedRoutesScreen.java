@@ -103,9 +103,9 @@ public class SavedRoutesScreen extends Activity {
 		message += "Address: " + selectedRoute.getAddress();
 		message += "\n";
 		String[] numbers = selectedRoute.getNumber();
-		message += "First number: " + numbers[0];
+		message += "First number: " + numbers[0].substring(3);
 		message += "\n";
-		message += "Second number: " + numbers[1];
+		message += "Second number: " + numbers[1].substring(3);
 		message += "\n";
 		message += "Radius: " + selectedRoute.getDistance();
 		message += "\n";
