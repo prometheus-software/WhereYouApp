@@ -198,46 +198,46 @@ public class SettingsScreen extends Activity {
 		{
 			phoneNumbers [4] += tokens [i];
 		}
-		try
-		{
-			int part1 = Integer.parseInt(phoneNumbers [0]);
-			Log.d(TAG, "" + part1);
-		}catch(NumberFormatException e)
-		{
-			error = true;
-		}
-		try
-		{
-			int part2 = Integer.parseInt(phoneNumbers [1]);
-			Log.d(TAG, "" + part2);
-		}catch(NumberFormatException e)
-		{
-			error = true;
-		}
-		try
-		{
-			int part3 = Integer.parseInt(phoneNumbers [2]);
-			Log.d(TAG, "" + part3);
-		}catch(NumberFormatException e)
-		{
-			error = true;
-		}
-		try
-		{
-			int part4 = Integer.parseInt(phoneNumbers [3]);
-			Log.d(TAG, "" + part4);
-		}catch(NumberFormatException e)
-		{
-			error = true;
-		}
-		try
-		{
-			int part5 = Integer.parseInt(phoneNumbers [4]);
-			Log.d(TAG, "" + part5);
-		}catch(NumberFormatException e)
-		{
-			error = true;
-		}
+//		try
+//		{
+//			int part1 = Integer.parseInt(phoneNumbers [0].substring(4));
+//			Log.d(TAG, "" + part1);
+//		}catch(NumberFormatException e)
+//		{
+//			error = true;
+//		}
+//		try
+//		{
+//			int part2 = Integer.parseInt(phoneNumbers [1].substring(4));
+//			Log.d(TAG, "" + part2);
+//		}catch(NumberFormatException e)
+//		{
+//			error = true;
+//		}
+//		try
+//		{
+//			int part3 = Integer.parseInt(phoneNumbers [2].substring(4));
+//			Log.d(TAG, "" + part3);
+//		}catch(NumberFormatException e)
+//		{
+//			error = true;
+//		}
+//		try
+//		{
+//			int part4 = Integer.parseInt(phoneNumbers [3].substring(4));
+//			Log.d(TAG, "" + part4);
+//		}catch(NumberFormatException e)
+//		{
+//			error = true;
+//		}
+//		try
+//		{
+//			int part5 = Integer.parseInt(phoneNumbers [4].substring(4));
+//			Log.d(TAG, "" + part5);
+//		}catch(NumberFormatException e)
+//		{
+//			error = true;
+//		}
 		try
 		{
 			batteryLevel = Integer.parseInt(String.valueOf(spinner1.getSelectedItem()));
@@ -259,29 +259,29 @@ public class SettingsScreen extends Activity {
 		setdbHandle.deleteBatterySetting();
 		setdbHandle.insertBatteryLevel(batteryLevel);
 		
-		if (phoneNumbers [0].equals(""))
+		if (phoneNumbers [0].equals("null"))
 		{
 			mBuilder.setContentText("Your phone is about to die. Are you sure you don't want to let someone know your location?");
 		}
-		else if (phoneNumbers [1].equals(""))
+		else if (phoneNumbers [1].equals("null"))
 		{
-			mBuilder.setContentText("Your location has been sent to " + phoneNumbers [0] + " before your phone dies.");
+			mBuilder.setContentText("Your location has been sent to " + phoneNumbers [0].substring(4) + " before your phone dies.");
 		}
-		else if (phoneNumbers [2].equals (""))
+		else if (phoneNumbers [2].equals ("null"))
 		{
-			mBuilder.setContentText("Your location has been sent to " + phoneNumbers [0] + " and " + phoneNumbers [1] + " before your phone dies.");
+			mBuilder.setContentText("Your location has been sent to " + phoneNumbers [0].substring(4) + " and " + phoneNumbers [1].substring(4) + " before your phone dies.");
 		}
-		else if (phoneNumbers [3].equals (""))
+		else if (phoneNumbers [3].equals ("null"))
 		{
-			mBuilder.setContentText("Your location has been sent to " + phoneNumbers [0] + " , " + phoneNumbers [1] + " , " + " and " + phoneNumbers [2] +  " before your phone dies.");
+			mBuilder.setContentText("Your location has been sent to " + phoneNumbers [0].substring(4) + " , " + phoneNumbers [1].substring(4) + " , " + " and " + phoneNumbers [2].substring(4) +  " before your phone dies.");
 		}
-		else if (phoneNumbers [4].equals(""))
+		else if (phoneNumbers [4].equals("null"))
 		{
-			mBuilder.setContentText("Your location has been sent to " + phoneNumbers [0] + " , " + phoneNumbers [1] + " , " + phoneNumbers [2] + " and " + phoneNumbers [3] +  " before your phone dies.");
+			mBuilder.setContentText("Your location has been sent to " + phoneNumbers [0].substring(4) + " , " + phoneNumbers [1].substring(4) + " , " + phoneNumbers [2].substring(4) + " and " + phoneNumbers [3].substring(4) +  " before your phone dies.");
 		}
 		else
 		{
-			mBuilder.setContentText("Your location has been sent to " + phoneNumbers [0] + " , " + phoneNumbers [1] + " , " + phoneNumbers [2] + " , " + phoneNumbers [3] + " and " + phoneNumbers[4] + " before your phone dies.");
+			mBuilder.setContentText("Your location has been sent to " + phoneNumbers [0].substring(4) + " , " + phoneNumbers [1].substring(4) + " , " + phoneNumbers [2].substring(4) + " , " + phoneNumbers [3].substring(4) + " and " + phoneNumbers[4].substring(4) + " before your phone dies.");
 		}
 		Intent resultIntent = new Intent (this, MainScreen.class);
 		TaskStackBuilder stackBuilder = TaskStackBuilder.create(this);
@@ -312,4 +312,5 @@ public class SettingsScreen extends Activity {
 		startActivity(intent);
 	}
 }
+
 
