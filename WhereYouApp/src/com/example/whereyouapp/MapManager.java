@@ -1,4 +1,4 @@
-package com.example.whereyouapp;
+package com.whereyouapp.ufl.edu;
 
 import java.io.IOException;
 import java.util.List;
@@ -128,3 +128,4 @@ public class MapManager
 	}
 */
 }
+
