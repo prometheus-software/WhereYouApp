@@ -1,4 +1,4 @@
-package com.example.whereyouapp;
+package com.whereyouapp.ufl.edu;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -49,3 +49,4 @@ public class AddRouteScreenMessage extends Activity {
 	}
 
 }
+
