@@ -1,4 +1,4 @@
-package com.example.whereyouapp;
+package com.whereyouapp.ufl.edu;
 import android.view.*;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
