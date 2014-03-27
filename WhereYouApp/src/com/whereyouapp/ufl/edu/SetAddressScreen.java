@@ -104,8 +104,8 @@ GooglePlayServicesClient.OnConnectionFailedListener, LocationListener{
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
 		MenuInflater menuInflater = getMenuInflater();
-        menuInflater.inflate(R.menu.set_address_screen, menu);
-        return super.onCreateOptionsMenu(menu);
+        menuInflater.inflate(R.menu.main, menu);
+        return true;
 	}
 
 	public boolean servicesOK()
@@ -310,10 +310,13 @@ GooglePlayServicesClient.OnConnectionFailedListener, LocationListener{
 
 	//This is the method called whenever someone chooses something from the options menu
 	//@Override
-	public boolean onOptionsItemSelected(MenuItem item)
+	/*public boolean onOptionsItemSelected(MenuItem item)
 	{
 		switch(item.getItemId())
 		{
+		case R.id.mapTypeNone:
+			myMap.setMapType(GoogleMap.MAP_TYPE_NONE);
+			break;
 		case R.id.mapTypeNormal:
 			myMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
 			break;
@@ -326,10 +329,12 @@ GooglePlayServicesClient.OnConnectionFailedListener, LocationListener{
 		case R.id.mapTypeHybrid:
 			myMap.setMapType(GoogleMap.MAP_TYPE_HYBRID);
 			break;
+		case R.id.goToCurrentLocation:
+			goToCurrentLocation();
 		}
-
+		
 		return super.onOptionsItemSelected(item);
-	} 
+	} */
 
 	@Override
 	protected void onStop()
