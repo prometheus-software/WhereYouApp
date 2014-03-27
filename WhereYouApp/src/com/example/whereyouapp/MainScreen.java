@@ -18,16 +18,6 @@ public class MainScreen extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main_screen);
-		//Set button colors to red, green, blue, and red, respectively
-		//FUCK YO COLORS
-		/*Button button; 
-		button = (Button) findViewById(R.id.add_route);
-		button.getBackground().setColorFilter(0xFF00FF00, PorterDuff.Mode.MULTIPLY);
-		button = (Button) findViewById(R.id.tutorial);
-		button.getBackground().setColorFilter(0xFF00FFFF, PorterDuff.Mode.MULTIPLY);
-		button = (Button) findViewById(R.id.settings);
-		button.getBackground().setColorFilter(0xFFFFFF00, PorterDuff.Mode.MULTIPLY);
-		*/
 		setdbHandle = new SettingsDataSource(this);
 		setdbHandle.open();
 		setdbHandle.recreateTable();

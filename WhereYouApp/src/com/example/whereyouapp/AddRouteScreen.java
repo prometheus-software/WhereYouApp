@@ -29,6 +29,9 @@ import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import java.io.IOException;
 import java.lang.String;
+
+import com.google.android.gms.maps.model.LatLng;
+
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.view.*;
@@ -352,15 +355,25 @@ public class AddRouteScreen extends Activity {
 		Bundle b = getIntent().getExtras(); 
 		if(b != null) {
 			Address addr = b.getParcelable("com.android.location.Address");
-			//Toast.makeText(this, "Got an address back!!!", Toast.LENGTH_SHORT).show();
 			
-			String locationLine = addr.getAddressLine(0);
-			String addressLine = addr.getAddressLine(1);
-			String cityAndZipLine = addr.getAddressLine(2);
-			completeAddress = locationLine +  " \n" + addressLine + "\n" + cityAndZipLine;
-		  	TextView displayAddress = (TextView) findViewById(R.id.display_address);
-		  	displayAddress.setText("Address Selected");
-	  		
+			//If the address object is null, then the user tapped the map to set a location
+			//This means we got back a LatLng object representing where the map was tapped
+			if(addr == null)
+			{
+				LatLng point = b.getParcelable("com.google.android.gms.maps.model.LatLng");
+				completeAddress = "No address set";
+				TextView displayAddress = (TextView) findViewById(R.id.display_address);
+			  	displayAddress.setText("Location Selected");
+			}
+			else
+			{
+				String locationLine = addr.getAddressLine(0);
+				String addressLine = addr.getAddressLine(1);
+				String cityAndZipLine = addr.getAddressLine(2);
+				completeAddress = locationLine +  " \n" + addressLine + "\n" + cityAndZipLine;
+			  	TextView displayAddress = (TextView) findViewById(R.id.display_address);
+			  	displayAddress.setText("Address Selected");
+			}
 		}
 	  	EditText routeName = (EditText) findViewById(R.id.route_name);
 	  	routeName.setText(userInfo.getString("name", null));

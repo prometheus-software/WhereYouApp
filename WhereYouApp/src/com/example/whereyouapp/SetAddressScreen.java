@@ -14,7 +14,9 @@ import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.GoogleMap.OnMapClickListener;
 import com.google.android.gms.maps.GoogleMap.OnMarkerClickListener;
+import com.google.android.gms.maps.GoogleMap.OnMarkerDragListener;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.CameraPosition;
@@ -38,6 +40,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -47,12 +50,6 @@ GooglePlayServicesClient.ConnectionCallbacks,
 GooglePlayServicesClient.OnConnectionFailedListener, LocationListener{
 
 	private static final int GPS_ERRORDIALOG_REQUEST = 9001;
-	public static final double SEATTLE_LAT=47.60621,
-			SEATTLE_LNG = -122.33207,
-			SYDNEY_LAT = -33.867487,
-			SYDNEY_LNG = 151.20699,
-			NEWYORK_LAT = 40.714353,
-			NEWYORK_LNG = -74.005973;
 	private static final float DEFAULTZOOM = 16;
 	
 	public static double currentLat;
@@ -75,11 +72,9 @@ GooglePlayServicesClient.OnConnectionFailedListener, LocationListener{
 			et.setInputType(InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS);
 			if(initializeMap())
 			{
-				//Toast.makeText(this, "Ready to map! :D", Toast.LENGTH_SHORT).show();
 				myLocationClient = new LocationClient(this, this, this);
 				myLocationClient.connect();
 				//myMap.setMyLocationEnabled(true);
-				//goToLocation(SEATTLE_LAT, SEATTLE_LNG, DEFAULTZOOM);
 			}
 			else
 			{
@@ -90,6 +85,18 @@ GooglePlayServicesClient.OnConnectionFailedListener, LocationListener{
 		{
 			setContentView(R.layout.activity_main);
 		}
+		
+		new AlertDialog.Builder(this)
+	    .setTitle("Setting a Destination")
+	    .setMessage("To set a location you may either:\n\n" +
+	    		"1. Search an address or point of interest. Remember, specificity is key, so for example if you want to find a Best Buy in Gainesville you should search 'Best Buy Gainesville' instead of 'Best Buy'.\n" +
+	    		"\n2. Tap on the map to set a destination. If you press and hold on a marker you can drag it to adjust your destination location. When finished, tap the marker to return.")
+	    .setPositiveButton("Got it!", new DialogInterface.OnClickListener() {
+	        public void onClick(DialogInterface dialog, int which) { 
+	        	
+	        }
+	     })
+	     .show().getWindow().addFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
 		
 	}
 
@@ -130,7 +137,55 @@ GooglePlayServicesClient.OnConnectionFailedListener, LocationListener{
 			//Use support map fragment to support older devices 
 			SupportMapFragment mapFrag = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.myMap);
 			myMap = mapFrag.getMap();
+			destinationIntent = new Intent(this, AddRouteScreen.class);
 			myMap.setMyLocationEnabled(true);
+			myMap.setOnMapClickListener(new OnMapClickListener()
+			{
+				@Override
+				public void onMapClick(LatLng point) 
+				{
+					//Removes previous marker
+					myMap.clear();
+					MarkerOptions options = new MarkerOptions()
+					.title("Destination")
+					.position(point)
+					.draggable(true);
+					Marker marker = myMap.addMarker(options);
+					marker.showInfoWindow();
+				}
+				
+			});
+		
+			myMap.setOnMarkerDragListener(new OnMarkerDragListener()
+			{
+
+				@Override
+				public void onMarkerDrag(Marker arg0) {
+					// TODO Auto-generated method stub
+					
+				}
+
+				@Override
+				public void onMarkerDragEnd(Marker arg0) {
+					// TODO Auto-generated method stub
+					
+				}
+
+				@Override
+				public void onMarkerDragStart(Marker arg0) {
+					// TODO Auto-generated method stub
+					
+				}
+				
+			});
+			
+			myMap.setOnMarkerClickListener(new OnMarkerClickListener()
+			{
+				public boolean onMarkerClick(Marker arg0) {    
+					startAddRouteScreen(SetAddressScreen.destinationIntent, arg0);
+				return true;
+				}
+			});
 		}
 		//Checks if myMap was instantiated 
 		return (myMap != null);
@@ -159,7 +214,6 @@ GooglePlayServicesClient.OnConnectionFailedListener, LocationListener{
 	
 	public void geoLocate(View v) throws IOException
 	{
-		destinationIntent = new Intent(this, AddRouteScreen.class);
 		final int code = 0;
 		String locality = null;
 		hideSoftKeyboard(v);
@@ -200,13 +254,6 @@ GooglePlayServicesClient.OnConnectionFailedListener, LocationListener{
 		.position(new LatLng(lat, lng));
 		Marker marker = myMap.addMarker(options);
 		marker.showInfoWindow();
-		myMap.setOnMarkerClickListener(new OnMarkerClickListener()
-		{
-			public boolean onMarkerClick(Marker arg0) {    
-				startAddRouteScreen(SetAddressScreen.destinationIntent);
-			return true;
-			}
-		});
 		
 		addresses = new CharSequence[4];
 		String addressString[] = new String[4];
@@ -239,6 +286,13 @@ GooglePlayServicesClient.OnConnectionFailedListener, LocationListener{
 			e.printStackTrace(printWriter);
 			String s = writer.toString();
 			Toast.makeText(this, s, Toast.LENGTH_LONG);
+		}
+		
+		//This fixes the case where the map crashes due to no results being returned when you search something
+		if(list == null)
+		{
+			Toast.makeText(this, "Cannot retrieve a result. This may be due to a connection issue.", Toast.LENGTH_LONG).show();
+			return;
 		}
 		
 		if(list.size() == 1)
@@ -385,6 +439,14 @@ GooglePlayServicesClient.OnConnectionFailedListener, LocationListener{
 	public void startAddRouteScreen(Intent destination)
 	{
 		destination.putExtra("com.android.location.Address", list.get(0));
+		startActivity(destination);
+	}
+	
+	public void startAddRouteScreen(Intent destination, Marker marker)
+	{
+		Address addr = null;
+		destination.putExtra("com.android.location.Address", addr);
+		destination.putExtra("com.google.android.gms.maps.model.LatLng", marker.getPosition());
 		startActivity(destination);
 	}
 	
