@@ -2,6 +2,7 @@ package com.whereyouapp.ufl.edu;
 
 import java.util.List;
 
+import android.annotation.SuppressLint;
 import android.app.ActionBar.LayoutParams;
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -10,8 +11,10 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.AdapterView;
@@ -28,6 +31,7 @@ public class SavedRoutesScreen extends Activity {
 	static Context context;
 	static int currentRouteIndex;
 
+	@SuppressLint("NewApi")
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -49,7 +53,12 @@ public class SavedRoutesScreen extends Activity {
 		if(routes == null)
 		{
 			TextView tv = new TextView(this);
-			tv.setText("No routes available. Please add a route.");
+			tv.setTextSize(24);
+			tv.setTextColor(Color.parseColor("#ffffff"));
+			tv.setText("No routes available.\nPlease add a route.");
+			LinearLayout.LayoutParams llp = new LinearLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+		    llp.setMargins(50, 50, 0, 0); // llp.setMargins(left, top, right, bottom);
+		    tv.setLayoutParams(llp);
 			ll.addView(tv);
 		}
 		else

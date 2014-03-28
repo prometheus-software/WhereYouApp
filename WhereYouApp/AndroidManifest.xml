@@ -5,7 +5,7 @@
     android:versionName="1.0" >
 
     <uses-sdk
-        android:minSdkVersion="11"
+        android:minSdkVersion="14"
         android:targetSdkVersion="19" />
     
       <permission 
@@ -29,13 +29,15 @@
 		    android:required="true"/>
 
 <application
+    	android:uiOptions="splitActionBarWhenNarrow"
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@android:style/Theme.Holo" >
+        android:theme="@style/CustomActionBarTheme" >
         <activity
             android:name="com.whereyouapp.ufl.edu.MainSplashScreen"
-            android:label="@string/app_name" >
+            android:label="@string/app_name"
+            android:theme="@android:style/Theme.NoTitleBar" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -51,7 +53,7 @@
         <activity
             android:name="com.whereyouapp.ufl.edu.AddRouteScreen"
             android:label="@string/title_activity_add_route_screen"
-            android:parentActivityName="com.whereyouapp.ufl.edu.MainScreen" >
+            android:parentActivityName="com.whereyouapp.ufl.edu.MainScreen">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.whereyouapp.ufl.edu.MainScreen" />

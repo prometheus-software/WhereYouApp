@@ -14,12 +14,12 @@
         <item
        android:id="@+id/mapTypeTerrain"
        android:orderInCategory="100"
-       android:showAsAction="withText"
+       android:showAsAction="ifRoom|withText"
        android:title="Terrain"/> 
         <item
        android:id="@+id/mapTypeHybrid"
        android:orderInCategory="100"
-       android:showAsAction="withText"
+       android:showAsAction="ifRoom|withText"
        android:title="Hybrid"/> 
 
 </menu>

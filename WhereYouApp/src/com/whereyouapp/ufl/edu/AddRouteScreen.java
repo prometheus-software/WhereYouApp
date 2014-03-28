@@ -99,7 +99,7 @@ public class AddRouteScreen extends Activity {
 		
 		timesClicked = 0;
 		
-		//Creates 
+		/*//Creates 
 		((Button)findViewById(R.id.contact_list_button)).setOnClickListener( new OnClickListener() {
 	        @Override
 	        public void onClick(View v) {
@@ -109,9 +109,18 @@ public class AddRouteScreen extends Activity {
 	            intent.setType(ContactsContract.CommonDataKinds.Phone.CONTENT_ITEM_TYPE);
 	            startActivityForResult(intent, 1); 	            
 	        } 
-	    });
+	    });*/
 	}
 
+	public void selectContacts(MenuItem menuItem)
+	{
+		timesClicked++;
+    	//Toast.makeText(this.getBaseContext(), "Times clicked: " + timesClicked, Toast.LENGTH_LONG).show();
+	    Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+        intent.setType(ContactsContract.CommonDataKinds.Phone.CONTENT_ITEM_TYPE);
+        startActivityForResult(intent, 1); 	      
+	}
+	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
@@ -213,7 +222,7 @@ public class AddRouteScreen extends Activity {
 	                @Override
 	                public void onItemSelected(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
 	                    // TODO Auto-generated method stub
-	                    Toast.makeText(getBaseContext(), "You have selected " + arg0.getItemAtPosition(arg2).toString(), Toast.LENGTH_SHORT).show();
+	                   // Toast.makeText(getBaseContext(), "You have selected " + arg0.getItemAtPosition(arg2).toString(), Toast.LENGTH_SHORT).show();
 	                }
 	                @Override
 	                public void onNothingSelected(AdapterView<?> arg0) {
@@ -289,7 +298,7 @@ public class AddRouteScreen extends Activity {
 		//Start AddRouteScreenMessage or MapScreen (whatever comes next)
 		startActivity(intent);
 	}
-	public void onRestart(View view)
+	public void onRestart(MenuItem menuItem)
 	{
 		//Clear sharedPreferences info
 		editor = userInfo.edit();
@@ -405,7 +414,7 @@ public class AddRouteScreen extends Activity {
 	    super.onPause();
 	}
 	
-	public void saveRoute(View v)
+	public void saveRoute(MenuItem menuItem)
 	{
 		//Again, clear shared preferences
 		timesClicked = 0;

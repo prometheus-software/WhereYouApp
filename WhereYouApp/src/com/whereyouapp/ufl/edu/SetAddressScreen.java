@@ -15,10 +15,12 @@ import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.GoogleMap.OnMapClickListener;
+import com.google.android.gms.maps.GoogleMap.OnMapLongClickListener;
 import com.google.android.gms.maps.GoogleMap.OnMarkerClickListener;
 import com.google.android.gms.maps.GoogleMap.OnMarkerDragListener;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
@@ -139,16 +141,17 @@ GooglePlayServicesClient.OnConnectionFailedListener, LocationListener{
 			myMap = mapFrag.getMap();
 			destinationIntent = new Intent(this, AddRouteScreen.class);
 			myMap.setMyLocationEnabled(true);
-			myMap.setOnMapClickListener(new OnMapClickListener()
+			myMap.setOnMapLongClickListener(new OnMapLongClickListener()
 			{
 				@Override
-				public void onMapClick(LatLng point) 
+				public void onMapLongClick(LatLng point) 
 				{
 					//Removes previous marker
 					myMap.clear();
 					MarkerOptions options = new MarkerOptions()
 					.title("Destination")
 					.position(point)
+					.icon(BitmapDescriptorFactory.fromResource(R.drawable.marker))
 					.draggable(true);
 					Marker marker = myMap.addMarker(options);
 					marker.showInfoWindow();
@@ -251,6 +254,7 @@ GooglePlayServicesClient.OnConnectionFailedListener, LocationListener{
 		goToLocation(lat, lng, DEFAULTZOOM);
 		MarkerOptions options = new MarkerOptions()
 		.title("Destination (tap to confirm)")
+		.icon(BitmapDescriptorFactory.fromResource(R.drawable.marker))
 		.position(new LatLng(lat, lng));
 		Marker marker = myMap.addMarker(options);
 		marker.showInfoWindow();
@@ -277,6 +281,7 @@ GooglePlayServicesClient.OnConnectionFailedListener, LocationListener{
 		    }
 		});
 		builder.show();
+		
 
 		}
 		catch(Exception e)

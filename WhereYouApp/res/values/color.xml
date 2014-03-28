@@ -6,5 +6,6 @@
    	<color name = "red">#FF4444</color>
    	<color name = "orange">#FFBB33</color>
    	<color name = "light_blue">#ADCDD3</color>
-   	<color name = "cool_blue">#33B5E5</color>
+   	<color name = "cool_blue">#4194E8</color>
+   	<color name = "black">#000000</color>
 </resources>
