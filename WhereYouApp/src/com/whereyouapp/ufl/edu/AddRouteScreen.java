@@ -477,21 +477,43 @@ public class AddRouteScreen extends Activity {
 		mBuilder.setDefaults(Notification.DEFAULT_ALL);
 		mNotificationManager.notify(0, mBuilder.build());
 		Bundle b = getIntent().getExtras(); 
+		double[] coord;
 		if(b != null) 
 		{
 			theAddress = b.getParcelable("com.android.location.Address");
-			double lat = theAddress.getLatitude();
-			double lng = theAddress.getLongitude();
-			double[] coord = new double[2];
-			coord[0] = lat;
-			coord[1] = lng;
-			
-			if (error)
+			//If the address is null, then the user tapped the map to set a destination
+			if(theAddress == null)
 			{
-				 Toast.makeText(this, "Error with phone number; fix and save again.", Toast.LENGTH_LONG).show();
-				 Intent intent = new Intent (this, AddRouteScreen.class);
-				 startActivity(intent);
+				LatLng point = b.getParcelable("com.google.android.gms.maps.model.LatLng");
+				double lat = point.latitude;
+				double lng = point.longitude;
+				coord = new double[2];
+				coord[0] = lat;
+				coord[1] = lng;
+				
+				if (error)
+				{
+					 Toast.makeText(this, "Error with phone number; fix and save again.", Toast.LENGTH_LONG).show();
+					 Intent intent = new Intent (this, AddRouteScreen.class);
+					 startActivity(intent);
+				}
 			}
+			else
+			{
+				double lat = theAddress.getLatitude();
+				double lng = theAddress.getLongitude();
+				coord = new double[2];
+				coord[0] = lat;
+				coord[1] = lng;
+				
+				if (error)
+				{
+					 Toast.makeText(this, "Error with phone number; fix and save again.", Toast.LENGTH_LONG).show();
+					 Intent intent = new Intent (this, AddRouteScreen.class);
+					 startActivity(intent);
+				}
+			}
+			
 			dbHandle.open();
 			dbHandle.insertRoute(new Route(name, coord, phoneNumbers, 0.25, theMessage, addr));
 			dbHandle.close();
@@ -512,7 +534,7 @@ public class AddRouteScreen extends Activity {
 	        	Intent i = new Intent(getBaseContext(), AddRouteScreen.class);
         		startActivity(i);
 	        }
-	     });
+	     }).show();
 		
 	}
 }
