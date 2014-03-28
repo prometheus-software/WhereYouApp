@@ -11,24 +11,6 @@
     	android:paddingLeft = "16dp"
     	android:paddingRight = "16dp"
     	android:paddingBottom = "16dp">
-        <Button
-            android:id="@+id/save"
-            android:layout_width="100dp"
-            android:layout_height="20dp"
-            android:layout_alignParentBottom = "true"
-            android:layout_alignParentLeft="true"
-            android:onClick="saveRoute"
-            android:background="@drawable/rounded_button"
-            android:text="@string/save" />
-        <Button
-            android:id="@+id/cancel"
-            android:layout_width="100dp"
-            android:layout_height="20dp"
-            android:layout_alignParentBottom = "true"
-            android:layout_alignParentRight="true"
-            android:onClick="onRestart"
-            android:background="@drawable/rounded_button"
-            android:text="@string/cancel" />
         <EditText
             android:id="@+id/enter_contact"
             android:layout_width="match_parent"
@@ -100,13 +82,5 @@
             android:ems="10"
             android:textColorHint="#FFFFFF"
             android:hint="@string/enter_contact" /> 
-        <Button
-            android:id="@+id/contact_list_button"
-            android:layout_width="100dp"
-            android:layout_height="20dp"
-            android:layout_alignParentBottom ="true"
-            android:layout_centerHorizontal ="true"
-            android:background="@drawable/rounded_button"
-            android:text="@string/contact_list" />
 </RelativeLayout>
 </ScrollView>
