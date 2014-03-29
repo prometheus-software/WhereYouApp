@@ -10,7 +10,7 @@
     <!-- ActionBar styles -->
     <style name="MyActionBar"
            parent="@android:style/Widget.Holo.ActionBar">
-        <item name="android:background">#1A7CE8</item>
-        <item name="android:backgroundSplit">#1A7CE8</item>
+        <item name="android:background">@drawable/actionbar_bg</item>
+        <item name="android:backgroundSplit">@drawable/actionbar_bg</item>
     </style>
 </resources>
