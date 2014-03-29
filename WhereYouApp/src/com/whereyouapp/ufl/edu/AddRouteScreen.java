@@ -380,7 +380,7 @@ public class AddRouteScreen extends Activity {
 		editText.setText("", TextView.BufferType.EDITABLE);
 		editText = (EditText) findViewById(R.id.enter_contact6);
 		editText.setText("", TextView.BufferType.EDITABLE);
-		Intent intent = new Intent (this, MainScreen.class);
+		Intent intent = new Intent (this, SavedRoutesScreen.class);
 		startActivity(intent);
 	}
 	
@@ -549,7 +549,7 @@ public class AddRouteScreen extends Activity {
 		{
 			mBuilder.setContentText("Your text message to " + phoneNum + " and " + phoneNum2 + " has been sent.");
 		}
-		Intent resultIntent = new Intent (this, MainScreen.class);
+		Intent resultIntent = new Intent (this, SavedRoutesScreen.class);
 		TaskStackBuilder stackBuilder = TaskStackBuilder.create(this);
 		stackBuilder.addParentStack(MainScreen.class);
 		stackBuilder.addNextIntent(resultIntent);
