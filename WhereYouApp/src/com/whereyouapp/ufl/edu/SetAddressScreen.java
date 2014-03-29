@@ -317,21 +317,14 @@ GooglePlayServicesClient.OnConnectionFailedListener, LocationListener{
 	//@Override
 	public boolean onOptionsItemSelected(MenuItem item)
 	{
-		switch(item.getItemId())
-		{
-		case R.id.mapTypeNormal:
+		if(item.getItemId() == R.id.mapTypeNormal)
 			myMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
-			break;
-		case R.id.mapTypeSatellite:
+		else if(item.getItemId() == R.id.mapTypeSatellite)
 			myMap.setMapType(GoogleMap.MAP_TYPE_SATELLITE);
-			break;
-		case R.id.mapTypeTerrain:
+		else if(item.getItemId() == R.id.mapTypeTerrain)
 			myMap.setMapType(GoogleMap.MAP_TYPE_TERRAIN);
-			break;
-		case R.id.mapTypeHybrid:
+		else if(item.getItemId() == R.id.mapTypeHybrid)
 			myMap.setMapType(GoogleMap.MAP_TYPE_HYBRID);
-			break;
-		}
 
 		return super.onOptionsItemSelected(item);
 	} 
