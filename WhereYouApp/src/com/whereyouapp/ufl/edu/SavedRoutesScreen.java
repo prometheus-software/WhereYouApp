@@ -15,6 +15,8 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.AdapterView;
@@ -26,10 +28,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class SavedRoutesScreen extends Activity {
-	static RouteDataSource dbHandle;
 	static List<Route> routes;
 	static Context context;
 	static int currentRouteIndex;
+	public static RouteDataSource dbHandle;
+	public static SettingsDataSource setdbHandle;
 
 	@SuppressLint("NewApi")
 	@Override
@@ -38,8 +41,15 @@ public class SavedRoutesScreen extends Activity {
 		setContentView(R.layout.default_linear_layout);
 		context = this;
 
+		setdbHandle = new SettingsDataSource(this);
+		setdbHandle.open();
+		setdbHandle.recreateTable();
+	
+		dbHandle = new RouteDataSource(this);
+		dbHandle.open();
+		//dbHandle.recreateTable();
+		
 		//Build the layout from SQLite database query
-		dbHandle = MainScreen.dbHandle;
 		routes = dbHandle.getAllRoutes();
 
 
@@ -92,6 +102,13 @@ public class SavedRoutesScreen extends Activity {
 	public void onPause()
 	{
 		super.onPause();
+	}
+	
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		// Inflate the menu; this adds items to the action bar if it is present.
+		getMenuInflater().inflate(R.menu.saved_routes_screen, menu);
+		return true;
 	}
 
 	public void onResume()
@@ -182,4 +199,37 @@ public class SavedRoutesScreen extends Activity {
 		finish();
 		startActivity(intent);
 	}
+	
+	public void addRoute(MenuItem item)
+	{
+		//Go to AddRouteScreen
+		Intent intent = new Intent(this, AddRouteScreen.class);
+		startActivity(intent);
+	}
+	public void toSettings(MenuItem item)
+	{
+		//Go to CreditsScreen
+		Intent intent = new Intent(this, SettingsScreen.class);
+		startActivity(intent);
+	}
+	
+	public void displayDialog (MenuItem item)
+	{
+		new AlertDialog.Builder(this)
+	    .setTitle("How to use Where You App?")
+	    .setMessage("1. Click on the Add Route button at the top of the main screen." +
+	    		"\n\n2. On the AddRouteScreen, put in the following information: route name, address (by picking an address on the dialog box results from the SetAddressScreen or clicking on the map), target radius (in miles or kilometers), phone numbers (you can also use the Contacts buttons for Contacts integration), and text message." + 
+	    		"\n\n3. Hit the save button and the route will be saved to the main screen. By clicking on a saved route on the main screen, you can toggle it active or delete it." +
+	    		"\n\n4. Your contact will be notified as soon as your GPS coordinates are within the target radius of the destination GPS coordinates." +
+	    		"\n\n5. Set up your threshold battery level in the Settings Screen (via the Settings button). When you're on a route and your battery level falls below that battery level, the contacts for the route will be notified of your location before your phone dies." +
+	    		"\n\n6. Drive/commute safely!\n")
+	    .setPositiveButton("Got it!", new DialogInterface.OnClickListener() {
+	        public void onClick(DialogInterface dialog, int which) { 
+
+	        }
+	     })
+	     .show().getWindow().addFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
+	}
 }
+
+

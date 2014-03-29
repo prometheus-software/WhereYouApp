@@ -22,7 +22,7 @@ public class MainSplashScreen extends Activity {
                     sleep(3000);
                      
                     // After 2 seconds redirect to another intent
-                    Intent i=new Intent(getBaseContext(), MainScreen.class);
+                    Intent i=new Intent(getBaseContext(), SavedRoutesScreen.class);
                     startActivity(i);
                      
                     //Remove activity

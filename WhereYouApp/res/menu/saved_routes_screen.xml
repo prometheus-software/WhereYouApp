@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/savedRoutesMenu" >
+	  <item
+        android:id="@+id/add_route"
+        android:orderInCategory="100"
+        android:showAsAction="ifRoom|withText"
+        android:title="Add Route"
+        android:onClick="addRoute"/>    
+       <item
+       android:id="@+id/help"
+       android:orderInCategory="100"
+       android:showAsAction="ifRoom|withText"
+       android:title="Help"
+       android:onClick="displayDialog"/> 
+        <item
+       android:id="@+id/settings"
+       android:orderInCategory="100"
+       android:showAsAction="ifRoom|withText"
+       android:title="Settings"
+       android:onClick="toSettings"/> 
+
+</menu>
