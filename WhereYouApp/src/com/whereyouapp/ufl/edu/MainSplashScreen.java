@@ -19,8 +19,7 @@ public class MainSplashScreen extends Activity {
                  
                 try {
                     // Thread will sleep for 2 seconds
-                	// TEN SECONDS TO ADMIRE HOW SEXY OUR LOGO IS
-                    sleep(10000);
+                    sleep(3000);
                      
                     // After 2 seconds redirect to another intent
                     Intent i=new Intent(getBaseContext(), MainScreen.class);
