@@ -95,6 +95,7 @@ public class SettingsScreen extends Activity {
 			Toast.makeText(this, "Error with battery level", Toast.LENGTH_LONG).show();
 		}
 		setdbHandle.deleteBatterySetting();
+		//note get value from on/off button on settings screen on input in this method...
 		setdbHandle.insertBatteryLevel(batteryLevel, false);
 		startActivity(intent);
 	}
