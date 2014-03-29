@@ -1,7 +1,4 @@
 package com.whereyouapp.ufl.edu;
-
-package com.whereyouapp.ufl.edu;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 
