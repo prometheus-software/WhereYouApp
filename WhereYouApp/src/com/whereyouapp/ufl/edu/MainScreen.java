@@ -21,6 +21,10 @@ public class MainScreen extends Activity {
 		setdbHandle = new SettingsDataSource(this);
 		setdbHandle.open();
 		setdbHandle.recreateTable();
+	//*****NOTE. delete this text after running once...
+		setdbHandle.dropBatteryTable();
+		setdbHandle.recreateTable();
+	//
 
 		dbHandle = new RouteDataSource(this);
 		dbHandle.open();

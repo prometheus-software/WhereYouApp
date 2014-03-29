@@ -14,11 +14,13 @@ public class SettingsDBHelper extends SQLiteOpenHelper {
 
 	public static final String TABLE_NAME = "settings";
 	public static final String COLUMN_ID = "settingsId";
+	public static final String RUNNING = "running";
 	public static final String BATTERY_LVL = "savedBatteryLevel";
 
 	private static final String DATABASE_CREATION = 
 			"CREATE TABLE " + TABLE_NAME + " (" + 
 			COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+			RUNNING + " INTEGER, " +
 			BATTERY_LVL + " INTEGER" +
 			")";
 
