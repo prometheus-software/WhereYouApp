@@ -180,6 +180,8 @@ public class AddRouteScreen extends Activity {
 	    	EditText editText = (EditText) findViewById(R.id.enter_contact);
 	    	editText.setText(number.toString() + "", TextView.BufferType.EDITABLE);
 	    	contactChosen1 = number;
+	    	contactChosen1 = contactChosen1.replace("-","");
+	    	contactChosen1 = contactChosen1.replace("+","");
 	    	
 	    }
 	    else if (whichContact == 2)
@@ -187,6 +189,8 @@ public class AddRouteScreen extends Activity {
 	    	EditText editText = (EditText) findViewById(R.id.enter_contact6);
 	    	editText.setText(number.toString() + "", TextView.BufferType.EDITABLE);
 	    	contactChosen2 = number;
+	    	contactChosen2 = contactChosen1.replace("-","");
+	    	contactChosen2 = contactChosen1.replace("+","");
 	    }
 	    else {}
 	}
