@@ -95,7 +95,7 @@ public class SettingsScreen extends Activity {
 			Toast.makeText(this, "Error with battery level", Toast.LENGTH_LONG).show();
 		}
 		setdbHandle.deleteBatterySetting();
-		setdbHandle.insertBatteryLevel(batteryLevel);
+		setdbHandle.insertBatteryLevel(batteryLevel, false);
 		startActivity(intent);
 	}
 	public void cancelSettings (View view)
