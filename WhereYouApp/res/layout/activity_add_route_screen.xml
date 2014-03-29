@@ -93,7 +93,23 @@
             android:textColorHint="#FFFFFF"
             android:hint="@string/enter_contact" />
 
-      
+        <ImageButton
+            android:id="@+id/contact_list2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignRight="@+id/enter_contact6"
+            android:layout_alignTop="@+id/enter_contact6"
+            android:background="@android:color/transparent"
+            android:src="@drawable/contacts_button" />
+
+        <ImageButton
+            android:id="@+id/contact_list1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignRight="@+id/enter_contact"
+            android:layout_below="@+id/enter_radius"
+            android:background="@android:color/transparent"
+            android:src="@drawable/contacts_button" />
  
 </RelativeLayout>
 </ScrollView>

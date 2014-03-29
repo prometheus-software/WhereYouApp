@@ -7,12 +7,12 @@
         android:showAsAction="ifRoom|withText"
         android:title="Save"
         android:onClick="saveRoute"/>    
-       <item
+       <!--  <item
        android:id="@+id/contacts"
        android:orderInCategory="100"
        android:showAsAction="ifRoom|withText"
        android:title="Contacts"
-       android:onClick="selectContacts"/> 
+       android:onClick="selectContacts"/> -->
         <item
        android:id="@+id/cancel"
        android:orderInCategory="100"
