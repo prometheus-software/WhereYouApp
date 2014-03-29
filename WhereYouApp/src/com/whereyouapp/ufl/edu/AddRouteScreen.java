@@ -174,7 +174,7 @@ public class AddRouteScreen extends Activity {
 	}
 
 	public void showSelectedNumber(int type, String number) {
-	    Toast.makeText(this, whichContact +  ": " + number, Toast.LENGTH_LONG).show();
+	    //Toast.makeText(this, whichContact +  ": " + number, Toast.LENGTH_LONG).show();
 	    if (whichContact == 1)
 	    {
 	    	EditText editText = (EditText) findViewById(R.id.enter_contact);
