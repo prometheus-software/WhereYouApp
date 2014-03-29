@@ -39,7 +39,6 @@ public class SettingsScreen extends Activity {
 		setContentView(R.layout.activity_settings_screen);
 
 		setdbHandle = MainScreen.setdbHandle;
-
 		spinner1 = (Spinner) findViewById(R.id.battery_level);
 		List<String> list = new ArrayList<String>();
 		list.add("Select a threshold battery level percentage for notification purposes (in %)");
@@ -85,7 +84,7 @@ public class SettingsScreen extends Activity {
 	}
 	public void saveMySettings (View view)
 	{
-		Intent intent = new Intent(this, MainScreen.class);
+		Intent intent = new Intent(this, SavedRoutesScreen.class);
 		try
 		{
 			batteryLevel = Integer.parseInt(String.valueOf(spinner1.getSelectedItem()));
@@ -102,7 +101,7 @@ public class SettingsScreen extends Activity {
 	public void cancelSettings (View view)
 	{
 		spinner1.setSelection(0);
-		Intent intent = new Intent (this, MainScreen.class);
+		Intent intent = new Intent (this, SavedRoutesScreen.class);
 		startActivity(intent);
 	}
 }
