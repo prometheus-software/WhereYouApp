@@ -45,6 +45,6 @@
     <string name="battery_messenger">Low Battery Messenger</string>
     <string name="toggle_button">Toggle Button</string>
     <string name="distance_text">Send Message When Within:</string>
-    string name="kilometers">Kilometers</string>
+    <string name="kilometers">Kilometers</string>
     <string name="miles">Miles</string>
 </resources>
