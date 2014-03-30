@@ -23,23 +23,33 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.CompoundButton;
+import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.EditText;
 import android.widget.TextView.BufferType;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.ToggleButton;
 public class SettingsScreen extends Activity {
 	private Spinner spinner1;
 	//changed batteryLevel to an int value
 	private int batteryLevel;
+	private ToggleButton batteryToggle;
 	public int timesClicked;
 	public static SettingsDataSource setdbHandle;
 	public int savedBatteryLevel;
+	public boolean savedBatteryManager;
 	private static final String TAG = "WhereYouApp";
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_settings_screen);
+		
 		setdbHandle = SavedRoutesScreen.setdbHandle;
+		batteryToggle = (ToggleButton) findViewById(R.id.toggle_battery_messenger);
+		
+		
+		
 		spinner1 = (Spinner) findViewById(R.id.battery_level);
 		List<String> list = new ArrayList<String>();
 		list.add("Select a threshold battery level percentage for notification purposes (in %)");
@@ -52,6 +62,9 @@ public class SettingsScreen extends Activity {
 		dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 		spinner1.setAdapter(dataAdapter);
 		addListenerOnSpinnerItemSelection();
+		
+		
+		
 		//if the settings database holds a battery threshold level set
 		//the batter lvl spinner... "spinner1" to that level
 		//values are hard coded...
@@ -59,6 +72,8 @@ public class SettingsScreen extends Activity {
 			try
 			{
 				savedBatteryLevel = setdbHandle.getSavedBatteryLevel();
+				savedBatteryManager = setdbHandle.isRunning();
+				
 			}
 			catch (Exception e)
 			{
@@ -77,7 +92,15 @@ public class SettingsScreen extends Activity {
 				if(setdbHandle.getSavedBatteryLevel()==25)
 					spinner1.setSelection(5);
 			}
+			
+			batteryToggle.setChecked(savedBatteryManager);
+			spinner1.setEnabled(batteryToggle.isChecked());
 		}
+		batteryToggle.setOnCheckedChangeListener(new OnCheckedChangeListener() {
+	        public void onCheckedChanged(CompoundButton toggleButton, boolean isChecked) {
+	            setSpinnerAbled(toggleButton) ;
+	        }
+	    }) ;
 	}
 
 	@Override
@@ -90,12 +113,24 @@ public class SettingsScreen extends Activity {
 	{
 		spinner1.setOnItemSelectedListener(new CustomOnItemSelectedListener ());
 	}
+	
+	public void setSpinnerAbled(CompoundButton toggleButton) {
+		
+			spinner1.setEnabled(toggleButton.isChecked());
+		
+			
+			
+	}
+	
+	
+		
 	public void saveMySettings (MenuItem item)
 	{
 		Intent intent = new Intent(this, SavedRoutesScreen.class);
 		try
 		{
 			batteryLevel = Integer.parseInt(String.valueOf(spinner1.getSelectedItem()));
+			savedBatteryManager = batteryToggle.isChecked();
 		}
 		catch (NumberFormatException e)
 		{
@@ -103,7 +138,7 @@ public class SettingsScreen extends Activity {
 		}
 		setdbHandle.deleteBatterySetting();
 		//note get value from on/off button on settings screen on input in this method...
-		setdbHandle.insertBatteryLevel(batteryLevel, false);
+		setdbHandle.insertBatteryLevel(batteryLevel, savedBatteryManager);
 		startActivity(intent);
 	}
 	public void cancelSettings (MenuItem item)
