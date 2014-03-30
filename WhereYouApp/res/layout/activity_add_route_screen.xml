@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="utf-8"?>
 <ScrollView
   xmlns:android="http://schemas.android.com/apk/res/android"
   android:layout_width="fill_parent"
@@ -8,68 +7,36 @@
    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:gravity="top"
     	android:paddingLeft = "16dp"
     	android:paddingRight = "16dp"
-    	android:paddingBottom = "16dp"> 
-        <EditText
-            android:id="@+id/enter_contact"
+    	android:paddingBottom = "16dp"
+    	android:paddingTop="16dp" > 
+    	
+    	<EditText
+            android:id="@+id/route_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
-            android:layout_below="@+id/enter_radius"
-            android:ems="10"
-            android:textColorHint="#FFFFFF"
-            android:hint="@string/enter_contact" />
-        <EditText
-            android:id="@+id/enter_message"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_below="@+id/enter_contact6"
-            android:layout_marginTop="24dp"
-            android:layout_marginBottom="24dp"
-            android:ems="10"
-            android:textColorHint="#FFFFFF"
-            android:hint="@string/enter_message" />
-        <Spinner
-            android:id="@+id/enter_radius"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_below="@+id/km_mile"
+            android:layout_alignParentTop="true"
             android:layout_marginTop="20dp"
-            android:hint="@string/enter_radius"
-            android:prompt="@string/enter_radius" />
-		<RadioGroup
-		    android:id = "@+id/km_mile"
-		    android:layout_width = "wrap_content"
-		    android:layout_height = "wrap_content"
-		    android:layout_below = "@+id/display_address" >
-		    <RadioButton
-		        android:id = "@+id/mile"
-		        android:layout_width = "wrap_content"
-		        android:layout_height = "wrap_content"
-		        android:text = "Miles"
-		        android:checked = "true"
-		        android:onClick = "onRadioButtonClicked" />
-		    <RadioButton 
-		        android:id = "@+id/km"
-		        android:layout_width = "wrap_content"
-		        android:layout_height = "wrap_content"
-		        android:text = "Kilometers"
-		        android:onClick = "onRadioButtonClicked" />
-		</RadioGroup>
-        <TextView
+            android:ems="10"
+            android:textColorHint="#FFFFFF"
+            android:hint="@string/route_name">
+    	</EditText>
+    	 
+    	 <TextView
             android:id="@+id/display_address"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_below="@+id/route_name"
-            android:layout_marginTop="38dp"
+            android:layout_marginTop="25dp"
             android:paddingLeft="8dp"
             android:text="@string/no_address"
             android:textAppearance="?android:attr/textAppearanceLarge" />
-        <Button
+    	 
+    	 <Button
             android:id="@+id/set_address"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -79,26 +46,51 @@
             android:onClick="startMapActivity"
             android:background="@drawable/rounded_button"
             android:text="@string/set_address" />
+    	 
+       <TextView
+            android:id="@+id/distance_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/route_name"
+            android:layout_below="@+id/display_address"
+            android:layout_marginTop="25dp"
+            android:paddingLeft="8dp"
+            android:text="@string/distance_text"
+            android:textAppearance="?android:attr/textAppearanceLarge"/>
+       
+       <Spinner
+            android:id="@+id/enter_radius"
+            android:layout_width="70dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:paddingRight="15dp"            
+            android:layout_below="@+id/distance_text"
+            android:layout_centerVertical="true"
+            android:hint="@string/enter_radius"
+            android:prompt="@string/enter_radius" />
+    	 
         <EditText
-            android:id="@+id/route_name"
+            android:id="@+id/enter_contact"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginTop="37dp"
+            android:layout_below="@+id/enter_radius"
+            android:layout_marginTop="20dp"
             android:ems="10"
             android:textColorHint="#FFFFFF"
-            android:hint="@string/route_name" />
+            android:hint="@string/enter_contact" />
+        
         <EditText
             android:id="@+id/enter_contact6"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
+            android:layout_alignLeft="@+id/enter_contact"
             android:layout_below="@+id/enter_contact"
-            android:layout_marginTop="24dp"
+            android:layout_marginTop="25dp"
             android:ems="10"
             android:textColorHint="#FFFFFF"
             android:hint="@string/enter_contact" />
+        
         <ImageButton
             android:id="@+id/contact_list2"
             android:contentDescription="@string/CBdescription"
@@ -108,15 +100,59 @@
             android:layout_alignTop="@+id/enter_contact6"
             android:background="@android:color/transparent"
             android:src="@drawable/contacts_button" />
+       
         <ImageButton
             android:id="@+id/contact_list1"
             android:contentDescription="@string/CBdescription"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignRight="@+id/enter_contact"
-            android:layout_below="@+id/enter_radius"
+            android:layout_alignTop="@+id/enter_contact"
             android:background="@android:color/transparent"
             android:src="@drawable/contacts_button" />
-</RelativeLayout>
+        
+        <EditText                              
+            android:id="@+id/enter_message"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/enter_contact6"
+            android:layout_below="@+id/enter_contact6"
+            android:layout_marginTop="25dp"
+            android:ems="10"
+            android:textColorHint="#FFFFFF"
+            android:hint="@string/enter_message" />
+       
+	<RadioGroup
+	    android:id = "@+id/km_mile"
+	    android:orientation="horizontal"
+	    android:layout_width = "match_parent"
+	    android:layout_height = "wrap_content"
+	    android:layout_alignLeft="@+id/enter_contact"
+            android:layout_alignTop="@+id/enter_radius"
+            android:layout_below="@+id/distance_text"
+            android:layout_marginLeft="75dp">
+
+		<RadioButton
+			android:id = "@+id/mile"
+		        android:layout_width = "wrap_content"
+		        android:layout_height = "wrap_content"
+		        android:layout_marginBottom="0dp"
+                	android:layout_marginLeft="15dp"
+		        android:text = "@string/miles"		        
+		        android:checked = "true"
+		        android:onClick = "onRadioButtonClicked" />
+		<RadioButton 
+		        android:id = "@+id/km"
+		        android:layout_width = "wrap_content"
+		        android:layout_height = "wrap_content"
+		        android:layout_marginLeft="10dp"
+		        android:text = "@string/kilometers"
+		        android:onClick = "onRadioButtonClicked" />
+	</RadioGroup>
+        
+        
+        
+        
+  </RelativeLayout>
 </ScrollView>
 
