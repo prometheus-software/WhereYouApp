@@ -170,19 +170,27 @@ public class AddRouteScreen extends Activity {
 	public void onRadioButtonClicked (View view)
 	{
 		boolean checked = ((RadioButton) view).isChecked();
-		switch (view.getId())
-		{
-			case R.id.mile:
-				if(checked)
-				{
-					factor = 1;
-				}
-				break;
-			case R.id.km:
-				if (checked)
-				{
-					factor = .621371;
-				}
+//		switch (view.getId())
+//		{
+//			case R.id.mile:
+//				if(checked)
+//				{
+//					factor = 1;
+//				}
+//				break;
+//			case R.id.km:
+//				if (checked)
+//				{
+//					factor = .621371;
+//				}
+//		}
+		if(view.getId() == R.id.mile){
+			if(checked)
+				factor = 1;
+		}
+		else if(view.getId() == R.id.km){
+			if(checked)
+				factor = 0.621371;
 		}
 	}
 	public void selectContacts(MenuItem menuItem)
