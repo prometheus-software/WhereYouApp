@@ -74,7 +74,7 @@ public class AddRouteScreen extends Activity {
 		editText.setText("", TextView.BufferType.EDITABLE);
 		spinner2 = (Spinner) findViewById(R.id.enter_radius);
 		List <String> list2 = new ArrayList<String>();                    
-		list2.add("Choose an alert distance");
+		//list2.add("Choose an alert distance");
 		list2.add(".10");
 		list2.add(".25");
 		list2.add(".5");
@@ -98,16 +98,16 @@ public class AddRouteScreen extends Activity {
 		contactChosen1 = "";
 		contactChosen2 = "";
 
-		
+
 		dbHandle = MainScreen.dbHandle;
-		
+
 
 		dbHandle = new RouteDataSource(this);
 		dbHandle.open();
-		
+
 		whichContact = 0;
 		mode = 0;
-		
+
 		//Creates 
 		((ImageButton)findViewById(R.id.contact_list1)).setOnClickListener( new OnClickListener() {
 	        @Override
@@ -137,7 +137,7 @@ public class AddRouteScreen extends Activity {
 	            startActivityForResult(intent, 1); 	            
 	        } 
 	    });
-		
+
 		((ImageButton)findViewById(R.id.contact_list2)).setOnClickListener( new OnClickListener() {
 	        @Override
 	        public void onClick(View v) {
@@ -201,14 +201,14 @@ public class AddRouteScreen extends Activity {
         intent.setType(ContactsContract.CommonDataKinds.Phone.CONTENT_ITEM_TYPE);
         startActivityForResult(intent, 1); 	      
 	}
-	
+
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.add_route_screen, menu);
 		return true;
 	}
-	
+
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 	    if (data != null) {
@@ -266,7 +266,7 @@ public class AddRouteScreen extends Activity {
 		// Send the input string to the DisplayMessageActivity using an intent
 
 		Log.d(TAG, "sendMessage");
-		
+
 		Intent intent = new Intent(this, AddRouteScreenMessage.class);
 		EditText editText = (EditText) findViewById(R.id.route_name);
 		String message = "Your route name is " + editText.getText().toString() + ".\n";
@@ -339,31 +339,31 @@ public class AddRouteScreen extends Activity {
 		Intent intent = new Intent (this, SavedRoutesScreen.class);
 		startActivity(intent);
 	}
-	
+
 	public void startMapActivity(View v)
 	{
 		//Save the state of the screen
 	    EditText routeName = (EditText) findViewById(R.id.route_name);
 	    String route = routeName.getText().toString();
 	    editor.putString("name", route);
-	    
+
 	    EditText message = (EditText) findViewById(R.id.enter_message);
 	    String theMessage = message.getText().toString();
 	    editor.putString("message", theMessage);
-	    
+
 	    //Note that I'm storing this as a string and not a numeric value
 	    EditText phone  = (EditText) findViewById(R.id.enter_contact);
 	    String phoneNum = phone.getText().toString();
 	    editor.putString("phone", phoneNum);
-	    
+
 	    Spinner radiusSelector = (Spinner) findViewById(R.id.enter_radius);
 	    int radiusCode = radiusSelector.getSelectedItemPosition();
 	    editor.putInt("radius", radiusCode);
-	    
+
 	    RadioGroup group = (RadioGroup) findViewById(R.id.km_mile);
 	    int choice = group.getCheckedRadioButtonId();
 	    editor.putInt("choice", choice);
-	    
+
 	    EditText phone2 = (EditText) findViewById(R.id.enter_contact6);
 	    String phoneNum2 = phone2.getText().toString();
 	    editor.putString("phone2", phoneNum2);
@@ -373,16 +373,16 @@ public class AddRouteScreen extends Activity {
 		Intent setAddressIntent = new Intent(this, SetAddressScreen.class);
 		startActivity(setAddressIntent);
 	}
-	
+
 	@Override
 	public void onResume()
 	{
-	    
+
 		//Check receipt of address object
 		Bundle b = getIntent().getExtras(); 
 		if(b != null) {
 			Address addr = b.getParcelable("com.android.location.Address");
-			
+
 			//If the address object is null, then the user tapped the map to set a location
 			//This means we got back a LatLng object representing where the map was tapped
 			if(addr == null)
@@ -404,10 +404,10 @@ public class AddRouteScreen extends Activity {
 		}
 	  	EditText routeName = (EditText) findViewById(R.id.route_name);
 	  	routeName.setText(userInfo.getString("name", null));
-	  	
+
 	  	EditText message = (EditText) findViewById(R.id.enter_message);
 	  	message.setText(userInfo.getString("message", null));
-	  	
+
 	    EditText phone  = (EditText) findViewById(R.id.enter_contact);
 	    if (mode != 1)
 	    {
@@ -433,15 +433,15 @@ public class AddRouteScreen extends Activity {
 		dbHandle.open();
 		super.onResume();
 	}
-	
-	
+
+
 	@Override
 	public void onPause()
 	{
 		dbHandle.close();
 	    super.onPause();
 	}
-	
+
 	public void saveRoute(MenuItem menuItem)
 	{
 		//Again, clear shared preferences
@@ -454,7 +454,7 @@ public class AddRouteScreen extends Activity {
 	  	String name = routeName.getText().toString();	  	
 	  	EditText message = (EditText) findViewById(R.id.enter_message);
 	  	String theMessage = message.getText().toString();
-	  	
+
 	    EditText phone  = (EditText) findViewById(R.id.enter_contact);
 		String phoneNum = phone.getText().toString();
 		String delims = "()-+";
@@ -529,7 +529,7 @@ public class AddRouteScreen extends Activity {
 				coord = new double[2];
 				coord[0] = lat;
 				coord[1] = lng;
-				
+
 				if (error)
 				{
 					 Toast.makeText(this, "Error with phone number; fix and save again.", Toast.LENGTH_LONG).show();
@@ -544,7 +544,7 @@ public class AddRouteScreen extends Activity {
 				coord = new double[2];
 				coord[0] = lat;
 				coord[1] = lng;
-				
+
 				if (error)
 				{
 					 Toast.makeText(this, "Error with phone number; fix and save again.", Toast.LENGTH_LONG).show();
@@ -552,19 +552,19 @@ public class AddRouteScreen extends Activity {
 					 startActivity(intent);
 				}
 			}
-			
+
 			dbHandle.open();
 			dbHandle.insertRoute(new Route(name, coord, phoneNumbers, 0.25, theMessage, addr));
 			dbHandle.close();
 		}
-		
-		
+
+
 		//Clear saved text fields and whatnot
 		editor = userInfo.edit();
 		editor.clear();
 		editor.commit();
-		
-		
+
+
 		new AlertDialog.Builder(this)
 	    .setTitle("Confirmation")
 	    .setMessage("Route was successfully created")
@@ -574,6 +574,6 @@ public class AddRouteScreen extends Activity {
         		startActivity(i);
 	        }
 	     }).show();
-		
+
 	}
 }
