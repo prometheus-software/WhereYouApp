@@ -40,15 +40,25 @@
             android:layout_marginTop="20dp"
             android:hint="@string/enter_radius"
             android:prompt="@string/enter_radius" />
-		<Spinner
-            android:id="@+id/km_mile"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_below="@+id/display_address"
-            android:layout_marginTop="20dp"
-            android:hint="@string/km_mile"
-            android:prompt="@string/km_mile" />
+		<RadioGroup
+		    android:id = "@+id/km_mile"
+		    android:layout_width = "wrap_content"
+		    android:layout_height = "wrap_content"
+		    android:layout_below = "@+id/display_address" >
+		    <RadioButton
+		        android:id = "@+id/mile"
+		        android:layout_width = "wrap_content"
+		        android:layout_height = "wrap_content"
+		        android:text = "Miles"
+		        android:checked = "true"
+		        android:onClick = "onRadioButtonClicked" />
+		    <RadioButton 
+		        android:id = "@+id/km"
+		        android:layout_width = "wrap_content"
+		        android:layout_height = "wrap_content"
+		        android:text = "Kilometers"
+		        android:onClick = "onRadioButtonClicked" />
+		</RadioGroup>
         <TextView
             android:id="@+id/display_address"
             android:layout_width="wrap_content"
