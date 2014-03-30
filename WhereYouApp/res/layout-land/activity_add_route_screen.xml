@@ -12,19 +12,16 @@
     	android:paddingRight = "16dp"
     	android:paddingBottom = "16dp"
     	android:paddingTop="16dp" > 
-    	
     	<EditText
             android:id="@+id/route_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
-            android:layout_marginTop="20dp"
             android:ems="10"
             android:textColorHint="#FFFFFF"
             android:hint="@string/route_name">
-    	</EditText>
-    	 
+    	</EditText> 
     	 <TextView
             android:id="@+id/display_address"
             android:layout_width="wrap_content"
@@ -33,8 +30,7 @@
             android:layout_below="@+id/route_name"
             android:paddingLeft="8dp"
             android:text="@string/no_address"
-            android:textAppearance="?android:attr/textAppearanceLarge" />
-    	 
+            android:textAppearance="?android:attr/textAppearanceLarge" /> 
     	 <Button
             android:id="@+id/set_address"
             android:layout_width="wrap_content"
@@ -44,8 +40,7 @@
             android:layout_alignParentRight="true"
             android:onClick="startMapActivity"
             android:background="@drawable/rounded_button"
-            android:text="@string/set_address" />
-    	 
+            android:text="@string/set_address" />	 
        <TextView
             android:id="@+id/distance_text"
             android:layout_width="wrap_content"
@@ -54,8 +49,7 @@
             android:layout_below="@+id/display_address"
             android:paddingLeft="8dp"
             android:text="@string/distance_text"
-            android:textAppearance="?android:attr/textAppearanceLarge"/>
-       
+            android:textAppearance="?android:attr/textAppearanceLarge"/> 
        <Spinner
             android:id="@+id/enter_radius"
             android:layout_width="70dp"
@@ -65,8 +59,7 @@
             android:layout_below="@+id/distance_text"
             android:layout_centerVertical="true"
             android:hint="@string/enter_radius"
-            android:prompt="@string/enter_radius" />
-    	 
+            android:prompt="@string/enter_radius" />	 
         <EditText
             android:id="@+id/enter_contact"
             android:layout_width="match_parent"
@@ -75,8 +68,7 @@
             android:layout_below="@+id/enter_radius"
             android:ems="10"
             android:textColorHint="#FFFFFF"
-            android:hint="@string/enter_contact" />
-        
+            android:hint="@string/enter_contact" />   
         <EditText
             android:id="@+id/enter_contact6"
             android:layout_width="match_parent"
@@ -86,7 +78,6 @@
             android:ems="10"
             android:textColorHint="#FFFFFF"
             android:hint="@string/enter_contact" />
-        
         <ImageButton
             android:id="@+id/contact_list2"
             android:contentDescription="@string/CBdescription"
@@ -96,7 +87,6 @@
             android:layout_alignTop="@+id/enter_contact6"
             android:background="@android:color/transparent"
             android:src="@drawable/contacts_button" />
-       
         <ImageButton
             android:id="@+id/contact_list1"
             android:contentDescription="@string/CBdescription"
@@ -106,7 +96,6 @@
             android:layout_alignTop="@+id/enter_contact"
             android:background="@android:color/transparent"
             android:src="@drawable/contacts_button" />
-        
         <EditText                              
             android:id="@+id/enter_message"
             android:layout_width="match_parent"
@@ -115,8 +104,7 @@
             android:layout_below="@+id/enter_contact6"
             android:ems="10"
             android:textColorHint="#FFFFFF"
-            android:hint="@string/enter_message" />
-       
+            android:hint="@string/enter_message" /> 
 	<RadioGroup
 	    android:id = "@+id/km_mile"
 	    android:orientation="horizontal"
@@ -126,7 +114,6 @@
             android:layout_alignTop="@+id/enter_radius"
             android:layout_below="@+id/distance_text"
             android:layout_marginLeft="75dp">
-
 		<RadioButton
 			android:id = "@+id/mile"
 		        android:layout_width = "wrap_content"
@@ -143,10 +130,6 @@
 		        android:layout_marginLeft="10dp"
 		        android:text = "@string/kilometers"
 		        android:onClick = "onRadioButtonClicked" />
-	</RadioGroup>
-        
-        
-        
-        
+	</RadioGroup>   
   </RelativeLayout>
 </ScrollView>
