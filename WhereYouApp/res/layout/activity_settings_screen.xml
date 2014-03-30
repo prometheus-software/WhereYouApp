@@ -1,14 +1,38 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:paddingLeft = "16dp"
     android:paddingRight = "16dp"
     android:paddingBottom = "16dp"
     android:orientation= "vertical">
+
+    <TextView
+        android:id="@+id/battery_messenger"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="0dp"
+        android:layout_marginTop="18dp"
+        android:text="@string/battery_messenger"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <ToggleButton
+        android:id="@+id/toggle_battery_messenger"
+        android:layout_width="wrap_content"
+        android:layout_height="35dp"
+        android:layout_alignBaseline="@+id/battery_messenger"
+        android:layout_alignBottom="@+id/battery_messenger"
+        android:layout_alignRight="@+id/battery_level"
+        android:text="@string/toggle_button" />
+
     <Spinner
         android:id="@+id/battery_level"
-        android:layout_width = "fill_parent"
-        android:layout_height = "wrap_content"
-        android:hint = "@string/battery_level"
-        android:prompt = "@string/battery_level" />
-</LinearLayout>
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/battery_messenger"
+        android:layout_below="@+id/toggle_battery_messenger"
+        android:hint="@string/battery_level"
+        android:prompt="@string/battery_level" />
+
+</RelativeLayout>
