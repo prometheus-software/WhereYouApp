@@ -74,7 +74,7 @@ public class AddRouteScreen extends Activity {
 		editText.setText("", TextView.BufferType.EDITABLE);
 		spinner2 = (Spinner) findViewById(R.id.enter_radius);
 		List <String> list2 = new ArrayList<String>();                    
-		list2.add("Choose an alert distance");
+		//list2.add("Choose an alert distance");
 		list2.add(".10");
 		list2.add(".25");
 		list2.add(".5");
