@@ -19,6 +19,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.PorterDuff;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -32,13 +33,13 @@ public class SettingsScreen extends Activity {
 	private int batteryLevel;
 	public int timesClicked;
 	public static SettingsDataSource setdbHandle;
+	public int savedBatteryLevel;
 	private static final String TAG = "WhereYouApp";
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_settings_screen);
-
-		setdbHandle = MainScreen.setdbHandle;
+		setdbHandle = SavedRoutesScreen.setdbHandle;
 		spinner1 = (Spinner) findViewById(R.id.battery_level);
 		List<String> list = new ArrayList<String>();
 		list.add("Select a threshold battery level percentage for notification purposes (in %)");
@@ -55,7 +56,14 @@ public class SettingsScreen extends Activity {
 		//the batter lvl spinner... "spinner1" to that level
 		//values are hard coded...
 		if(setdbHandle.containsValue()) {
-			int savedBatteryLevel = setdbHandle.getSavedBatteryLevel();
+			try
+			{
+				savedBatteryLevel = setdbHandle.getSavedBatteryLevel();
+			}
+			catch (Exception e)
+			{
+				Toast.makeText(getBaseContext(), "Couldn't get battery level", Toast.LENGTH_SHORT).show();
+			}
 			if(savedBatteryLevel > -1)
 			{
 				if(setdbHandle.getSavedBatteryLevel()==5)
@@ -82,7 +90,7 @@ public class SettingsScreen extends Activity {
 	{
 		spinner1.setOnItemSelectedListener(new CustomOnItemSelectedListener ());
 	}
-	public void saveMySettings (View view)
+	public void saveMySettings (MenuItem item)
 	{
 		Intent intent = new Intent(this, SavedRoutesScreen.class);
 		try
@@ -98,10 +106,10 @@ public class SettingsScreen extends Activity {
 		setdbHandle.insertBatteryLevel(batteryLevel, false);
 		startActivity(intent);
 	}
-	public void cancelSettings (View view)
+	public void cancelSettings (MenuItem item)
 	{
-		spinner1.setSelection(0);
 		Intent intent = new Intent (this, SavedRoutesScreen.class);
 		startActivity(intent);
 	}
 }
+
