@@ -21,6 +21,8 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.EditText;
 import android.widget.Button;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.graphics.PorterDuff;
@@ -42,7 +44,6 @@ import android.support.v4.app.TaskStackBuilder;
 public class AddRouteScreen extends Activity {
 
 	private static final String TAG = "WhereYouApp";
-	private Spinner spinner1;
 	private Spinner spinner2;
 	public final static String EXTRA_MESSAGE = "com.example.whereyouapp.MESSAGE";
 	public SharedPreferences userInfo;
@@ -55,7 +56,7 @@ public class AddRouteScreen extends Activity {
 	public String contactChosen1;
 	public String contactChosen2;
 	public int mode;
-
+	public double factor;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -71,17 +72,18 @@ public class AddRouteScreen extends Activity {
 		*/
 		EditText editText = (EditText) findViewById(R.id.route_name);
 		editText.setText("", TextView.BufferType.EDITABLE);
-		spinner1 = (Spinner) findViewById(R.id.km_mile);
 		spinner2 = (Spinner) findViewById(R.id.enter_radius);
-		List<String> list = new ArrayList<String>();
-		//Set choices for Spinner
-		list.add("Choose kilometers or miles for measurement");
-		list.add("Kilometers");
-		list.add("Miles");
-		ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, list);
+		List <String> list2 = new ArrayList<String>();                    
+		list2.add("Choose an alert distance");
+		list2.add(".10");
+		list2.add(".25");
+		list2.add(".5");
+		list2.add("1");
+		list2.add("5");
+		list2.add("10");
+		ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, list2);
 		dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-		spinner1.setAdapter(dataAdapter);
-		spinner1.setSelection(0);
+		spinner2.setAdapter(dataAdapter);
 		addListenerOnSpinnerItemSelection();
 		editText = (EditText) findViewById(R.id.enter_message);
 		editText.setInputType(InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS);
@@ -121,8 +123,8 @@ public class AddRouteScreen extends Activity {
 	    	    Spinner radiusSelector = (Spinner) findViewById(R.id.enter_radius);
 	    	    int radiusCode = radiusSelector.getSelectedItemPosition();
 	    	    editor.putInt("radius", radiusCode);
-	    	    Spinner kmMileSelector = (Spinner) findViewById(R.id.km_mile);
-	    	    int choice = kmMileSelector.getSelectedItemPosition();
+	    	    RadioGroup kmMileSelector = (RadioGroup) findViewById(R.id.km_mile);
+	    	    int choice = kmMileSelector.getCheckedRadioButtonId();
 	    	    editor.putInt("choice", choice);
 	    	    EditText phone2 = (EditText) findViewById(R.id.enter_contact6);
 	    	    String phoneNum2 = phone2.getText().toString();
@@ -150,8 +152,8 @@ public class AddRouteScreen extends Activity {
 	    	    Spinner radiusSelector = (Spinner) findViewById(R.id.enter_radius);
 	    	    int radiusCode = radiusSelector.getSelectedItemPosition();
 	    	    editor.putInt("radius", radiusCode);
-	    	    Spinner kmMileSelector = (Spinner) findViewById(R.id.km_mile);
-	    	    int choice = kmMileSelector.getSelectedItemPosition();
+	    	    RadioGroup kmMileSelector = (RadioGroup) findViewById(R.id.km_mile);
+	    	    int choice = kmMileSelector.getCheckedRadioButtonId();
 	    	    editor.putInt("choice", choice);
 	    	    EditText phone  = (EditText) findViewById(R.id.enter_contact);
 	    	    String phoneNum = phone.getText().toString();
@@ -165,7 +167,24 @@ public class AddRouteScreen extends Activity {
 	        } 
 	    });
 	}
-
+	public void onRadioButtonClicked (View view)
+	{
+		boolean checked = ((RadioButton) view).isChecked();
+		switch (view.getId())
+		{
+			case R.id.mile:
+				if(checked)
+				{
+					factor = 1;
+				}
+				break;
+			case R.id.km:
+				if (checked)
+				{
+					factor = .621371;
+				}
+		}
+	}
 	public void selectContacts(MenuItem menuItem)
 	{
 		//timesClicked++;
@@ -231,73 +250,8 @@ public class AddRouteScreen extends Activity {
 	}
 	public void addListenerOnSpinnerItemSelection()
 	{
-		//Give the Spinner an item listener
-		spinner1.setOnItemSelectedListener(new OnItemSelectedListener() {
-
-	        @Override
-	        public void onItemSelected(AdapterView<?> arg0, View arg1,
-	                int arg2, long arg3) {
-	            // TODO Auto-generated method stub
-	            pos=arg2;
-	            Toast.makeText(getBaseContext(), "You have selected " + arg0.getItemAtPosition(arg2).toString(), Toast.LENGTH_SHORT).show();
-	            add();
-	        }
-	        private void add() {
-	            // TODO Auto-generated method stub
-	            Toast.makeText(getBaseContext(), ""+pos, Toast.LENGTH_SHORT).show();
-	            switch(pos)
-	            {
-	            	case 1:
-	            		List <String> list2 = new ArrayList<String>();                    
-	            		list2.add("Choose an alert distance in kilometers");
-	            		list2.add(".10");
-	            		list2.add(".25");
-	            		list2.add(".5");
-	            		list2.add("1");
-	            		list2.add("5");
-	            		list2.add("10");
-	            		ArrayAdapter<String> adapter2 = new ArrayAdapter<String>(AddRouteScreen.this, android.R.layout.simple_spinner_item, list2);
-	            		adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-	            		spinner2.setAdapter(adapter2);
-	            		select();
-	            		break;
-	            	case 2:
-	            		list2 = new ArrayList<String>();                    
-	            		list2.add("Choose an alert distance in miles");
-	            		list2.add(".10");
-	            		list2.add(".25");
-	            		list2.add(".5");
-	            		list2.add("1");
-	            		list2.add("5");
-	            		list2.add("10");
-	            		adapter2 = new ArrayAdapter<String>(AddRouteScreen.this, android.R.layout.simple_spinner_item, list2);
-	            		adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-	            		spinner2.setAdapter(adapter2);
-	            		select();
-	                break;
-	            	}
-	        }
-	        private void select() {
-	            // TODO Auto-generated method stub
-	            spinner2.setOnItemSelectedListener(new OnItemSelectedListener() {
-	                @Override
-	                public void onItemSelected(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
-	                    // TODO Auto-generated method stub
-	                   // Toast.makeText(getBaseContext(), "You have selected " + arg0.getItemAtPosition(arg2).toString(), Toast.LENGTH_SHORT).show();
-	                }
-	                @Override
-	                public void onNothingSelected(AdapterView<?> arg0) {
-	                    // TODO Auto-generated method stub
-	                }
-	            });
-	        }
-	        @Override
-	        public void onNothingSelected(AdapterView<?> arg0) {
-	            // TODO Auto-generated method stub
-
-	        }
-	    });
-	    }
+		spinner2.setOnItemSelectedListener(new CustomOnItemSelectedListener ());
+	}
 	/** Called when the user clicks the Send button */
 	public void sendMessage(View view) {
 
@@ -309,15 +263,6 @@ public class AddRouteScreen extends Activity {
 		EditText editText = (EditText) findViewById(R.id.route_name);
 		String message = "Your route name is " + editText.getText().toString() + ".\n";
 		editText = (EditText) findViewById (R.id.enter_contact);
-		int code = spinner1.getSelectedItemPosition();
-		if (code == 1)
-		{
-			message += "The entered radius is " + Double.parseDouble(String.valueOf(spinner2.getSelectedItem())) * .621371 + ".\n";
-		}
-		else if (code == 2)
-		{
-			message += "The entered radius is " + Double.parseDouble(String.valueOf(spinner2.getSelectedItem())) + ".\n";
-		}
 		message += "The contact phone number is " + editText.getText().toString() + ".\n";
 		editText = (EditText) findViewById (R.id.enter_contact6);
 		message += "The second contact phone number is " + editText.getText().toString() + ".\n";
@@ -327,7 +272,8 @@ public class AddRouteScreen extends Activity {
 		String name = editText.getText().toString();
 		//editText = (EditText) findViewById (R.id.enter_address);
 		String address = editText.getText().toString();
-		double radius = Double.parseDouble(String.valueOf(spinner1.getSelectedItem()));
+		double radius = Double.parseDouble(String.valueOf(spinner2.getSelectedItem()));
+		radius *= factor;
 		editText = (EditText) findViewById (R.id.enter_contact);
 		String phoneNumber = editText.getText().toString();
 		editText = (EditText) findViewById(R.id.enter_contact6);
@@ -373,13 +319,15 @@ public class AddRouteScreen extends Activity {
 		//editText = (EditText) findViewById(R.id.enter_address);
 		TextView textView = (TextView) findViewById(R.id.display_address);
 		textView.setText("No address selected");
-		spinner1.setSelection(0);
+		spinner2.setSelection(0);
 		editText = (EditText) findViewById(R.id.enter_contact);
 		editText.setText("", TextView.BufferType.EDITABLE);
 		editText = (EditText) findViewById(R.id.enter_message);
 		editText.setText("", TextView.BufferType.EDITABLE);
 		editText = (EditText) findViewById(R.id.enter_contact6);
 		editText.setText("", TextView.BufferType.EDITABLE);
+		RadioGroup kmMile = (RadioGroup) findViewById(R.id.km_mile);
+		kmMile.check(R.id.mile);
 		Intent intent = new Intent (this, SavedRoutesScreen.class);
 		startActivity(intent);
 	}
@@ -404,8 +352,8 @@ public class AddRouteScreen extends Activity {
 	    int radiusCode = radiusSelector.getSelectedItemPosition();
 	    editor.putInt("radius", radiusCode);
 	    
-	    Spinner kmMileSelector = (Spinner) findViewById(R.id.km_mile);
-	    int choice = kmMileSelector.getSelectedItemPosition();
+	    RadioGroup group = (RadioGroup) findViewById(R.id.km_mile);
+	    int choice = group.getCheckedRadioButtonId();
 	    editor.putInt("choice", choice);
 	    
 	    EditText phone2 = (EditText) findViewById(R.id.enter_contact6);
@@ -463,8 +411,8 @@ public class AddRouteScreen extends Activity {
 		}   
 		Spinner radiusSelector = (Spinner) findViewById(R.id.enter_radius);
 		radiusSelector.setSelection(userInfo.getInt("radius", 0), true);
-		Spinner kmMileSelector = (Spinner) findViewById(R.id.km_mile);
-		kmMileSelector.setSelection(userInfo.getInt("choice", 0), true);
+		RadioGroup kmMileSelector = (RadioGroup) findViewById(R.id.km_mile);
+		kmMileSelector.check(userInfo.getInt("choice", 0));
 		EditText phone2 = (EditText) findViewById(R.id.enter_contact6);
 		if (mode != 2)
 		{
@@ -536,6 +484,7 @@ public class AddRouteScreen extends Activity {
 		String addr = displayAddress.getText().toString();
 		Spinner radiusSelector = (Spinner) findViewById(R.id.enter_radius);
 		int radiusCode = radiusSelector.getSelectedItemPosition();
+		radiusCode *= factor;
 		Address theAddress = null;
 		NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(this);
 		mBuilder.setAutoCancel(true);
