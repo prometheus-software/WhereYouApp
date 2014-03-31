@@ -26,6 +26,7 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.Button;
 
 public class SavedRoutesScreen extends Activity {
 	static List<Route> routes;
@@ -47,7 +48,7 @@ public class SavedRoutesScreen extends Activity {
 	
 		dbHandle = new RouteDataSource(this);
 		dbHandle.open();
-		//dbHandle.recreateTable();
+		dbHandle.recreateTable();
 		
 		//Build the layout from SQLite database query
 		routes = dbHandle.getAllRoutes();
@@ -73,6 +74,7 @@ public class SavedRoutesScreen extends Activity {
 		}
 		else
 		{
+			/*
 			routeNames = new String[routes.size()];
 
 			for(int i = 0; i < routes.size(); i++)
@@ -91,7 +93,30 @@ public class SavedRoutesScreen extends Activity {
 				 }
 
 			});
-			ll.addView(lv);
+			ll.addView(lv);*/
+			Button[] routeBtns = new Button[routes.size()];
+			for (int i = 0; i < routeBtns.length; i++) {
+			    LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
+			            LinearLayout.LayoutParams.MATCH_PARENT,
+			            LinearLayout.LayoutParams.WRAP_CONTENT);
+			    routeBtns[i] = new Button(this);
+			    routeBtns[i].setId(i);
+			    final int id_ = routeBtns[i].getId();
+			    routeBtns[i].setText(routes.get(i).getName());
+			    routeBtns[i].setTextAlignment(View.TEXT_ALIGNMENT_VIEW_START);
+			    routeBtns[i].setGravity(3);
+			    //routeBtns[i].setBackgroundResource(R.drawable.actionbar_bg);
+			    ll.addView(routeBtns[i], params);
+			    routeBtns[i] = ((Button) findViewById(id_));
+			    routeBtns[i].setOnClickListener(new View.OnClickListener() {
+
+						@Override
+						public void onClick(View v) {
+							// TODO Auto-generated method stub
+							SavedRoutesScreen.showRouteOptions(v.getId());
+						}
+			    });
+			}
 		}
 
 
