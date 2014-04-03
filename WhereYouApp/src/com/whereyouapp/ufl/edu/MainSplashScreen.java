@@ -44,4 +44,9 @@ public class MainSplashScreen extends Activity {
         super.onDestroy();
          
     }
+    @Override
+    public void onBackPressed()
+    {
+    	return;
+    }
 }
