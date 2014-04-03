@@ -121,6 +121,7 @@ public class SavedRoutesScreen extends Activity {
 
 
 		//dbHandle.close();
+		Controller.setServiceAlarm(this, true);
 
 	}
 

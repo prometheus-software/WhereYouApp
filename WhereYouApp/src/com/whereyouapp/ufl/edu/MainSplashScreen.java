@@ -13,6 +13,7 @@ public class MainSplashScreen extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash_screen);  
          
+        
          /****** Create Thread that will sleep for 2 seconds *************/        
         Thread background = new Thread() {
             public void run() {
