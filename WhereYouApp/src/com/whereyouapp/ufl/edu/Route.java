@@ -28,8 +28,6 @@ public class Route implements Serializable{
 	private String message;
 	private double[] coordinates;
 	private String address;
-	private boolean alarm;
-	private String [] time;
 
 	//Represented as an int because the database doesn't support boolean types
 	private int isActive;
@@ -46,7 +44,7 @@ public class Route implements Serializable{
 
 	}
 
-	public Route(String routeName, String coordinates, String [] phoneNumbers, double alertDistance, String message, boolean a, String [] t) {
+	public Route(String routeName, String coordinates, String [] phoneNumbers, double alertDistance, String message) {
 		for (int i = 0; i < 2; i ++)
 		{
 			theNumbers [i] = phoneNumbers [i];
@@ -60,17 +58,13 @@ public class Route implements Serializable{
 		this.coordinates = new double[2];
 		this.coordinates[0] = Double.parseDouble(coordinates.substring(0, coordinates.indexOf(" ")));
 		this.coordinates[1] = Double.parseDouble(coordinates.substring(coordinates.indexOf(" ")+1, coordinates.length()));
-		alarm = a;
-		for (int i = 0; i < 2; i ++)
-		{
-			time [i] = t[i];
-		}
+
 		addRoute(this);
 		this.isActive = 0;
 		routeID++;
 	}
 
-	public Route(String routeName, double[] coordinates, String [] phoneNumbers, double alertDistance, String message, String address, int isActive, boolean a, String [] t) 
+	public Route(String routeName, double[] coordinates, String [] phoneNumbers, double alertDistance, String message, String address, int isActive) 
 	{
 		this.coordinates = new double[2];
 		this.coordinates[0] = coordinates[0];
@@ -85,15 +79,10 @@ public class Route implements Serializable{
 		this.message = message;
 		this.address = address;
 		this.isActive = isActive;
-		alarm = a;
-		for (int i = 0; i < 2; i ++)
-		{
-			time [i] = t[i];
-		}
 		routeID++;
 	}
 
-	public Route(String routeName, double[] coordinates, String [] phoneNumbers, double alertDistance, String message, String address, boolean a, String [] t) 
+	public Route(String routeName, double[] coordinates, String [] phoneNumbers, double alertDistance, String message, String address) 
 	{
 		this.coordinates = new double[2];
 		this.coordinates[0] = coordinates[0];
@@ -108,11 +97,6 @@ public class Route implements Serializable{
 		this.message = message;
 		this.address = address;
 		this.isActive = 0;
-		alarm = a;
-		for (int i = 0; i < 2; i ++)
-		{
-			time [i] = t[i];
-		}
 		routeID++;
 	}
 
@@ -126,8 +110,6 @@ public class Route implements Serializable{
 		//this.alertInterval = route.alertInterval;
 		this.message = route.getMessage();
 		this.coordinates = route.getCoordinates();
-		this.alarm = route.getAlarm();
-		this.time = route.getTime();
 		addRoute(this);
 	}
 
@@ -202,40 +184,17 @@ public class Route implements Serializable{
 	public static ArrayList<Route> getRouteList() {
 		return routeList;
 	}
-	
-	public boolean getAlarm()
-	{
-		return alarm;
-	}
-	
-	public String [] getTime()
-	{
-		return time;
-	}
-	
-	public void setAlarm(boolean a)
-	{
-		alarm = a;
-	}
-	public void setTime(String [] t)
-	{
-		for (int i = 0; i < 2; i ++)
-		{
-			time [i] = t[i];
-		}
-	}
+
 	public static String listData() {
 		Route temp;
 		double[] coords;
 		String [] theNumbers;
-		String [] theTime;
 		String listData = ""+routeList.size()+"|";
 		for(int i = 0; i < routeList.size(); i++) {
 			temp = routeList.get(i);
 			coords = temp.getCoordinates();
 			theNumbers = temp.getNumber();
-			theTime = temp.getTime();
-			listData += temp.getName() + "|" + coords[0] + "|" + coords[1] + "|" + theNumbers [0] + "|" + theNumbers [1] + "|" + temp.getDistance() + "|" + temp.getMessage() + "|" + temp.getAlarm() + "|" + theTime[0] + "|" + theTime[1];
+			listData += temp.getName() + "|" + coords[0] + "|" + coords[1] + "|" + theNumbers [0] + "|" + theNumbers [1] + "|" + temp.getDistance() + "|" + temp.getMessage() + "|";
 		}
 		return listData;
 	}
