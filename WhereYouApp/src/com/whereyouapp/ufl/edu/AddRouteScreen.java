@@ -115,11 +115,9 @@ public class AddRouteScreen extends Activity {
 	        	//timesClicked++;
 	        	//Toast.makeText(v.getContext(), "Times clicked: " + timesClicked, Toast.LENGTH_LONG).show();
 	        	EditText routeName = (EditText) findViewById(R.id.route_name);
-	    	    String route = routeName.getText().toString();
-	    	    editor.putString("name", route);   
+	    	    String route = routeName.getText().toString();     
 	    	    EditText message = (EditText) findViewById(R.id.enter_message);
-	    	    String theMessage = message.getText().toString();
-	    	    
+	    	    String theMessage = message.getText().toString();  
 	    	    //Check to see if we have an empty charsequence...this fucks up the db so I'm fixing it here
 	    	    if(route.length() == 0)
 	    	    {
@@ -129,6 +127,7 @@ public class AddRouteScreen extends Activity {
 	    	    {
 	    	    	theMessage = null;
 	    	    }
+	    	    editor.putString("name", route);
 	    	    editor.putString("message", theMessage);
 	    	    Spinner radiusSelector = (Spinner) findViewById(R.id.enter_radius);
 	    	    int radiusCode = radiusSelector.getSelectedItemPosition();
@@ -155,9 +154,17 @@ public class AddRouteScreen extends Activity {
 	        	//Toast.makeText(v.getContext(), "Times clicked: " + timesClicked, Toast.LENGTH_LONG).show();
 	        	EditText routeName = (EditText) findViewById(R.id.route_name);
 	    	    String route = routeName.getText().toString();
-	    	    editor.putString("name", route);   
 	    	    EditText message = (EditText) findViewById(R.id.enter_message);
 	    	    String theMessage = message.getText().toString();
+	    	    if(route.length() == 0)
+	    	    {
+	    	    	route = null;
+	    	    }
+	    	    if(theMessage.length() == 0)
+	    	    {
+	    	    	theMessage = null;
+	    	    }
+	    	    editor.putString("name", route);   
 	    	    editor.putString("message", theMessage);
 	    	    Spinner radiusSelector = (Spinner) findViewById(R.id.enter_radius);
 	    	    int radiusCode = radiusSelector.getSelectedItemPosition();
@@ -595,3 +602,4 @@ public class AddRouteScreen extends Activity {
 	}
 
 }
+
