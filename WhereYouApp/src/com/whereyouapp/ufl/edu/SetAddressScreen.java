@@ -442,5 +442,10 @@ GooglePlayServicesClient.OnConnectionFailedListener, LocationListener{
 		destination.putExtra("com.google.android.gms.maps.model.LatLng", marker.getPosition());
 		startActivity(destination);
 	}
-
+	@Override
+	public void onBackPressed()
+	{
+		Intent intent = new Intent (this, AddRouteScreen.class);
+		startActivity(intent);
+	}
 }
