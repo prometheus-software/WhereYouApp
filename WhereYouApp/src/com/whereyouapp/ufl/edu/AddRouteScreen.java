@@ -119,6 +119,16 @@ public class AddRouteScreen extends Activity {
 	    	    editor.putString("name", route);   
 	    	    EditText message = (EditText) findViewById(R.id.enter_message);
 	    	    String theMessage = message.getText().toString();
+	    	    
+	    	    //Check to see if we have an empty charsequence...this fucks up the db so I'm fixing it here
+	    	    if(route.length() == 0)
+	    	    {
+	    	    	route = null;
+	    	    }
+	    	    if(theMessage.length() == 0)
+	    	    {
+	    	    	theMessage = null;
+	    	    }
 	    	    editor.putString("message", theMessage);
 	    	    Spinner radiusSelector = (Spinner) findViewById(R.id.enter_radius);
 	    	    int radiusCode = radiusSelector.getSelectedItemPosition();
@@ -576,10 +586,12 @@ public class AddRouteScreen extends Activity {
 	     }).show();
 
 	}
-	@Override
+    
+    @Override
 	public void onBackPressed()
 	{
 		Intent intent = new Intent(this, SavedRoutesScreen.class);
 		startActivity(intent);
 	}
+
 }
