@@ -576,4 +576,10 @@ public class AddRouteScreen extends Activity {
 	     }).show();
 
 	}
+	@Override
+	public void onBackPressed()
+	{
+		Intent intent = new Intent(this, SavedRoutesScreen.class);
+		startActivity(intent);
+	}
 }
