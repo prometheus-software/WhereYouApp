@@ -255,6 +255,9 @@ public class SavedRoutesScreen extends Activity {
 	     })
 	     .show().getWindow().addFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
 	}
+	@Override
+	public void onBackPressed()
+	{
+		return;
+	}
 }
-
-
