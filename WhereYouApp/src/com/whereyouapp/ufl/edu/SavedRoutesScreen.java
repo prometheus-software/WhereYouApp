@@ -244,8 +244,8 @@ public class SavedRoutesScreen extends Activity {
 		new AlertDialog.Builder(this)
 	    .setTitle("How to use Where You App?")
 	    .setMessage("1. Click on the Add Route button at the top of the main screen." +
-	    		"\n\n2. On the AddRouteScreen, put in the following information: route name, address (by picking an address on the dialog box results from the SetAddressScreen or clicking on the map), target radius (in miles or kilometers), phone numbers (you can also use the Contacts buttons for Contacts integration), and text message." + 
-	    		"\n\n3. Hit the save button and the route will be saved to the main screen. By clicking on a saved route on the main screen, you can toggle it active or delete it." +
+	    		"\n\n2. On the AddRouteScreen, put in the following information: route name, address (by picking an address on the dialog box results from the SetAddressScreen or clicking on the map (in which case you click on the marker to go back to the AddRouteScreen)), target radius (in miles or kilometers), phone numbers (you can also use the Contacts buttons for Contacts integration), and text message." + 
+	    		"\n\n3. Hit the save button and the route will be saved to the main screen. By clicking on a saved route on the main screen, you can toggle it active (start the controller) or delete it." +
 	    		"\n\n4. Your contact will be notified as soon as your GPS coordinates are within the target radius of the destination GPS coordinates." +
 	    		"\n\n5. Set up your threshold battery level in the Settings Screen (via the Settings button). When you're on a route and your battery level falls below that battery level, the contacts for the route will be notified of your location before your phone dies." +
 	    		"\n\n6. Drive/commute safely!\n")
