@@ -107,7 +107,7 @@ public class AddRouteScreen extends Activity {
 
 		whichContact = 0;
 		mode = 0;
-
+		factor = 1;
 		//Creates 
 		((ImageButton)findViewById(R.id.contact_list1)).setOnClickListener( new OnClickListener() {
 	        @Override
@@ -507,8 +507,17 @@ public class AddRouteScreen extends Activity {
 //		}
 		TextView displayAddress = (TextView) findViewById(R.id.display_address);
 		String addr = displayAddress.getText().toString();
-		Spinner radiusSelector = (Spinner) findViewById(R.id.enter_radius);
-		int radiusCode = radiusSelector.getSelectedItemPosition();
+		double radiusCode = Double.parseDouble(String.valueOf(spinner2.getSelectedItem()));
+		RadioButton button1 = (RadioButton) findViewById(R.id.mile);
+		RadioButton button2 = (RadioButton) findViewById(R.id.km);
+		if (button1.isChecked())
+		{
+			factor = 1;
+		}
+		else if (button2.isChecked())
+		{
+			factor = 0.621371;
+		}
 		radiusCode *= factor;
 		Address theAddress = null;
 		Bundle b = getIntent().getExtras(); 
@@ -550,7 +559,7 @@ public class AddRouteScreen extends Activity {
 			}
 
 			dbHandle.open();
-			dbHandle.insertRoute(new Route(name, coord, phoneNumbers, 0.25, theMessage, addr));
+			dbHandle.insertRoute(new Route(name, coord, phoneNumbers, radiusCode, theMessage, addr));
 			dbHandle.close();
 		}
 
@@ -566,7 +575,7 @@ public class AddRouteScreen extends Activity {
 	    .setMessage("Route was successfully created")
 	    .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
 	        public void onClick(DialogInterface dialog, int which) { 
-	        	Intent i = new Intent(getBaseContext(), AddRouteScreen.class);
+	        	Intent i = new Intent(getBaseContext(), SavedRoutesScreen.class);
         		startActivity(i);
 	        }
 	     }).show();
