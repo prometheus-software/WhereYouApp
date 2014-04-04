@@ -511,27 +511,6 @@ public class AddRouteScreen extends Activity {
 		int radiusCode = radiusSelector.getSelectedItemPosition();
 		radiusCode *= factor;
 		Address theAddress = null;
-		NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(this);
-		mBuilder.setAutoCancel(true);
-		mBuilder.setSmallIcon(R.drawable.ic_launcher);
-		mBuilder.setContentTitle("Text message sent!");
-		if (phoneNum2.equals(""))
-		{
-			mBuilder.setContentText("Your text message to " + phoneNum + " has been sent.");
-		}
-		else
-		{
-			mBuilder.setContentText("Your text message to " + phoneNum + " and " + phoneNum2 + " has been sent.");
-		}
-		Intent resultIntent = new Intent (this, SavedRoutesScreen.class);
-		TaskStackBuilder stackBuilder = TaskStackBuilder.create(this);
-		stackBuilder.addParentStack(MainScreen.class);
-		stackBuilder.addNextIntent(resultIntent);
-		PendingIntent resultPendingIntent = stackBuilder.getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT);
-		mBuilder.setContentIntent(resultPendingIntent);
-		NotificationManager mNotificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-		mBuilder.setDefaults(Notification.DEFAULT_ALL);
-		mNotificationManager.notify(0, mBuilder.build());
 		Bundle b = getIntent().getExtras(); 
 		double[] coord;
 		if(b != null) 
