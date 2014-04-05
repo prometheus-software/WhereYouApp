@@ -84,13 +84,13 @@ public class CommuteScreen extends Activity {
 		{
 			alarm = false;
 		}
-		String [] time = new String [2];
-		time [0] = String.valueOf(spinner1.getSelectedItem());
-		time [1] = String.valueOf(spinner2.getSelectedItem());
-		int [] days = new int [7];
+		ArrayList<String> time = new ArrayList<String> (2);
+		time.add(String.valueOf(spinner1.getSelectedItem()));
+		time.add(String.valueOf(spinner2.getSelectedItem()));
+		ArrayList<Integer> days = new ArrayList<Integer>();
 		for (int i = 0; i < 7; i ++)
 		{
-			days [i] = 0;
+			days.add(0);
 		}
 		CheckBox mon = (CheckBox) findViewById(R.id.monday);
 		CheckBox tue = (CheckBox) findViewById(R.id.tuesday);
@@ -101,34 +101,37 @@ public class CommuteScreen extends Activity {
 		CheckBox sun = (CheckBox) findViewById(R.id.sunday);
 		if (mon.isChecked())
 		{
-			days [0] = 1;
+			days.set(0, 1);
 		}
 		if (tue.isChecked())
 		{
-			days [1] = 1;
+			days.set(1, 1);
 		}
 		if (wed.isChecked())
 		{
-			days [2] = 1;
+			days.set(2, 1);
 		}
 		if (thu.isChecked())
 		{
-			days [3] = 1;
+			days.set(3, 1);
 		}
 		if (fri.isChecked())
 		{
-			days [4] = 1;
+			days.set(4, 1);
 		}
 		if (sat.isChecked())
 		{
-			days [5] = 1;
+			days.set(5, 1);
 		}
 		if (sun.isChecked())
 		{
-			days [6] = 1;
+			days.set(6, 1);
 		}
 		Intent intent = new Intent(this, AddRouteScreen.class);
-		startActivity(intent);
+		intent.putExtra("alarm", alarm);
+		intent.putExtra("time", time);
+		intent.putExtra("days", days);
+		startActivityForResult(intent, 2);
 	}
 	public void addListenerOnSpinnerItemSelection()
 	{
