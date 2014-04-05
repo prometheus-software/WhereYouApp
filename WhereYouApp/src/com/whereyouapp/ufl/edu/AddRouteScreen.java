@@ -57,6 +57,9 @@ public class AddRouteScreen extends Activity {
 	public String contactChosen2;
 	public int mode;
 	public double factor;
+	public boolean alarm;
+	public ArrayList<String> time;
+	public ArrayList<Integer> days;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -214,28 +217,47 @@ public class AddRouteScreen extends Activity {
 
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-	    if (data != null) {
-	        Uri uri = data.getData();
+	   if(requestCode == 1)
+	   {
+		   if (data != null) 
+		   {
+			   Uri uri = data.getData();
 
-	        if (uri != null) {
-	            Cursor c = null;
-	            try {
-	                c = getContentResolver().query(uri, new String[]{ 
+			   if (uri != null) {
+				   Cursor c = null;
+				   try {
+					   c = getContentResolver().query(uri, new String[]{ 
 	                            ContactsContract.CommonDataKinds.Phone.NUMBER,  
 	                            ContactsContract.CommonDataKinds.Phone.TYPE },
 	                        null, null, null);
 
-	                if (c != null && c.moveToFirst()) {
-	                    String number = c.getString(0);
-	                    int type = c.getInt(1);
-	                    showSelectedNumber(type, number);
-	                }
-	            } finally {
-	                if (c != null) {
-	                    c.close();
-	                }
-	            }
-	        }
+					   if (c != null && c.moveToFirst()) {
+						   String number = c.getString(0);
+						   int type = c.getInt(1);
+						   showSelectedNumber(type, number);
+					   }
+				   } finally {
+					   if (c != null) {
+						   c.close();
+					   }
+				   }
+			   }
+		   }
+	   	}
+	   	else
+	    {
+	    	alarm = data.getBooleanExtra("alarm", true);
+	    	Log.d(TAG, "" + alarm);
+	    	time = data.getStringArrayListExtra("time");
+	    	for (int i = 0; i < 2; i ++)
+	    	{
+	    		Log.d(TAG, time.get(i));
+	    	}
+	    	days = data.getIntegerArrayListExtra("days");
+	    	for (int j = 0; j < 6; j ++)
+	    	{
+	    		Log.d(TAG, "" + days.get(j));
+	    	}
 	    }
 	}
 
@@ -385,7 +407,6 @@ public class AddRouteScreen extends Activity {
 		Bundle b = getIntent().getExtras(); 
 		if(b != null) {
 			Address addr = b.getParcelable("com.android.location.Address");
-
 			//If the address object is null, then the user tapped the map to set a location
 			//This means we got back a LatLng object representing where the map was tapped
 			if(addr == null)
