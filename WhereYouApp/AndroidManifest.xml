@@ -96,7 +96,14 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.whereyouapp.ufl.edu.AddRouteScreen" />
         </activity>
-        
+        <activity
+            android:name = "com.whereyouapp.ufl.edu.CommuteScreen"
+            android:label = "Schedule"
+            android:parentActivityName = "com.whereyouapp.ufl.edu.AddRouteScreen">
+            <meta-data
+                android:name = "android.support.PARENT_ACTIVITY"
+				android:value = "com.whereyouapp.ufl.edu.AddRouteScreen"/>
+        </activity> 
         <service
 	        android:name="com.whereyouapp.ufl.edu.Controller"
 	        android:enabled="true"
