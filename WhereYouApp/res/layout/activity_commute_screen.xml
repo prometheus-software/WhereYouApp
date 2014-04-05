@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  android:layout_width="fill_parent"
+  android:layout_height="fill_parent"
+  android:isScrollContainer = "false"
+  android:fillViewport="true">
+   <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="top"
+    	android:paddingLeft = "16dp"
+    	android:paddingRight = "16dp"
+    	android:paddingBottom = "16dp"
+    	android:paddingTop="16dp" > 
+	<TextView
+            android:id="@+id/commute"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="25dp"
+            android:paddingLeft="8dp"
+            android:text="@string/commute"
+            android:textAppearance="?android:attr/textAppearanceLarge"/>
+    <RadioGroup
+	    android:id = "@+id/yes_no"
+	    android:orientation="horizontal"
+	    android:layout_width = "match_parent"
+	    android:layout_height = "wrap_content"
+	    android:layout_alignLeft="@+id/commute"
+        android:layout_below="@+id/commute"
+        android:layout_marginLeft="16dp">
+		<RadioButton
+			android:id = "@+id/yes"
+		    android:layout_width = "wrap_content"
+		    android:layout_height = "wrap_content"
+		    android:layout_marginBottom="0dp"
+            android:layout_marginLeft="0dp"
+		    android:text = "@string/yes"		        
+		    android:checked = "true"
+		    android:onClick = "onRadioButtonClicked" />
+		<RadioButton 
+		    android:id = "@+id/no"
+		    android:layout_width = "wrap_content"
+		    android:layout_height = "wrap_content"
+		    android:layout_marginLeft="10dp"
+		    android:text = "@string/no"
+		    android:onClick = "onRadioButtonClicked" />
+	</RadioGroup>
+  	<Spinner
+       android:id="@+id/enter_hours"
+       android:layout_width="100dp"
+       android:layout_height="wrap_content"
+       android:layout_marginLeft="10dp"
+       android:paddingRight="15dp"            
+       android:layout_below="@+id/yes_no"
+       android:layout_centerVertical="true"
+       android:hint="@string/enter_hours"
+       android:prompt="@string/enter_hours" />
+  	<Spinner
+       android:id="@+id/enter_minutes"
+       android:layout_width="100dp"
+       android:layout_height="wrap_content"
+       android:paddingRight="15dp"            
+       android:layout_below="@+id/yes_no"
+       android:layout_centerVertical="true"
+       android:layout_toRightOf = "@+id/enter_hours"
+       android:hint="@string/enter_minutes"
+       android:prompt="@string/enter_minutes" />
+	<CheckBox
+	    android:id = "@+id/monday"
+	    android:layout_width = "wrap_content"
+	    android:layout_height = "wrap_content"
+	    android:text = "@string/monday"
+	    android:layout_below = "@+id/enter_hours"/>
+	<CheckBox
+	     android:id = "@+id/tuesday"
+	     android:layout_width = "wrap_content"
+	     android:layout_height = "wrap_content"
+	     android:text = "@string/tuesday"
+	     android:layout_below = "@+id/monday"/>
+	<CheckBox
+	     android:id = "@+id/wednesday"
+	     android:layout_width = "wrap_content"
+	     android:layout_height = "wrap_content"
+	     android:text = "@string/wednesday"
+	     android:layout_below = "@+id/tuesday"/>
+	<CheckBox
+	     android:id = "@+id/thursday"
+	     android:layout_width = "wrap_content"
+	     android:layout_height = "wrap_content"
+	     android:text = "@string/thursday"
+	     android:layout_below = "@+id/wednesday"/>
+	<CheckBox
+	     android:id = "@+id/friday"
+	     android:layout_width = "wrap_content"
+	     android:layout_height = "wrap_content"
+	     android:text = "@string/friday"
+	     android:layout_below = "@+id/thursday"/>
+	<CheckBox
+	     android:id = "@+id/saturday"
+	     android:layout_width = "wrap_content"
+	     android:layout_height = "wrap_content"
+	     android:text = "@string/saturday"
+	     android:layout_below = "@+id/friday"/>
+	<CheckBox
+	     android:id = "@+id/sunday"
+	     android:layout_width = "wrap_content"
+	     android:layout_height = "wrap_content"
+	     android:text = "@string/sunday"
+	     android:layout_below = "@+id/saturday"/>
+</RelativeLayout>
+</ScrollView>
