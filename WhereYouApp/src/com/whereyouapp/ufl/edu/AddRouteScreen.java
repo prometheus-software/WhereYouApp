@@ -560,6 +560,7 @@ public class AddRouteScreen extends Activity {
 
 			dbHandle.open();
 			dbHandle.insertRoute(new Route(name, coord, phoneNumbers, radiusCode, theMessage, addr));
+			dbHandle.setActive(name);
 			dbHandle.close();
 		}
 
@@ -590,4 +591,3 @@ public class AddRouteScreen extends Activity {
 	}
 
 }
-
