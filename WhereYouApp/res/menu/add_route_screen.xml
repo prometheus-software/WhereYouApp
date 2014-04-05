@@ -7,13 +7,13 @@
         android:showAsAction="ifRoom|withText"
         android:title="Save"
         android:onClick="saveRoute"/>    
-       <!--  <item
-       android:id="@+id/contacts"
-       android:orderInCategory="100"
-       android:showAsAction="ifRoom|withText"
-       android:title="Contacts"
-       android:onClick="selectContacts"/> -->
-        <item
+	<item
+	    android:id = "@+id/toCommute"
+	    android:orderInCategory = "100"
+	    android:showAsAction = "ifRoom|withText"
+	    android:title = "Commute"
+	    android:onClick = "toCommute"/>
+    <item
        android:id="@+id/cancel"
        android:orderInCategory="100"
        android:showAsAction="ifRoom|withText"
