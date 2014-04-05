@@ -187,20 +187,6 @@ public class AddRouteScreen extends Activity {
 	public void onRadioButtonClicked (View view)
 	{
 		boolean checked = ((RadioButton) view).isChecked();
-//		switch (view.getId())
-//		{
-//			case R.id.mile:
-//				if(checked)
-//				{
-//					factor = 1;
-//				}
-//				break;
-//			case R.id.km:
-//				if (checked)
-//				{
-//					factor = .621371;
-//				}
-//		}
 		if(view.getId() == R.id.mile){
 			if(checked)
 				factor = 1;
@@ -489,22 +475,6 @@ public class AddRouteScreen extends Activity {
 		{
 			phoneNumbers [1] += tokens [i];
 		}
-//		try
-//		{
-//			int part1 = Integer.parseInt(phoneNumbers [0]);
-//			Log.d(TAG, "" + part1);
-//		}catch(NumberFormatException e)
-//		{
-//			error = true;
-//		}
-//		try
-//		{
-//			int part2 = Integer.parseInt(phoneNumbers [1]);
-//			Log.d(TAG, "" + part2);
-//		}catch(NumberFormatException e)
-//		{
-//			error = true;
-//		}
 		TextView displayAddress = (TextView) findViewById(R.id.display_address);
 		String addr = displayAddress.getText().toString();
 		double radiusCode = Double.parseDouble(String.valueOf(spinner2.getSelectedItem()));
@@ -589,5 +559,36 @@ public class AddRouteScreen extends Activity {
 		Intent intent = new Intent(this, SavedRoutesScreen.class);
 		startActivity(intent);
 	}
+    
+    public void toCommute(MenuItem item)
+    {
+    	EditText routeName = (EditText) findViewById(R.id.route_name);
+	    String route = routeName.getText().toString();
+	    editor.putString("name", route);
 
+	    EditText message = (EditText) findViewById(R.id.enter_message);
+	    String theMessage = message.getText().toString();
+	    editor.putString("message", theMessage);
+
+	    //Note that I'm storing this as a string and not a numeric value
+	    EditText phone  = (EditText) findViewById(R.id.enter_contact);
+	    String phoneNum = phone.getText().toString();
+	    editor.putString("phone", phoneNum);
+
+	    Spinner radiusSelector = (Spinner) findViewById(R.id.enter_radius);
+	    int radiusCode = radiusSelector.getSelectedItemPosition();
+	    editor.putInt("radius", radiusCode);
+
+	    RadioGroup group = (RadioGroup) findViewById(R.id.km_mile);
+	    int choice = group.getCheckedRadioButtonId();
+	    editor.putInt("choice", choice);
+
+	    EditText phone2 = (EditText) findViewById(R.id.enter_contact6);
+	    String phoneNum2 = phone2.getText().toString();
+	    editor.putString("phone2", phoneNum2);
+	    //Save all changes to SharedPrefs object
+	    editor.commit();
+	    Intent intent = new Intent(this, CommuteScreen.class);
+	    startActivity(intent);
+    }
 }
