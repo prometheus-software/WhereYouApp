@@ -247,20 +247,19 @@ public class AddRouteScreen extends Activity {
 	   	else
 	    {
 	    	alarm = data.getBooleanExtra("alarm", true);
-	    	Log.d(TAG, "" + alarm);
+	    	System.out.println(alarm);
 	    	time = data.getStringArrayListExtra("time");
 	    	for (int i = 0; i < 2; i ++)
 	    	{
-	    		Log.d(TAG, time.get(i));
+	    		System.out.println(time.get(i));
 	    	}
 	    	days = data.getIntegerArrayListExtra("days");
 	    	for (int j = 0; j < 6; j ++)
 	    	{
-	    		Log.d(TAG, "" + days.get(j));
+	    		System.out.println(days.get(j));
 	    	}
 	    }
 	}
-
 	public void showSelectedNumber(int type, String number) {
 	    //Toast.makeText(this, whichContact +  ": " + number, Toast.LENGTH_LONG).show();
 	    if (whichContact == 1)
