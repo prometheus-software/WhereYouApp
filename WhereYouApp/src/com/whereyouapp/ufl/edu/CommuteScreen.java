@@ -1,8 +1,6 @@
 package com.whereyouapp.ufl.edu;
-
 import java.util.ArrayList;
 import java.util.List;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -131,7 +129,8 @@ public class CommuteScreen extends Activity {
 		intent.putExtra("alarm", alarm);
 		intent.putExtra("time", time);
 		intent.putExtra("days", days);
-		startActivityForResult(intent, 2);
+		setResult(2, intent);
+		finish();
 	}
 	public void addListenerOnSpinnerItemSelection()
 	{
@@ -139,3 +138,4 @@ public class CommuteScreen extends Activity {
 		spinner2.setOnItemSelectedListener(new CustomOnItemSelectedListener ());
 	}
 }
+
