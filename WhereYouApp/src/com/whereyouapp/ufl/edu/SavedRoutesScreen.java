@@ -150,7 +150,20 @@ public class SavedRoutesScreen extends Activity {
 		{
 			message += "No";
 		}
-
+		message += "\n";
+		message += "Alarm: ";
+		if(selectedRoute.getAlarm() == true)
+		{
+			message += "Yes";
+		}
+		else
+		{
+			message += "No";
+		}
+		message += "\n";
+		message += "Time: " + selectedRoute.getTime().get(0) + ":" + selectedRoute.getTime().get(1);
+		message += "\n";
+		message += "Days: " + selectedRoute.getDays();
 		new AlertDialog.Builder(context)
 	    .setTitle("Route Info")
 	    .setMessage(message)
