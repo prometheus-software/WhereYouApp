@@ -58,8 +58,8 @@ public class AddRouteScreen extends Activity {
 	public int mode;
 	public double factor;
 	public boolean alarm;
-	public ArrayList<String> time;
-	public ArrayList<Integer> days;
+	public ArrayList<String> time = new ArrayList<String>(2);
+	public ArrayList<Integer> days = new ArrayList<Integer>(7);
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -332,7 +332,7 @@ public class AddRouteScreen extends Activity {
 		String [] phoneNumbers = new String [2];
 		phoneNumbers [0] = phoneNumber;
 		phoneNumbers [1] = phoneNumber2;
-		Route route = new Route (name, address, phoneNumbers, radius, message1);
+		//Route route = new Route (name, address, phoneNumbers, radius, message1);
 		intent.putExtra(EXTRA_MESSAGE, message);
 		//Start AddRouteScreenMessage or MapScreen (whatever comes next)
 		startActivity(intent);
@@ -547,9 +547,18 @@ public class AddRouteScreen extends Activity {
 					 startActivity(intent);
 				}
 			}
-
+			alarm = true;
+			time.set(0, "0");
+			time.set(1, "0");
+			days.set(0, 0);
+			days.set(1, 0);
+			days.set(2, 0);
+			days.set(3, 0);
+			days.set(4, 0);
+			days.set(5, 0);
+			days.set(6, 0);
 			dbHandle.open();
-			dbHandle.insertRoute(new Route(name, coord, phoneNumbers, radiusCode, theMessage, addr));
+			dbHandle.insertRoute(new Route(name, coord, phoneNumbers, radiusCode, theMessage, addr, alarm, time, days));
 			dbHandle.setActive(name);
 			dbHandle.close();
 		}
@@ -612,3 +621,4 @@ public class AddRouteScreen extends Activity {
 	    startActivity(intent);
     }
 }
+
