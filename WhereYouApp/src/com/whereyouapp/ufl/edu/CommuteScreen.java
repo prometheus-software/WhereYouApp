@@ -1,6 +1,8 @@
 package com.whereyouapp.ufl.edu;
+
 import java.util.ArrayList;
 import java.util.List;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -85,7 +87,7 @@ public class CommuteScreen extends Activity {
 		ArrayList<String> time = new ArrayList<String> (2);
 		time.add(String.valueOf(spinner1.getSelectedItem()));
 		time.add(String.valueOf(spinner2.getSelectedItem()));
-		ArrayList<Integer> days = new ArrayList<Integer>();
+		ArrayList<Integer> days = new ArrayList<Integer>(7);
 		for (int i = 0; i < 7; i ++)
 		{
 			days.add(0);
