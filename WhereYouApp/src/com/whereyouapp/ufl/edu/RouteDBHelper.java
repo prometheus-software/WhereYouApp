@@ -8,10 +8,8 @@ import android.database.sqlite.SQLiteOpenHelper;
 public class RouteDBHelper extends SQLiteOpenHelper {
 
 	private static final String LOGTAG = "IDK";
-
 	private static final String DATABASE_NAME = "route.db";
-	private static final int DATABASE_VERSION = 1;
-
+	private static final int DATABASE_VERSION = 2;
 	public static final String TABLE_NAME = "routes";
 	public static final String COLUMN_ID = "routeId";
 	public static final String NAME = "routeName";
@@ -23,6 +21,16 @@ public class RouteDBHelper extends SQLiteOpenHelper {
 	public static final String ALERTDIST = "alertDistance";
 	public static final String ADDRESS = "address";
 	public static final String ISACTIVE = "isActive";
+	public static final String ALARM = "alarm";
+	public static final String HOURS = "hours";
+	public static final String MINUTES = "minutes";
+	public static final String MONDAY = "monday";
+	public static final String TUESDAY = "tuesday";
+	public static final String WEDNESDAY = "wednesday";
+	public static final String THURSDAY = "thursday";
+	public static final String FRIDAY = "friday";
+	public static final String SATURDAY = "saturday";
+	public static final String SUNDAY = "sunday";
 
 	private static final String DATABASE_CREATION = 
 			"CREATE TABLE " + TABLE_NAME + " (" + 
@@ -35,7 +43,17 @@ public class RouteDBHelper extends SQLiteOpenHelper {
 			PHONE2 + " TEXT, "+
 			ADDRESS + " TEXT, " + 
 			ALERTDIST + " TEXT, " + 
-			ISACTIVE + " INTEGER" + 
+			ISACTIVE + " INTEGER" +
+			ALARM + " INTEGER" +
+			HOURS + " TEXT, "+
+			MINUTES + " TEXT, "+
+			MONDAY + " TEXT, "+
+			TUESDAY + " TEXT, "+
+			WEDNESDAY + " TEXT, "+
+			THURSDAY + " TEXT, "+
+			FRIDAY + " TEXT, "+
+			SATURDAY + " TEXT, "+
+			SUNDAY + " TEXT, "+
 			")";
 
 	//Context describes how this DB will connect to the activity
