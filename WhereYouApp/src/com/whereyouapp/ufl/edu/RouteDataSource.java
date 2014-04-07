@@ -24,7 +24,17 @@ public class RouteDataSource {
 			RouteDBHelper.PHONE2,
 			RouteDBHelper.ADDRESS,
 			RouteDBHelper.ALERTDIST,
-			RouteDBHelper.ISACTIVE
+			RouteDBHelper.ISACTIVE,
+			RouteDBHelper.ALARM,
+			RouteDBHelper.HOURS,
+			RouteDBHelper.MINUTES,
+			RouteDBHelper.MONDAY,
+			RouteDBHelper.TUESDAY,
+			RouteDBHelper.WEDNESDAY,
+			RouteDBHelper.THURSDAY,
+			RouteDBHelper.FRIDAY,
+			RouteDBHelper.SATURDAY,
+			RouteDBHelper.SUNDAY
 		};
 
 	public static final String DATABASE_CREATION = 
@@ -38,7 +48,17 @@ public class RouteDataSource {
 					RouteDBHelper.PHONE2 + " TEXT, "+
 					RouteDBHelper.ADDRESS + " TEXT, " + 
 					RouteDBHelper.ALERTDIST + " TEXT, " + 
-					RouteDBHelper.ISACTIVE + " INTEGER" + 
+					RouteDBHelper.ISACTIVE + " INTEGER" +
+					RouteDBHelper.ALARM + " INTEGER"+
+					RouteDBHelper.HOURS + " TEXT, "+
+					RouteDBHelper.MINUTES + " TEXT, "+
+					RouteDBHelper.MONDAY + " TEXT, "+
+					RouteDBHelper.TUESDAY + " TEXT, "+
+					RouteDBHelper.WEDNESDAY + " TEXT, "+
+					RouteDBHelper.THURSDAY + " TEXT, "+
+					RouteDBHelper.FRIDAY + " TEXT, "+
+					RouteDBHelper.SATURDAY + " TEXT, "+
+					RouteDBHelper.SUNDAY + " TEXT, "+
 			")";
 
 	public RouteDataSource(Context context)
@@ -62,6 +82,8 @@ public class RouteDataSource {
 		ContentValues values = new ContentValues();
 		double[] coord = r.getCoordinates();
 		String [] theNumbers = r.getNumber();
+		ArrayList<String> time = r.getTime();
+		ArrayList<Integer> days = r.getDays();
 		values.put(RouteDBHelper.COLUMN_ID, Route.routeID);
 		values.put(RouteDBHelper.NAME, r.getName());
 		values.put(RouteDBHelper.MESSAGE, r.getMessage());
@@ -72,6 +94,16 @@ public class RouteDataSource {
 		values.put(RouteDBHelper.ADDRESS, r.getAddress());
 		values.put(RouteDBHelper.ALERTDIST, r.getDistance());
 		values.put(RouteDBHelper.ISACTIVE, r.getDistance());
+		values.put(RouteDBHelper.ALARM, r.getAlarm());
+		values.put(RouteDBHelper.HOURS, time.get(0));
+		values.put(RouteDBHelper.MINUTES, time.get(1));
+		values.put(RouteDBHelper.MONDAY, days.get(0));
+		values.put(RouteDBHelper.TUESDAY, days.get(1));
+		values.put(RouteDBHelper.WEDNESDAY, days.get(2));
+		values.put(RouteDBHelper.THURSDAY, days.get(3));
+		values.put(RouteDBHelper.FRIDAY, days.get(4));
+		values.put(RouteDBHelper.SATURDAY, days.get(5));
+		values.put(RouteDBHelper.SUNDAY, days.get(6));
 		database.insert(RouteDBHelper.TABLE_NAME, null, values);
 
 	}
@@ -103,8 +135,29 @@ public class RouteDataSource {
 				String fullAddress = cursor.getString(cursor.getColumnIndex(RouteDBHelper.ADDRESS));
 				double[] coordinates = {lat, lng};
 				int isActive = cursor.getInt(cursor.getColumnIndex(RouteDBHelper.ISACTIVE));
+				boolean a = cursor.getInt(cursor.getColumnIndex(RouteDBHelper.ALARM)) == 1;
+				ArrayList<String> time = new ArrayList<String>(2);
+				String hours = cursor.getString(cursor.getColumnIndex(RouteDBHelper.HOURS));
+				time.add(hours);
+				String minutes = cursor.getString(cursor.getColumnIndex(RouteDBHelper.MINUTES));
+				time.add(minutes);
+				ArrayList<Integer> days = new ArrayList<Integer>(7);
+				int monday = cursor.getInt(cursor.getColumnIndex(RouteDBHelper.MONDAY));
+				days.add(monday);
+				int tuesday = cursor.getInt(cursor.getColumnIndex(RouteDBHelper.TUESDAY));
+				days.add(tuesday);
+				int wednesday = cursor.getInt(cursor.getColumnIndex(RouteDBHelper.WEDNESDAY));
+				days.add(wednesday);
+				int thursday = cursor.getInt(cursor.getColumnIndex(RouteDBHelper.THURSDAY));
+				days.add(thursday);
+				int friday = cursor.getInt(cursor.getColumnIndex(RouteDBHelper.FRIDAY));
+				days.add(friday);
+				int saturday = cursor.getInt(cursor.getColumnIndex(RouteDBHelper.SATURDAY));
+				days.add(saturday);
+				int sunday = cursor.getInt(cursor.getColumnIndex(RouteDBHelper.SUNDAY));
+				days.add(sunday);
 				Route route = new Route(name, coordinates, phoneNumbers,
-						alertDist, message, fullAddress, isActive);
+						alertDist, message, fullAddress, isActive, a, time, days);
 				routes.add(route);
 			}
 		}
@@ -143,3 +196,4 @@ public class RouteDataSource {
 				+ "="+ "'" + routeName + "'");
 	}
 }
+
