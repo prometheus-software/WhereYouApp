@@ -7,6 +7,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
+import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
@@ -48,8 +49,8 @@ public class RouteDataSource {
 					RouteDBHelper.PHONE2 + " TEXT, "+
 					RouteDBHelper.ADDRESS + " TEXT, " + 
 					RouteDBHelper.ALERTDIST + " TEXT, " + 
-					RouteDBHelper.ISACTIVE + " INTEGER" +
-					RouteDBHelper.ALARM + " INTEGER"+
+					RouteDBHelper.ISACTIVE + " INTEGER, " +
+					RouteDBHelper.ALARM + " INTEGER, "+
 					RouteDBHelper.HOURS + " TEXT, "+
 					RouteDBHelper.MINUTES + " TEXT, "+
 					RouteDBHelper.MONDAY + " TEXT, "+
@@ -58,7 +59,7 @@ public class RouteDataSource {
 					RouteDBHelper.THURSDAY + " TEXT, "+
 					RouteDBHelper.FRIDAY + " TEXT, "+
 					RouteDBHelper.SATURDAY + " TEXT, "+
-					RouteDBHelper.SUNDAY + " TEXT, "+
+					RouteDBHelper.SUNDAY + " TEXT"+
 			")";
 
 	public RouteDataSource(Context context)
@@ -66,7 +67,7 @@ public class RouteDataSource {
 		dbHelper = new RouteDBHelper(context);
 	}
 
-	public void open()
+	public void open() throws SQLException
 	{
 		//Opens connection to DB
 		database = dbHelper.getWritableDatabase();
