@@ -75,5 +75,11 @@ public class RouteDBHelper extends SQLiteOpenHelper {
 		db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME);
 		onCreate(db);
 	}
+	
+	@Override
+	public void onDowngrade(SQLiteDatabase db, int arg1, int arg2)
+	{
+		onUpgrade(db, arg1, arg2);
+	}
 
 }
