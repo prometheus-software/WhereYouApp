@@ -1,5 +1,6 @@
 package com.whereyouapp.ufl.edu;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import android.annotation.SuppressLint;
@@ -161,9 +162,72 @@ public class SavedRoutesScreen extends Activity {
 			message += "No";
 		}
 		message += "\n";
-		message += "Time: " + selectedRoute.getTime().get(0) + ":" + selectedRoute.getTime().get(1);
+		ArrayList<String> time = selectedRoute.getTime();
+		message += "Time: ";
+		if(Integer.parseInt(time.get(0)) < 10)
+		{
+			message += "0" + time.get(0);
+		}
+		else
+		{
+			message += time.get(0);
+		}
+		message += ":";
+		if (Integer.parseInt(time.get(1)) < 10)
+		{
+			message += "0" + time.get(1);
+		}
+		else
+		{
+			message += time.get(1);
+		}
 		message += "\n";
-		message += "Days: " + selectedRoute.getDays();
+		message += "Days: ";
+		ArrayList<Integer> days = selectedRoute.getDays();
+		boolean none = true;
+		for (int j = 0; j < 7; j ++)
+		{
+			if (days.get(j) == 1)
+			{
+				none = false;
+				break;
+			}
+		}
+		if (none)
+		{
+			message += "No days selected.";
+		}
+		else
+		{
+			if (days.get(0) == 1)
+			{
+				message += "M ";
+			}
+			if (days.get(1) == 1)
+			{
+				message += "T ";
+			}
+			if (days.get(2) == 1)
+			{
+				message += "W ";
+			}
+			if (days.get(3) == 1)
+			{
+				message += "R ";
+			}
+			if(days.get(4) == 1)
+			{
+				message += "F ";
+			}
+			if (days.get(5) == 1)
+			{
+				message += "S ";
+			}
+			if(days.get(6) == 1)
+			{
+				message += "Su ";
+			}
+		}
 		new AlertDialog.Builder(context)
 	    .setTitle("Route Info")
 	    .setMessage(message)
