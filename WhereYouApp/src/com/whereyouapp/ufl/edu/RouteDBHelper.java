@@ -43,8 +43,8 @@ public class RouteDBHelper extends SQLiteOpenHelper {
 			PHONE2 + " TEXT, "+
 			ADDRESS + " TEXT, " + 
 			ALERTDIST + " TEXT, " + 
-			ISACTIVE + " INTEGER" +
-			ALARM + " INTEGER" +
+			ISACTIVE + " INTEGER, " +
+			ALARM + " INTEGER, " +
 			HOURS + " TEXT, "+
 			MINUTES + " TEXT, "+
 			MONDAY + " TEXT, "+
@@ -53,7 +53,7 @@ public class RouteDBHelper extends SQLiteOpenHelper {
 			THURSDAY + " TEXT, "+
 			FRIDAY + " TEXT, "+
 			SATURDAY + " TEXT, "+
-			SUNDAY + " TEXT, "+
+			SUNDAY + " TEXT"+
 			")";
 
 	//Context describes how this DB will connect to the activity
