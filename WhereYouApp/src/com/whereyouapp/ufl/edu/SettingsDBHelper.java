@@ -10,7 +10,7 @@ public class SettingsDBHelper extends SQLiteOpenHelper {
 	private static final String LOGTAG = "IDK";
 
 	private static final String DATABASE_NAME = "route.db";
-	private static final int DATABASE_VERSION = 1;
+	private static final int DATABASE_VERSION = 2;
 
 	public static final String TABLE_NAME = "settings";
 	public static final String COLUMN_ID = "settingsId";
