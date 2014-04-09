@@ -548,15 +548,15 @@ public class AddRouteScreen extends Activity {
 				}
 			}
 			alarm = true;
-			time.set(0, "0");
-			time.set(1, "0");
-			days.set(0, 0);
-			days.set(1, 0);
-			days.set(2, 0);
-			days.set(3, 0);
-			days.set(4, 0);
-			days.set(5, 0);
-			days.set(6, 0);
+			time.add("0");
+			time.add("0");
+			days.add(0);
+			days.add(0);
+			days.add(0);
+			days.add(0);
+			days.add(0);
+			days.add(0);
+			days.add(0);
 			dbHandle.open();
 			dbHandle.insertRoute(new Route(name, coord, phoneNumbers, radiusCode, theMessage, addr, alarm, time, days));
 			dbHandle.setActive(name);
