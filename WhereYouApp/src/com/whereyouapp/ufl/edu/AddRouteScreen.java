@@ -560,7 +560,6 @@ public class AddRouteScreen extends Activity {
 				coord = new double[2];
 				coord[0] = lat;
 				coord[1] = lng;
-
 				if (error)
 				{
 					 Toast.makeText(this, "Error with phone number; fix and save again.", Toast.LENGTH_LONG).show();
@@ -583,14 +582,25 @@ public class AddRouteScreen extends Activity {
 			dbHandle.setActive(name);
 			dbHandle.close();
 		}
-
-
-		//Clear saved text fields and whatnot
 		editor = userInfo.edit();
 		editor.clear();
 		editor.commit();
-
-
+		EditText editText = (EditText) findViewById(R.id.route_name);
+		editText.setText("", TextView.BufferType.EDITABLE);
+		editText = (EditText) findViewById(R.id.enter_contact);
+		editText.setText("", TextView.BufferType.EDITABLE);
+		editText = (EditText) findViewById(R.id.enter_contact6);
+		editText.setText("", TextView.BufferType.EDITABLE);
+		editText = (EditText) findViewById(R.id.enter_message);
+		editText.setText("", TextView.BufferType.EDITABLE);
+		spinner2.setSelection(0);
+		RadioGroup kmMile = (RadioGroup) findViewById(R.id.km_mile);
+		kmMile.check(R.id.mile);
+		TextView textView = (TextView) findViewById(R.id.display_address);
+		textView.setText("No address selected");
+		whichContact = 0;
+		mode = 0;
+		//Clear saved text fields and whatnot
 		new AlertDialog.Builder(this)
 	    .setTitle("Confirmation")
 	    .setMessage("Route was successfully created")
@@ -642,5 +652,6 @@ public class AddRouteScreen extends Activity {
 	    startActivity(intent);
     }
 }
+
 
 
