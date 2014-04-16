@@ -244,7 +244,7 @@ public class AddRouteScreen extends Activity {
 			   }
 		   }
 	   	}
-	   	else
+	   	if (resultCode == 2)
 	    {
 	    	alarm = data.getBooleanExtra("alarm", true);
 	    	System.out.println(alarm);
@@ -567,16 +567,6 @@ public class AddRouteScreen extends Activity {
 					 startActivity(intent);
 				}
 			}
-			alarm = true;
-			time.add("0");
-			time.add("0");
-			days.add(0);
-			days.add(0);
-			days.add(0);
-			days.add(0);
-			days.add(0);
-			days.add(0);
-			days.add(0);
 			dbHandle.open();
 			dbHandle.insertRoute(new Route(name, coord, phoneNumbers, radiusCode, theMessage, addr, alarm, time, days));
 			dbHandle.setActive(name);
@@ -649,7 +639,7 @@ public class AddRouteScreen extends Activity {
 	    //Save all changes to SharedPrefs object
 	    editor.commit();
 	    Intent intent = new Intent(this, CommuteScreen.class);
-	    startActivity(intent);
+	    startActivityForResult(intent, 2);
     }
 }
 
