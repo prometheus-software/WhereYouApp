@@ -164,23 +164,9 @@ public class SavedRoutesScreen extends Activity {
 		message += "\n";
 		ArrayList<String> time = selectedRoute.getTime();
 		message += "Time: ";
-		if(Integer.parseInt(time.get(0)) < 10)
-		{
-			message += "0" + time.get(0);
-		}
-		else
-		{
-			message += time.get(0);
-		}
+		message += time.get(0);
 		message += ":";
-		if (Integer.parseInt(time.get(1)) < 10)
-		{
-			message += "0" + time.get(1);
-		}
-		else
-		{
-			message += time.get(1);
-		}
+		message += time.get(1);
 		message += "\n";
 		message += "Days: ";
 		ArrayList<Integer> days = selectedRoute.getDays();
