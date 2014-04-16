@@ -30,8 +30,10 @@ import android.widget.Button;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
@@ -61,8 +63,8 @@ GooglePlayServicesClient.OnConnectionFailedListener, LocationListener{
 
 	LocationClient myLocationClient;
 	List<Address> list;
-
-
+	public SharedPreferences userInfo;
+	public SharedPreferences.Editor editor;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -82,6 +84,8 @@ GooglePlayServicesClient.OnConnectionFailedListener, LocationListener{
 			{
 				Toast.makeText(this, "Map is not available.", Toast.LENGTH_SHORT).show();
 			}
+			userInfo = this.getSharedPreferences("User supplied info", Context.MODE_PRIVATE);
+			editor = userInfo.edit();
 		}
 		else
 		{
@@ -340,6 +344,8 @@ GooglePlayServicesClient.OnConnectionFailedListener, LocationListener{
 	@Override
 	protected void onResume()
 	{
+		EditText editText = (EditText) findViewById(R.id.editText1);
+		editText.setText(userInfo.getString("address", null));
 		super.onResume();
 		//MapManager manager = new MapManager(this);
 		//CameraPosition position = manager.getSavedCameraPosition();
@@ -447,5 +453,14 @@ GooglePlayServicesClient.OnConnectionFailedListener, LocationListener{
 	{
 		Intent intent = new Intent (this, AddRouteScreen.class);
 		startActivity(intent);
+	}
+	@Override
+	public void onPause()
+	{
+		super.onPause();
+		EditText editText = (EditText) findViewById(R.id.editText1);
+		String address = editText.getText().toString();
+		editor.putString("address", address);
+		editor.commit();
 	}
 }
