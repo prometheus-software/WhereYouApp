@@ -463,6 +463,27 @@ public class AddRouteScreen extends Activity {
 	{
 		dbHandle.close();
 	    super.onPause();
+	    EditText routeName = (EditText) findViewById(R.id.route_name);
+	    String route = routeName.getText().toString();
+	    editor.putString("name", route);
+	    EditText message = (EditText) findViewById(R.id.enter_message);
+	    String theMessage = message.getText().toString();
+	    editor.putString("message", theMessage);
+	    //Note that I'm storing this as a string and not a numeric value
+	    EditText phone  = (EditText) findViewById(R.id.enter_contact);
+	    String phoneNum = phone.getText().toString();
+	    editor.putString("phone", phoneNum);
+	    Spinner radiusSelector = (Spinner) findViewById(R.id.enter_radius);
+	    int radiusCode = radiusSelector.getSelectedItemPosition();
+	    editor.putInt("radius", radiusCode);
+	    RadioGroup group = (RadioGroup) findViewById(R.id.km_mile);
+	    int choice = group.getCheckedRadioButtonId();
+	    editor.putInt("choice", choice);
+	    EditText phone2 = (EditText) findViewById(R.id.enter_contact6);
+	    String phoneNum2 = phone2.getText().toString();
+	    editor.putString("phone2", phoneNum2);
+	    //Save all changes to SharedPrefs object
+	    editor.commit();
 	}
 
 	public void saveRoute(MenuItem menuItem)
@@ -621,4 +642,5 @@ public class AddRouteScreen extends Activity {
 	    startActivity(intent);
     }
 }
+
 
