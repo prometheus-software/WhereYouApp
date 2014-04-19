@@ -60,8 +60,11 @@ public class SettingsDataSource {
 	public boolean containsValue() {
 		Cursor cursor = setdatabase.query(SettingsDBHelper.TABLE_NAME, allColumns, 
 			null, null, null, null, null);
-		if(cursor.getCount() > 0)
+		if(cursor.getCount() > 0){
+			cursor.close();
 			return true;
+		}
+		cursor.close();
 		return false;
 	}
 

@@ -1,5 +1,6 @@
 package com.whereyouapp.ufl.edu;
 import java.util.ArrayList;
+
 import java.util.Arrays;
 
 import android.app.Activity;
@@ -17,12 +18,14 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.net.Uri;
+import android.os.BatteryManager;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.TaskStackBuilder;
 import android.telephony.SmsManager;
 import android.widget.Toast;
+
 
 public class Controller extends Service
 {
@@ -34,6 +37,9 @@ public class Controller extends Service
 	Location currentLocation;
 	static LocationManager locationManager;
 	double distance;
+	
+	public static SettingsDataSource setdbHandle;
+	public static RouteDataSource dbHandle;
 	// Define a listener that responds to location updates
 
 	LocationListener locationListenerGps = new LocationListener()
@@ -62,12 +68,11 @@ public class Controller extends Service
 
 	public int onStartCommand(Intent intent,int flags, int startId)
 	{
+		checkBattery();
 		ArrayList<Route> list= getAllActiveRoutes();
 
 		System.out.println("Working");
-
-
-
+	
 
 		if(list != null)
 		{
@@ -265,4 +270,56 @@ public class Controller extends Service
 		SmsManager sms = SmsManager.getDefault();      
 		sms.sendTextMessage(phoneNumber, null, message, sentPI, null);
 	}
-}
+	
+	public int level=-1;
+	
+	private int getBatteryPercentage() {
+		  BroadcastReceiver batteryLevelReceiver = new BroadcastReceiver() {
+		         public void onReceive(Context context, Intent intent) {
+		             context.unregisterReceiver(this);
+		             int currentLevel = intent.getIntExtra(BatteryManager.EXTRA_LEVEL, -1);
+		             int scale = intent.getIntExtra(BatteryManager.EXTRA_SCALE, -1);
+		             if (currentLevel >= 0 && scale > 0) {
+		                  level = (currentLevel * 100) / scale;
+		             }
+		         }
+		     }; 
+		     IntentFilter batteryLevelFilter = new IntentFilter(Intent.ACTION_BATTERY_CHANGED);
+		     registerReceiver(batteryLevelReceiver, batteryLevelFilter);
+		     return level;
+		  }
+	
+	public void checkBattery(){
+		dbHandle = SavedRoutesScreen.dbHandle;
+		setdbHandle = SavedRoutesScreen.setdbHandle;
+		 int level = getBatteryPercentage();
+					
+		if(setdbHandle.containsValue()){
+			int batteryPct = setdbHandle.getSavedBatteryLevel();
+			if(setdbHandle.isRunning()){
+				if(level <= batteryPct){				
+					ArrayList<Route> list=getAllActiveRoutes();
+					if (list.size() > 0) {
+					triggerNotification("Battery Low","Alerting active routes and shutting down",true);
+					}
+					for(Route s:list){
+						String [] phone_number=s.getNumber();
+						for(int i=0;i<phone_number.length;i++){
+							if(phone_number[i]!=null && !phone_number[i].equals("null") && !phone_number[i].equals("")){
+								if(phone_number[i].substring(0,4).equals("null")){
+									phone_number[i] = phone_number[i].substring(4,phone_number[i].length());
+								    double [] coordinates=s.getCoordinates();
+									sendSMS2(phone_number[i], "Phone Battery about to die. Here is my location via WhereYouApp \n Latitude:"+ coordinates[0]+" \n Longitude:"+ coordinates[1]);
+								}
+							}					
+						}
+						//setting all routes inactive
+						dbHandle.setInactive(s.getName());
+					}
+				}
+				
+			}
+			}
+		}
+	}
+
