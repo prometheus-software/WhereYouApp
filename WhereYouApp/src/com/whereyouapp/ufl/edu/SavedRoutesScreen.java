@@ -7,29 +7,26 @@ import android.annotation.SuppressLint;
 import android.app.ActionBar.LayoutParams;
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.database.Cursor;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.Button;
 
-public class SavedRoutesScreen extends Activity {
+public class SavedRoutesScreen extends Activity{
 	static List<Route> routes;
 	static Context context;
 	static int currentRouteIndex;
@@ -37,8 +34,8 @@ public class SavedRoutesScreen extends Activity {
 	public static SettingsDataSource setdbHandle;
 
 	@SuppressLint("NewApi")
-	@Override
-	public void onCreate(Bundle savedInstanceState) {
+	//@Override
+	/*public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.default_linear_layout);
 		context = this;
@@ -98,14 +95,94 @@ public class SavedRoutesScreen extends Activity {
 						}
 			    });
 			}
+			
+			
 		}
 
 
 		//dbHandle.close();
         Controller.setServiceAlarm(this, true);
 
-	}
+	}*/
+	
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        ListView list = new ListView(this);
+        setContentView(list);
+		context = this;
 
+		setdbHandle = new SettingsDataSource(this);
+		setdbHandle.open();
+		setdbHandle.recreateTable();
+	
+		dbHandle = new RouteDataSource(this);
+		dbHandle.open();
+		dbHandle.recreateTable();
+		
+		//Build the layout from SQLite database query
+		routes = dbHandle.getAllRoutes();
+		if(routes == null)
+		{
+			System.out.println("NOTHING");
+		}
+		else {
+			
+		String[] items = new String[routes.size()];
+		for(int i = 0; i < items.length; i++) {
+			items[i] = routes.get(i).getName();
+		}
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.row_view, R.id.text, items) {
+            @Override
+            public View getView(int position, View convertView, ViewGroup parent) {
+            	View row =  super.getView(position, convertView, parent);
+                row.setBackgroundResource(R.drawable.actionbar_bg);
+                View routeName = row.findViewById(R.id.text);
+                routeName.setTag(position);
+                routeName.setOnClickListener(new AdapterView.OnClickListener() {              
+					@Override
+					public void onClick(View v) {
+						// TODO Auto-generated method stub
+						Intent myIntent = new Intent(getApplicationContext(), AddRouteScreen.class);
+						//
+						//
+						//Starts the AddRouteScreen and passes the position of the route in the database
+						myIntent.putExtra("position", (Integer)v.getTag());
+						startActivity(myIntent);						
+					}
+				});
+                ImageButton imgb =  (ImageButton)row.findViewById(R.id.on);
+                View right = row.findViewById(R.id.on);               
+               if (routes.get(position).getIsActive() == 1) {
+            	   imgb.setImageResource(R.drawable.on);
+               }
+               else {
+            	   imgb.setImageResource(R.drawable.off);
+               }
+                right.setTag(position);
+                right.setOnLongClickListener(new AdapterView.OnLongClickListener() {
+					@Override
+					public boolean onLongClick(View v) {
+						// TODO Auto-generated method stub
+						SavedRoutesScreen.showRouteOptions((Integer) v.getTag());
+						return true;
+					}
+				});                
+                right.setOnClickListener(new AdapterView.OnClickListener() {
+					@Override
+					public void onClick(View v) {
+						SavedRoutesScreen.toggleActive((Integer) v.getTag());
+					}
+                });                    
+                return row;               
+            }
+        };       
+        Controller.setServiceAlarm(this, true);     
+        list.setAdapter(adapter);
+		}
+    }
+    
+	
 	public void onPause()
 	{
 		super.onPause();
