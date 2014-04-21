@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.RadioButton;
@@ -15,6 +16,7 @@ import android.widget.Spinner;
 public class CommuteScreen extends Activity {
 	private Spinner spinner1;
 	private Spinner spinner2;
+	public boolean alarm;
 	public void cancelCommute(MenuItem item)
 	{
 		Intent intent = new Intent(this, AddRouteScreen.class);
@@ -25,6 +27,18 @@ public class CommuteScreen extends Activity {
 	{
 		Intent intent = new Intent(this, AddRouteScreen.class);
 		startActivity(intent);
+	}
+	public void onRadioButtonClicked (View view)
+	{
+		boolean checked = ((RadioButton) view).isChecked();
+		if(view.getId() == R.id.yes){
+			if(checked)
+				alarm = true;
+		}
+		else if(view.getId() == R.id.no){
+			if(checked)
+				alarm = false;
+		}
 	}
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
@@ -73,7 +87,6 @@ public class CommuteScreen extends Activity {
 	}
 	public void saveCommute(MenuItem item)
 	{
-		boolean alarm = false;
 		RadioButton button1 = (RadioButton) findViewById(R.id.yes);
 		RadioButton button2 = (RadioButton) findViewById(R.id.no);
 		if(button1.isChecked())
