@@ -76,7 +76,7 @@ GooglePlayServicesClient.OnConnectionFailedListener, LocationListener{
 		//Check if services are good to go before setting up layout
 		if(servicesOK())
 		{
-			setContentView(R.layout.activity_set_address_screen); //CHANGE
+			setContentView(R.layout.activity_view_address_screen); //CHANGED
 			EditText et = (EditText) findViewById(R.id.editText1);
 			et.setInputType(InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS);
 			if(initializeMap())
