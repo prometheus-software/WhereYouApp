@@ -1,0 +1,156 @@
+<ScrollView
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  android:layout_width="fill_parent"
+  android:layout_height="fill_parent"
+  android:isScrollContainer = "false"
+  android:fillViewport="true">
+   <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="top"
+    	android:paddingLeft = "16dp"
+    	android:paddingRight = "16dp"
+    	android:paddingBottom = "16dp"
+    	android:paddingTop="16dp" > 
+    	
+    	<EditText
+            android:id="@+id/edit_route_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="20dp"
+            android:ems="10"
+            android:textColorHint="#FFFFFF"
+            android:hint="@string/route_name">
+    	</EditText>
+    	 
+    	 <TextView
+            android:id="@+id/edit_display_address"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/edit_route_name"
+            android:layout_marginTop="25dp"
+            android:paddingLeft="8dp"
+            android:text="@string/no_address"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+    	 
+    	 <Button
+            android:id="@+id/edit_set_address"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/edit_display_address"
+            android:layout_alignBottom="@+id/edit_display_address"
+            android:layout_alignParentRight="true"
+            android:onClick="startMapActivity"
+            android:background="@drawable/rounded_button"
+            android:text="@string/set_address" />
+    	 
+       <TextView
+            android:id="@+id/edit_distance_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/edit_route_name"
+            android:layout_below="@+id/edit_display_address"
+            android:layout_marginTop="25dp"
+            android:paddingLeft="8dp"
+            android:text="@string/distance_text"
+            android:textAppearance="?android:attr/textAppearanceLarge"/>
+       
+       <Spinner
+            android:id="@+id/edit_enter_radius"
+            android:layout_width="70dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:paddingRight="15dp"            
+            android:layout_below="@+id/edit_distance_text"
+            android:layout_centerVertical="true"
+            android:hint="@string/enter_radius"
+            android:prompt="@string/enter_radius" />
+    	 
+        <EditText
+            android:id="@+id/edit_enter_contact"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/edit_enter_radius"
+            android:layout_marginTop="20dp"
+            android:ems="10"
+            android:textColorHint="#FFFFFF"
+            android:hint="@string/enter_contact" />
+        
+        <EditText
+            android:id="@+id/edit_enter_contact6"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/edit_enter_contact"
+            android:layout_below="@+id/edit_enter_contact"
+            android:layout_marginTop="25dp"
+            android:ems="10"
+            android:textColorHint="#FFFFFF"
+            android:hint="@string/enter_contact" />
+        
+        <ImageButton
+            android:id="@+id/edit_contact_list2"
+            android:contentDescription="@string/CBdescription"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignRight="@+id/edit_enter_contact6"
+            android:layout_alignTop="@+id/edit_enter_contact6"
+            android:background="@android:color/transparent"
+            android:src="@drawable/contacts_button" />
+       
+        <ImageButton
+            android:id="@+id/edit_contact_list1"
+            android:contentDescription="@string/CBdescription"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignRight="@+id/edit_enter_contact"
+            android:layout_alignTop="@+id/edit_enter_contact"
+            android:background="@android:color/transparent"
+            android:src="@drawable/contacts_button" />
+        
+        <EditText                              
+            android:id="@+id/edit_enter_message"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/edit_enter_contact6"
+            android:layout_below="@+id/edit_enter_contact6"
+            android:layout_marginTop="25dp"
+            android:ems="10"
+            android:textColorHint="#FFFFFF"
+            android:hint="@string/enter_message" />
+       
+	<RadioGroup
+	    android:id = "@+id/edit_km_mile"
+	    android:orientation="horizontal"
+	    android:layout_width = "match_parent"
+	    android:layout_height = "wrap_content"
+	    android:layout_alignLeft="@+id/edit_enter_contact"
+        android:layout_alignTop="@+id/edit_enter_radius"
+        android:layout_below="@+id/edit_distance_text"
+        android:layout_marginLeft="75dp">
+		<RadioButton
+			android:id = "@+id/edit_mile"
+		        android:layout_width = "wrap_content"
+		        android:layout_height = "wrap_content"
+		        android:layout_marginBottom="0dp"
+                android:layout_marginLeft="15dp"
+		        android:text = "@string/miles"		        
+		        android:checked = "true"
+		        android:onClick = "onRadioButtonClicked" />
+		<RadioButton 
+		        android:id = "@+id/edit_km"
+		        android:layout_width = "wrap_content"
+		        android:layout_height = "wrap_content"
+		        android:layout_marginLeft="10dp"
+		        android:text = "@string/kilometers"
+		        android:onClick = "onRadioButtonClicked" />
+	</RadioGroup>
+        
+        
+        
+        
+  </RelativeLayout>
+</ScrollView>
