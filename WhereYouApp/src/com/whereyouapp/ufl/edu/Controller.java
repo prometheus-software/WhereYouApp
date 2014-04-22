@@ -68,7 +68,7 @@ public class Controller extends Service
 
 	public int onStartCommand(Intent intent,int flags, int startId)
 	{
-		checkBattery();
+		//checkBattery();
 		ArrayList<Route> list= getAllActiveRoutes();
 
 		System.out.println("Working");
