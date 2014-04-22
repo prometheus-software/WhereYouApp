@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.whereyouapp.ufl.edu"
-    android:versionCode="3"
+    android:versionCode="6"
     android:versionName="1.0" >
 
     <uses-sdk
@@ -129,6 +129,14 @@
 		        android:name = "android.support.PARENT_ACTIVITY"
 		        android:value = "com.whereyouapp.ufl.edu.EditRouteScreen" />
 		</activity>
+		<activity
+		    android:name = "com.whereyouapp.ufl.edu.ViewAddressScreen"
+		    android:label = "View Address"
+		    android:parentActivityName = "com.whereyouapp.ufl.edu.SavedRoutesScreen">
+		     <meta-data
+		        android:name = "android.support.PARENT_ACTIVITY"
+		        android:value = "com.whereyouapp.ufl.edu.SavedRoutesScreen" />
+		</activity>
         <service
             android:name="com.whereyouapp.ufl.edu.Controller"
             android:enabled="true"
@@ -142,4 +150,3 @@
             android:value="4132500" />
     </application>
 </manifest>
-
