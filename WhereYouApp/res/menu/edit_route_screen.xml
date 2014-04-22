@@ -1,0 +1,20 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+    <item
+        android:id="@+id/editsaveRoute"
+        android:orderInCategory="100"
+        android:showAsAction="ifRoom|withText"
+        android:title="Save"
+        android:onClick="saveRoute"/>    
+	<item
+	    android:id = "@+id/edittoCommute"
+	    android:orderInCategory = "100"
+	    android:showAsAction = "ifRoom|withText"
+	    android:title = "Commute"
+	    android:onClick = "toCommute"/>
+    <item
+       android:id="@+id/editcancel"
+       android:orderInCategory="100"
+       android:showAsAction="ifRoom|withText"
+       android:title="Cancel"
+       android:onClick="onRestart"/> 
+</menu>
