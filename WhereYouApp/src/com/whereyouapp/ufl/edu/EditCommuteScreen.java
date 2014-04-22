@@ -1,8 +1,6 @@
 package com.whereyouapp.ufl.edu;
-
 import java.util.ArrayList;
 import java.util.List;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,11 +10,15 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.Spinner;
 public class EditCommuteScreen extends Activity {
 	private Spinner spinner1;
 	private Spinner spinner2;
 	public boolean alarm;
+	public boolean oldAlarm;
+	public ArrayList<Integer> oldDays = new ArrayList<Integer> (7);
+	public ArrayList<String> oldTime = new ArrayList<String> (2);
 	public void cancelCommute(MenuItem item)
 	{
 		Intent intent = new Intent(this, EditRouteScreen.class);
@@ -45,6 +47,54 @@ public class EditCommuteScreen extends Activity {
 	{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_edit_commute_screen);
+		Intent intent = getIntent();
+		oldAlarm = intent.getBooleanExtra("alarm", true);
+	    RadioGroup group = (RadioGroup) findViewById(R.id.edit_yes_no);
+	    if (oldAlarm)
+	    {
+	    	group.check(R.id.edit_yes);
+	    }
+	    else
+	    {
+	    	group.check(R.id.edit_no);
+	    }
+	    oldTime = intent.getStringArrayListExtra("time");
+	    oldDays = intent.getIntegerArrayListExtra("days");
+	    CheckBox mon = (CheckBox) findViewById(R.id.edit_monday);
+	    if (oldDays.get(0) == 1)
+	    {
+	    	mon.setChecked(true);
+	    }
+	    CheckBox tues = (CheckBox) findViewById(R.id.edit_tuesday);
+	    if (oldDays.get(1) == 1)
+	    {
+	    	tues.setChecked(true);
+	    }
+	    CheckBox wed = (CheckBox) findViewById(R.id.edit_wednesday);
+	    if (oldDays.get(2) == 1)
+	    {
+	    	wed.setChecked(true);
+	    }
+	    CheckBox thurs = (CheckBox) findViewById(R.id.edit_thursday);
+	    if (oldDays.get(3) == 1)
+	    {
+	    	thurs.setChecked(true);
+	    }
+	    CheckBox fri = (CheckBox) findViewById(R.id.edit_friday);
+	    if (oldDays.get(4) == 1)
+	    {
+	    	fri.setChecked(true);
+	    }
+	    CheckBox sat = (CheckBox) findViewById(R.id.edit_saturday);
+	    if (oldDays.get(5) == 1)
+	    {
+	    	sat.setChecked(true);
+	    }
+	    CheckBox sun = (CheckBox) findViewById(R.id.edit_sunday);
+	    if (oldDays.get(6) == 1)
+	    {
+	    	sun.setChecked(true);
+	    }
 		spinner1 = (Spinner) findViewById(R.id.edit_enter_hours);
 		List <String> list = new ArrayList<String>();                    
 		for (int i = 0; i < 24; i ++)
@@ -78,6 +128,20 @@ public class EditCommuteScreen extends Activity {
 		dataAdapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 		spinner2.setAdapter(dataAdapter2);
 		addListenerOnSpinnerItemSelection();
+		for (int i = 0; i < 24; i ++)
+		{
+			if (Integer.parseInt(oldTime.get(0)) == i)
+			{
+				spinner1.setSelection(i);
+			}
+		}
+		for (int j = 0; j < 60; j ++)
+		{
+			if (Integer.parseInt(oldTime.get(1)) == j)
+			{
+				spinner2.setSelection(j);
+			}
+		}
 	}
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu)
@@ -153,3 +217,5 @@ public class EditCommuteScreen extends Activity {
 		spinner2.setOnItemSelectedListener(new CustomOnItemSelectedListener ());
 	}
 }
+
+
