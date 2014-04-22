@@ -1,8 +1,6 @@
 package com.whereyouapp.ufl.edu;
-
 import java.util.ArrayList;
 import java.util.List;
-
 import android.annotation.SuppressLint;
 import android.app.ActionBar.LayoutParams;
 import android.app.Activity;
@@ -25,7 +23,6 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
-
 public class SavedRoutesScreen extends Activity{
 	static List<Route> routes;
 	static Context context;
@@ -143,11 +140,24 @@ public class SavedRoutesScreen extends Activity{
 					@Override
 					public void onClick(View v) {
 						// TODO Auto-generated method stub
-						Intent myIntent = new Intent(getApplicationContext(), AddRouteScreen.class);
+						Intent myIntent = new Intent(getApplicationContext(), EditRouteScreen.class);
 						//
 						//
 						//Starts the AddRouteScreen and passes the position of the route in the database
-						myIntent.putExtra("position", (Integer)v.getTag());
+						//myIntent.putExtra("position", (Integer)v.getTag());
+						myIntent.putExtra("name", routes.get((Integer) v.getTag()).getName());
+						myIntent.putExtra("message", routes.get((Integer) v.getTag()).getMessage());
+						String [] phoneNumbers = new String [2];
+						phoneNumbers = routes.get((Integer) v.getTag()).getNumber();
+						myIntent.putExtra("phoneNum", phoneNumbers);
+						myIntent.putExtra("distance", routes.get((Integer) v.getTag()).getDistance());
+						myIntent.putExtra("alarm", routes.get((Integer) v.getTag()).getAlarm());
+						ArrayList<String> time = new ArrayList<String> (2);
+						time = routes.get((Integer) v.getTag()).getTime();
+						myIntent.putExtra("time", time);
+						ArrayList<Integer> days = new ArrayList<Integer> (7);
+						days = routes.get((Integer) v.getTag()).getDays();
+						myIntent.putExtra("days", days);
 						startActivity(myIntent);						
 					}
 				});
