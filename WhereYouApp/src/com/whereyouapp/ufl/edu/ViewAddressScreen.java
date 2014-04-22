@@ -222,6 +222,9 @@ GooglePlayServicesClient.OnConnectionFailedListener, LocationListener{
 			.draggable(false);
 			Marker marker = myMap.addMarker(options);
 			marker.showInfoWindow();
+			
+			CameraUpdate update = CameraUpdateFactory.newLatLng(markerLocation);
+			myMap.moveCamera(update);
 		}
 		//Checks if myMap was instantiated 
 		return (myMap != null);
