@@ -291,21 +291,18 @@ public class SavedRoutesScreen extends Activity{
 		new AlertDialog.Builder(context)
 	    .setTitle("Route Info")
 	    .setMessage(message)
+	    .setPositiveButton("View Address", new DialogInterface.OnClickListener() {
+		        public void onClick(DialogInterface dialog, int which) { 
+		        	Intent i = new Intent(SavedRoutesScreen.context, ViewAddressScreen.class);
+		        	i.putExtra("com.android.location.Address", selectedRoute.getAddress());
+	        		context.startActivity(i);
+		        }
+		  })
 	     .setNegativeButton("Delete", new DialogInterface.OnClickListener() {
 		        public void onClick(DialogInterface dialog, int which) { 
 		        	//Intent i = new Intent(getBaseContext(), AddRouteScreen.class);
 	        		//startActivity(i);
 		        	SavedRoutesScreen.deleteRoute(SavedRoutesScreen.currentRouteIndex);
-
-		        }
-		  })
-		  .setPositiveButton("View Address", new DialogInterface.OnClickListener() {
-		        public void onClick(DialogInterface dialog, int which) { 
-		        	Intent i = new Intent(SavedRoutesScreen.context, ViewAddressScreen.class);
-		        	i.putExtra("com.android.location.Address", selectedRoute.getAddress());
-	        		context.startActivity(i);
-		        	
-
 		        }
 		  })
 		  .show().getWindow().addFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);;
@@ -381,4 +378,5 @@ public class SavedRoutesScreen extends Activity{
 		return;
 	}
 }
+
 
