@@ -223,7 +223,7 @@ GooglePlayServicesClient.OnConnectionFailedListener, LocationListener{
 			Marker marker = myMap.addMarker(options);
 			marker.showInfoWindow();
 			
-			CameraUpdate update = CameraUpdateFactory.newLatLng(markerLocation);
+			CameraUpdate update = CameraUpdateFactory.newLatLngZoom(markerLocation, DEFAULTZOOM);
 			myMap.moveCamera(update);
 		}
 		//Checks if myMap was instantiated 
