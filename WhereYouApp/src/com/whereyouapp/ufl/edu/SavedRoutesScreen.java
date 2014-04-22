@@ -1,6 +1,9 @@
 package com.whereyouapp.ufl.edu;
 import java.util.ArrayList;
 import java.util.List;
+
+import com.google.android.gms.maps.model.LatLng;
+
 import android.annotation.SuppressLint;
 import android.app.ActionBar.LayoutParams;
 import android.app.Activity;
@@ -294,8 +297,10 @@ public class SavedRoutesScreen extends Activity{
 	    .setPositiveButton("View Address", new DialogInterface.OnClickListener() {
 		        public void onClick(DialogInterface dialog, int which) { 
 		        	Intent i = new Intent(SavedRoutesScreen.context, ViewAddressScreen.class);
-		        	i.putExtra("com.android.location.Address", selectedRoute.getAddress());
+		        	i.putExtra("com.android.location.LatLng", new LatLng(selectedRoute.getCoordinates()[0], selectedRoute.getCoordinates()[1]));
 	        		context.startActivity(i);
+		        	
+
 		        }
 		  })
 	     .setNegativeButton("Delete", new DialogInterface.OnClickListener() {
@@ -303,8 +308,10 @@ public class SavedRoutesScreen extends Activity{
 		        	//Intent i = new Intent(getBaseContext(), AddRouteScreen.class);
 	        		//startActivity(i);
 		        	SavedRoutesScreen.deleteRoute(SavedRoutesScreen.currentRouteIndex);
+
 		        }
 		  })
+		  
 		  .show().getWindow().addFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);;
 	}
 
@@ -378,5 +385,4 @@ public class SavedRoutesScreen extends Activity{
 		return;
 	}
 }
-
 

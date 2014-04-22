@@ -143,6 +143,7 @@ GooglePlayServicesClient.OnConnectionFailedListener, LocationListener{
 			//Use support map fragment to support older devices 
 			SupportMapFragment mapFrag = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.myMap);
 			myMap = mapFrag.getMap();
+			markerLocation = null;
 			//destinationIntent = new Intent(this, AddRouteScreen.class);
 			//myMap.setMyLocationEnabled(true);
 			/*myMap.setOnMapLongClickListener(new OnMapLongClickListener()
@@ -197,7 +198,8 @@ GooglePlayServicesClient.OnConnectionFailedListener, LocationListener{
 			Bundle b = getIntent().getExtras();
 			if (b != null)
 			{
-				addr = b.getParcelable("com.android.location.Address");
+				markerLocation = b.getParcelable("com.android.location.LatLng");
+				/*addr = b.getParcelable("com.android.location.LatLng");
 				if (addr == null)
 				{
 					//UH OH 
@@ -206,7 +208,7 @@ GooglePlayServicesClient.OnConnectionFailedListener, LocationListener{
 				{
 				    markerLocation = new LatLng((double) addr.getLatitude(),
 					                      (double)addr.getLongitude());					
-				}
+				}*/
 			}
 			myMap.clear();
 			MarkerOptions options = new MarkerOptions()
