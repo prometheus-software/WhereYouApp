@@ -76,13 +76,13 @@ GooglePlayServicesClient.OnConnectionFailedListener, LocationListener{
 		//Check if services are good to go before setting up layout
 		if(servicesOK())
 		{
-			setContentView(R.layout.activity_view_address_screen); //CHANGED
-			EditText et = (EditText) findViewById(R.id.editText1);
-			et.setInputType(InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS);
+			setContentView(R.layout.activity_view_address_screen);
+			//EditText et = (EditText) findViewById(R.id.editText1);
+			//et.setInputType(InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS);
 			if(initializeMap())
 			{
-				myLocationClient = new LocationClient(this, this, this);
-				myLocationClient.connect();
+				//myLocationClient = new LocationClient(this, this, this);
+				//myLocationClient.connect();
 				//myMap.setMyLocationEnabled(true);
 			}
 			else
@@ -97,7 +97,7 @@ GooglePlayServicesClient.OnConnectionFailedListener, LocationListener{
 			setContentView(R.layout.activity_main);
 		}
 
-		new AlertDialog.Builder(this)
+		/*new AlertDialog.Builder(this)
 	    .setTitle("Setting a Destination")
 	    .setMessage("To set a location you may either:\n\n" +
 	    		"1. Search an address or point of interest. Remember, specificity is key, so for example if you want to find a Best Buy in Gainesville you should search 'Best Buy Gainesville' instead of 'Best Buy'.\n" +
@@ -107,7 +107,7 @@ GooglePlayServicesClient.OnConnectionFailedListener, LocationListener{
 
 	        }
 	     })
-	     .show().getWindow().addFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
+	     .show().getWindow().addFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);*/
 
 	}
 	
@@ -141,7 +141,7 @@ GooglePlayServicesClient.OnConnectionFailedListener, LocationListener{
 			SupportMapFragment mapFrag = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.myMap);
 			myMap = mapFrag.getMap();
 			//destinationIntent = new Intent(this, AddRouteScreen.class);
-			myMap.setMyLocationEnabled(true);
+			//myMap.setMyLocationEnabled(true);
 			/*myMap.setOnMapLongClickListener(new OnMapLongClickListener()
 			{
 				@Override
@@ -193,10 +193,10 @@ GooglePlayServicesClient.OnConnectionFailedListener, LocationListener{
 			
 			myMap.clear();
 			MarkerOptions options = new MarkerOptions()
-			.title("Destination")
-			.position(null) //CHANGE
+			.title("Address")
+			.position(null) //CHANGE TO ADDRESS NEEDED
 			.icon(BitmapDescriptorFactory.fromResource(R.drawable.marker))
-			.draggable(true);
+			.draggable(false);
 			Marker marker = myMap.addMarker(options);
 			marker.showInfoWindow();
 		}
@@ -317,11 +317,11 @@ GooglePlayServicesClient.OnConnectionFailedListener, LocationListener{
 
 	}*/
 	
-	private void hideSoftKeyboard(View v)
+	/*private void hideSoftKeyboard(View v)
 	{
 		InputMethodManager inputManager = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
 		inputManager.hideSoftInputFromInputMethod(v.getWindowToken(), 0);
-	}
+	}*/
 
 	//This is the method called whenever someone chooses something from the options menu
 	//@Override
@@ -350,8 +350,8 @@ GooglePlayServicesClient.OnConnectionFailedListener, LocationListener{
 	@Override
 	protected void onResume()
 	{
-		EditText editText = (EditText) findViewById(R.id.editText1);
-		editText.setText(userInfo.getString("address", null));
+		//EditText editText = (EditText) findViewById(R.id.editText1);
+		//editText.setText(userInfo.getString("address", null));
 		super.onResume();
 		//MapManager manager = new MapManager(this);
 		//CameraPosition position = manager.getSavedCameraPosition();
@@ -397,7 +397,7 @@ GooglePlayServicesClient.OnConnectionFailedListener, LocationListener{
 
 	}
 
-	protected void goToCurrentLocation()
+	/*protected void goToCurrentLocation()
 	{
 		Location currentLocation = myLocationClient.getLastLocation();
 		if(currentLocation == null)
@@ -411,7 +411,7 @@ GooglePlayServicesClient.OnConnectionFailedListener, LocationListener{
 			CameraUpdate update = CameraUpdateFactory.newLatLngZoom(ll, DEFAULTZOOM);
 			myMap.animateCamera(update);
 		}
-	}
+	}*/
 
 	@Override
 	public void onLocationChanged(Location location) {

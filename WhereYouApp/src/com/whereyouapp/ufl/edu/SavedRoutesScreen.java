@@ -299,6 +299,14 @@ public class SavedRoutesScreen extends Activity{
 
 		        }
 		  })
+		  .setPositiveButton("View Address", new DialogInterface.OnClickListener() {
+		        public void onClick(DialogInterface dialog, int which) { 
+		        	Intent i = new Intent(SavedRoutesScreen.context, ViewAddressScreen.class);
+	        		context.startActivity(i);
+		        	
+
+		        }
+		  })
 		  .show().getWindow().addFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);;
 	}
 
