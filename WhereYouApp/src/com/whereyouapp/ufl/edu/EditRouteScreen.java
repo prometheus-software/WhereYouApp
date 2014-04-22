@@ -31,9 +31,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import java.io.IOException;
 import java.lang.String;
-
 import com.google.android.gms.maps.model.LatLng;
-
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ImageButton;
@@ -42,7 +40,6 @@ import android.app.NotificationManager;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.TaskStackBuilder;
 public class EditRouteScreen extends Activity {
-
 	private static final String TAG = "WhereYouApp";
 	private Spinner spinner2;
 	public final static String EXTRA_MESSAGE = "com.example.whereyouapp.MESSAGE";
@@ -68,6 +65,7 @@ public class EditRouteScreen extends Activity {
 	public ArrayList<String> oldTime = new ArrayList<String>(2);
 	public ArrayList<Integer> oldDays = new ArrayList<Integer>(7);
 	public double oldDistance;
+	static List<Route> routes;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -81,24 +79,6 @@ public class EditRouteScreen extends Activity {
 		button = (Button) findViewById(R.id.cancel);
 		button.getBackground().setColorFilter(0xFFFF0000, PorterDuff.Mode.MULTIPLY);
 		*/
-		Intent intent = getIntent();
-		oldRouteName = intent.getStringExtra("name");
-		EditText routeName1 = (EditText) findViewById(R.id.edit_route_name);
-		routeName1.setText(oldRouteName, TextView.BufferType.EDITABLE);
-		oldMessage = intent.getStringExtra("message");
-		EditText message = (EditText) findViewById(R.id.edit_enter_message);
-		message.setText(oldMessage, TextView.BufferType.EDITABLE);
-		String [] phoneNumbers = intent.getStringArrayExtra("phoneNum");
-		oldPhoneNumber = phoneNumbers[0].substring(4);
-		EditText phoneNum = (EditText) findViewById(R.id.edit_enter_contact);
-		phoneNum.setText(oldPhoneNumber, TextView.BufferType.EDITABLE);
-		oldPhoneNumber2 = phoneNumbers[1].substring(4);
-		EditText phoneNum2 = (EditText) findViewById(R.id.edit_enter_contact6);
-		phoneNum2.setText(oldPhoneNumber2, TextView.BufferType.EDITABLE);
-		oldDistance = intent.getDoubleExtra("distance", .10);
-		oldAlarm = intent.getBooleanExtra("alarm", true);
-		oldDays = intent.getIntegerArrayListExtra("days");
-		oldTime = intent.getStringArrayListExtra("time");
 		spinner2 = (Spinner) findViewById(R.id.edit_enter_radius);
 		List <String> list2 = new ArrayList<String>();                    
 		//list2.add("Choose an alert distance");
@@ -112,67 +92,6 @@ public class EditRouteScreen extends Activity {
 		dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 		spinner2.setAdapter(dataAdapter);
 		addListenerOnSpinnerItemSelection();
-		RadioGroup group = (RadioGroup) findViewById(R.id.edit_km_mile);
-		if (oldDistance == .10)
-		{
-			spinner2.setSelection(0);
-			group.check(R.id.edit_mile);
-		}
-		else if (oldDistance == .25)
-		{
-			spinner2.setSelection(1);
-			group.check(R.id.edit_mile);
-		}
-		else if (oldDistance == .5)
-		{
-			spinner2.setSelection(2);
-			group.check(R.id.edit_mile);
-		}
-		else if (oldDistance == 1)
-		{
-			spinner2.setSelection(3);
-			group.check(R.id.edit_mile);
-		}
-		else if (oldDistance == 5)
-		{
-			spinner2.setSelection(4);
-			group.check(R.id.edit_mile);
-		}
-		else if (oldDistance == 10)
-		{
-			spinner2.setSelection(5);
-			group.check(R.id.edit_mile);
-		}
-		else if (oldDistance > .06 && oldDistance < .07)
-		{
-			spinner2.setSelection(0);
-			group.check(R.id.edit_km);
-		}
-		else if (oldDistance > .15 && oldDistance < .16)
-		{
-			spinner2.setSelection(1);
-			group.check(R.id.edit_km);
-		}
-		else if (oldDistance > .31 && oldDistance < .32)
-		{
-			spinner2.setSelection(2);
-			group.check(R.id.edit_km);
-		}
-		else if (oldDistance > .62 && oldDistance < .63)
-		{
-			spinner2.setSelection(3);
-			group.check(R.id.edit_km);
-		}
-		else if (oldDistance > 3.1 && oldDistance < 3.11)
-		{
-			spinner2.setSelection(4);
-			group.check(R.id.edit_km);
-		}
-		else
-		{
-			spinner2.setSelection(5);
-			group.check(R.id.edit_km);
-		}
 		EditText editText = (EditText) findViewById(R.id.edit_enter_message);
 		editText.setInputType(InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS);
 		editText = (EditText) findViewById(R.id.edit_route_name);
@@ -185,14 +104,9 @@ public class EditRouteScreen extends Activity {
 		editor = userInfo.edit();
 		contactChosen1 = "";
 		contactChosen2 = "";
-
-
 		dbHandle = MainScreen.dbHandle;
-
-
 		dbHandle = new RouteDataSource(this);
 		dbHandle.open();
-		
 		whichContact = 0;
 		mode = 0;
 		factor = 1;
@@ -307,7 +221,6 @@ public class EditRouteScreen extends Activity {
 		   if (data != null) 
 		   {
 			   Uri uri = data.getData();
-
 			   if (uri != null) {
 				   Cursor c = null;
 				   try {
@@ -486,7 +399,6 @@ public class EditRouteScreen extends Activity {
 	@Override
 	public void onResume()
 	{
-
 		//Check receipt of address object
 		Bundle b = getIntent().getExtras(); 
 		if(b != null) {
@@ -511,38 +423,152 @@ public class EditRouteScreen extends Activity {
 			}
 		}
 	  	EditText routeName = (EditText) findViewById(R.id.edit_route_name);
-	  	routeName.setText(userInfo.getString("name", null));
-
+	  	Bundle extras = getIntent().getExtras();
+		Integer position1 = null;
+		if (extras != null) {
+			if (extras.containsKey("position")) {
+				dbHandle.open();
+				position1 = extras.getInt("position");
+				System.out.println(position1);
+				routes = dbHandle.getAllRoutes();
+				dbHandle.close();
+			}
+		}
+		if (position1 != null) {
+			routeName.setText(routes.get(position1).getName(), TextView.BufferType.EDITABLE);
+			System.out.println(routes.get(position1).getName());
+			//extras.remove("position");
+			//extras = null;
+			//position1 = null;
+		}
+		else{
+			routeName.setText(userInfo.getString("name", null));
+		}
 	  	EditText message = (EditText) findViewById(R.id.edit_enter_message);
-	  	message.setText(userInfo.getString("message", null));
-
+	  	if(position1 != null) {
+	  		message.setText(routes.get(position1).getMessage(), TextView.BufferType.EDITABLE);
+	  	}
+	  	else {
+	  		message.setText(userInfo.getString("message", null));
+	  	}
 	    EditText phone  = (EditText) findViewById(R.id.edit_enter_contact);
-	    if (mode != 1)
-	    {
-	    	phone.setText(userInfo.getString("phone", null));
+	    String phones[] = null;
+	    if(position1 != null) {
+	    	phones = routes.get(position1).getNumber();
+	    	phone.setText(phones[0].substring(4));
 	    }
-	    else
-		{
-			phone.setText(contactChosen1, TextView.BufferType.EDITABLE);
-		}   
+	    else {
+	    	if (mode != 1)
+	    	{
+	    		phone.setText(userInfo.getString("phone", null));
+	    	}
+	    	else
+	    	{
+	    		phone.setText(contactChosen1, TextView.BufferType.EDITABLE);
+	    	}  
+	    }
 		Spinner radiusSelector = (Spinner) findViewById(R.id.edit_enter_radius);
-		radiusSelector.setSelection(userInfo.getInt("radius", 0), true);
-		RadioGroup kmMileSelector = (RadioGroup) findViewById(R.id.edit_km_mile);
-		kmMileSelector.check(userInfo.getInt("choice", 0));
-		EditText phone2 = (EditText) findViewById(R.id.edit_enter_contact6);
-		if (mode != 2)
+		if (position1 != null)
 		{
-			phone2.setText(userInfo.getString("phone2", null));
+			RadioGroup group = (RadioGroup) findViewById(R.id.edit_km_mile);
+			oldDistance = routes.get(position1).getDistance();
+			if (oldDistance == .10)
+			{
+				spinner2.setSelection(0);
+				group.check(R.id.edit_mile);
+			}
+			else if (oldDistance == .25)
+			{
+				spinner2.setSelection(1);
+				group.check(R.id.edit_mile);
+			}
+			else if (oldDistance == .5)
+			{
+				spinner2.setSelection(2);
+				group.check(R.id.edit_mile);
+			}
+			else if (oldDistance == 1)
+			{
+				spinner2.setSelection(3);
+				group.check(R.id.edit_mile);
+			}
+			else if (oldDistance == 5)
+			{
+				spinner2.setSelection(4);
+				group.check(R.id.edit_mile);
+			}
+			else if (oldDistance == 10)
+			{
+				spinner2.setSelection(5);
+				group.check(R.id.edit_mile);
+			}
+			else if (oldDistance > .06 && oldDistance < .07)
+			{
+				spinner2.setSelection(0);
+				group.check(R.id.edit_km);
+			}
+			else if (oldDistance > .15 && oldDistance < .16)
+			{
+				spinner2.setSelection(1);
+				group.check(R.id.edit_km);
+			}
+			else if (oldDistance > .31 && oldDistance < .32)
+			{
+				spinner2.setSelection(2);
+				group.check(R.id.edit_km);
+			}
+			else if (oldDistance > .62 && oldDistance < .63)
+			{
+				spinner2.setSelection(3);
+				group.check(R.id.edit_km);
+			}
+			else if (oldDistance > 3.1 && oldDistance < 3.11)
+			{
+				spinner2.setSelection(4);
+				group.check(R.id.edit_km);
+			}
+			else
+			{
+				spinner2.setSelection(5);
+				group.check(R.id.edit_km);
+			}
 		}
 		else
 		{
-			phone2.setText(contactChosen2, TextView.BufferType.EDITABLE);
+			radiusSelector.setSelection(userInfo.getInt("radius", 0), true);
+			RadioGroup kmMileSelector = (RadioGroup) findViewById(R.id.edit_km_mile);
+			kmMileSelector.check(userInfo.getInt("choice", 0));
+		}
+		EditText phone2 = (EditText) findViewById(R.id.edit_enter_contact6);
+		if(phones != null) {
+		if(phones.length>=2) {
+	    	phone2.setText(phones[1].substring(4));
+	    }
+		}	
+	    else {
+	    	if (mode != 2)
+	    	{
+	    		phone2.setText(userInfo.getString("phone2", null));
+	    	}
+	    	else
+	    	{
+	    		phone2.setText(contactChosen2, TextView.BufferType.EDITABLE);
+	    	}  
+	    }
+		if (position1 != null)
+		{
+			oldAlarm = routes.get(position1).getAlarm();
+			oldDays = routes.get(position1).getDays();
+			oldTime = routes.get(position1).getTime();
+		}
+		if(position1 != null) {
+			extras.remove("position");
+			extras = null;
+			position1 = null;
 		}
 		dbHandle.open();
 		super.onResume();
 	}
-
-
 	@Override
 	public void onPause()
 	{
@@ -731,3 +757,7 @@ public class EditRouteScreen extends Activity {
 	    startActivityForResult(intent, 2);
     }
 }
+
+
+
+
