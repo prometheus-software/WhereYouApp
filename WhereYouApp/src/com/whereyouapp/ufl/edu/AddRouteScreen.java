@@ -27,6 +27,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.graphics.PorterDuff;
 import java.util.*;
+
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import java.io.IOException;
@@ -60,8 +61,12 @@ public class AddRouteScreen extends Activity {
 	public boolean alarm;
 	public ArrayList<String> time = new ArrayList<String>(2);
 	public ArrayList<Integer> days = new ArrayList<Integer>(7);
+	static List<Route> routes;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
+		dbHandle = MainScreen.dbHandle;
+		dbHandle = new RouteDataSource(this);
+		dbHandle.open();
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_add_route_screen);
 		//Set button colors to green and red, respectively -- FUCK YOUR COLORS
@@ -75,6 +80,7 @@ public class AddRouteScreen extends Activity {
 		*/
 		EditText editText = (EditText) findViewById(R.id.route_name);
 		editText.setText("", TextView.BufferType.EDITABLE);
+		
 		spinner2 = (Spinner) findViewById(R.id.enter_radius);
 		List <String> list2 = new ArrayList<String>();                    
 		//list2.add("Choose an alert distance");
@@ -102,11 +108,7 @@ public class AddRouteScreen extends Activity {
 		contactChosen2 = "";
 
 
-		dbHandle = MainScreen.dbHandle;
-
-
-		dbHandle = new RouteDataSource(this);
-		dbHandle.open();
+		
 
 		whichContact = 0;
 		mode = 0;
@@ -401,7 +403,6 @@ public class AddRouteScreen extends Activity {
 	@Override
 	public void onResume()
 	{
-
 		//Check receipt of address object
 		Bundle b = getIntent().getExtras(); 
 		if(b != null) {
@@ -426,32 +427,80 @@ public class AddRouteScreen extends Activity {
 			}
 		}
 	  	EditText routeName = (EditText) findViewById(R.id.route_name);
-	  	routeName.setText(userInfo.getString("name", null));
+	  	
+	  	
+	  	Bundle extras = getIntent().getExtras();
+		Integer position1 = null;
+		if (extras != null) {
+			if (extras.containsKey("position")) {
+			dbHandle.open();
+		    position1 = extras.getInt("position");
+		    System.out.println(position1);
+		    routes = dbHandle.getAllRoutes();
+		    dbHandle.close();
+			}
+		}
+		
+		if(position1 != null) {
+			routeName.setText(routes.get(position1).getName(), TextView.BufferType.EDITABLE);
+			System.out.println(routes.get(position1).getName());
+			//extras.remove("position");
+			//extras = null;
+			//position1 = null;
+		}
+		else{
+		routeName.setText(userInfo.getString("name", null));
+		}
 
+		
 	  	EditText message = (EditText) findViewById(R.id.enter_message);
-	  	message.setText(userInfo.getString("message", null));
-
+	  	if(position1 != null) {
+	  		message.setText(routes.get(position1).getMessage(), TextView.BufferType.EDITABLE);
+	  	}
+	  	else {
+	  		message.setText(userInfo.getString("message", null));
+	  	}
 	    EditText phone  = (EditText) findViewById(R.id.enter_contact);
-	    if (mode != 1)
-	    {
-	    	phone.setText(userInfo.getString("phone", null));
+	    String phones[] = null;
+	    if(position1 != null) {
+	    	phones = routes.get(position1).getNumber();
+	    	phone.setText(phones[0].substring(4));
 	    }
-	    else
-		{
-			phone.setText(contactChosen1, TextView.BufferType.EDITABLE);
-		}   
+	    else {
+	    	if (mode != 1)
+	    	{
+	    		phone.setText(userInfo.getString("phone", null));
+	    	}
+	    	else
+	    	{
+	    		phone.setText(contactChosen1, TextView.BufferType.EDITABLE);
+	    	}  
+	    }
 		Spinner radiusSelector = (Spinner) findViewById(R.id.enter_radius);
 		radiusSelector.setSelection(userInfo.getInt("radius", 0), true);
+		
 		RadioGroup kmMileSelector = (RadioGroup) findViewById(R.id.km_mile);
 		kmMileSelector.check(userInfo.getInt("choice", 0));
 		EditText phone2 = (EditText) findViewById(R.id.enter_contact6);
-		if (mode != 2)
-		{
-			phone2.setText(userInfo.getString("phone2", null));
-		}
-		else
-		{
-			phone2.setText(contactChosen2, TextView.BufferType.EDITABLE);
+		if(phones != null) {
+		if(phones.length>=2) {
+	    	phone2.setText(phones[1].substring(4));
+	    }
+		}	
+	    else {
+	    	if (mode != 2)
+	    	{
+	    		phone2.setText(userInfo.getString("phone2", null));
+	    	}
+	    	else
+	    	{
+	    		phone2.setText(contactChosen2, TextView.BufferType.EDITABLE);
+	    	}  
+	    }
+		if(position1 != null) {
+			extras.remove("position");
+			extras = null;
+			position1 = null;
 		}
 		dbHandle.open();
 		super.onResume();
@@ -606,6 +655,21 @@ public class AddRouteScreen extends Activity {
     @Override
 	public void onBackPressed()
 	{
+		
+    	EditText editText = (EditText) findViewById(R.id.route_name);
+		editText.setText("", TextView.BufferType.EDITABLE);
+		//editText = (EditText) findViewById(R.id.enter_address);
+		TextView textView = (TextView) findViewById(R.id.display_address);
+		textView.setText("No address selected");
+		spinner2.setSelection(0);
+		editText = (EditText) findViewById(R.id.enter_contact);
+		editText.setText("", TextView.BufferType.EDITABLE);
+		editText = (EditText) findViewById(R.id.enter_message);
+		editText.setText("", TextView.BufferType.EDITABLE);
+		editText = (EditText) findViewById(R.id.enter_contact6);
+		editText.setText("", TextView.BufferType.EDITABLE);
+		RadioGroup kmMile = (RadioGroup) findViewById(R.id.km_mile);
+		kmMile.check(R.id.mile);
 		Intent intent = new Intent(this, SavedRoutesScreen.class);
 		startActivity(intent);
 	}
