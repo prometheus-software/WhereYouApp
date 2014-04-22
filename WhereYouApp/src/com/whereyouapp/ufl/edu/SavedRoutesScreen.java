@@ -144,20 +144,7 @@ public class SavedRoutesScreen extends Activity{
 						//
 						//
 						//Starts the AddRouteScreen and passes the position of the route in the database
-						//myIntent.putExtra("position", (Integer)v.getTag());
-						myIntent.putExtra("name", routes.get((Integer) v.getTag()).getName());
-						myIntent.putExtra("message", routes.get((Integer) v.getTag()).getMessage());
-						String [] phoneNumbers = new String [2];
-						phoneNumbers = routes.get((Integer) v.getTag()).getNumber();
-						myIntent.putExtra("phoneNum", phoneNumbers);
-						myIntent.putExtra("distance", routes.get((Integer) v.getTag()).getDistance());
-						myIntent.putExtra("alarm", routes.get((Integer) v.getTag()).getAlarm());
-						ArrayList<String> time = new ArrayList<String> (2);
-						time = routes.get((Integer) v.getTag()).getTime();
-						myIntent.putExtra("time", time);
-						ArrayList<Integer> days = new ArrayList<Integer> (7);
-						days = routes.get((Integer) v.getTag()).getDays();
-						myIntent.putExtra("days", days);
+						myIntent.putExtra("position", (Integer)v.getTag());
 						startActivity(myIntent);						
 					}
 				});
@@ -385,3 +372,4 @@ public class SavedRoutesScreen extends Activity{
 		return;
 	}
 }
+
