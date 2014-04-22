@@ -294,14 +294,6 @@ public class SavedRoutesScreen extends Activity{
 		new AlertDialog.Builder(context)
 	    .setTitle("Route Info")
 	    .setMessage(message)
-	    .setPositiveButton("Toggle active", new DialogInterface.OnClickListener() {
-	        public void onClick(DialogInterface dialog, int which) { 
-	        	//Intent i = new Intent(getBaseContext(), AddRouteScreen.class);
-        		//startActivity(i);
-	        	SavedRoutesScreen.toggleActive(SavedRoutesScreen.currentRouteIndex);
-	        }
-
-	     })
 	     .setNegativeButton("Delete", new DialogInterface.OnClickListener() {
 		        public void onClick(DialogInterface dialog, int which) { 
 		        	//Intent i = new Intent(getBaseContext(), AddRouteScreen.class);
