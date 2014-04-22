@@ -52,6 +52,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.Toast;
 
+
 public class ViewAddressScreen extends FragmentActivity implements
 GooglePlayServicesClient.ConnectionCallbacks,
 GooglePlayServicesClient.OnConnectionFailedListener, LocationListener{
@@ -64,9 +65,11 @@ GooglePlayServicesClient.OnConnectionFailedListener, LocationListener{
 	public static double currentLong;
 	public static Intent destinationIntent;
 	GoogleMap myMap;
+	LatLng markerLocation;
 
 	LocationClient myLocationClient;
 	Address adress;
+	Address addr;
 	public SharedPreferences userInfo;
 	public SharedPreferences.Editor editor;
 	
@@ -191,10 +194,24 @@ GooglePlayServicesClient.OnConnectionFailedListener, LocationListener{
 				}
 			});*/
 			
+			Bundle b = getIntent().getExtras();
+			if (b != null)
+			{
+				addr = b.getParcelable("com.android.location.Address");
+				if (addr == null)
+				{
+					//UH OH 
+				}
+				else
+				{
+				    markerLocation = new LatLng((double) addr.getLatitude(),
+					                      (double)addr.getLongitude());					
+				}
+			}
 			myMap.clear();
 			MarkerOptions options = new MarkerOptions()
 			.title("Address")
-			.position(null) //CHANGE TO ADDRESS NEEDED
+			.position(markerLocation) //CHANGE TO ADDRESS NEEDED
 			.icon(BitmapDescriptorFactory.fromResource(R.drawable.marker))
 			.draggable(false);
 			Marker marker = myMap.addMarker(options);

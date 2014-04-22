@@ -202,7 +202,7 @@ public class SavedRoutesScreen extends Activity{
 	public static void showRouteOptions(int i)
 	{
 		currentRouteIndex = i;
-		Route selectedRoute = routes.get(i);
+		final Route selectedRoute = routes.get(i);
 		String message = "Name: " + selectedRoute.getName();
 		message += "\n";
 		message += "Address: " + selectedRoute.getAddress();
@@ -302,6 +302,7 @@ public class SavedRoutesScreen extends Activity{
 		  .setPositiveButton("View Address", new DialogInterface.OnClickListener() {
 		        public void onClick(DialogInterface dialog, int which) { 
 		        	Intent i = new Intent(SavedRoutesScreen.context, ViewAddressScreen.class);
+		        	i.putExtra("com.android.location.Address", selectedRoute.getAddress());
 	        		context.startActivity(i);
 		        	
 
