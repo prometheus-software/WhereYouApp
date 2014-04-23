@@ -47,19 +47,16 @@ import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.Toast;
-
 public class EditAddressScreen extends FragmentActivity implements
 GooglePlayServicesClient.ConnectionCallbacks,
 GooglePlayServicesClient.OnConnectionFailedListener, LocationListener{
 
 	private static final int GPS_ERRORDIALOG_REQUEST = 9001;
 	private static final float DEFAULTZOOM = 16;
-
 	public static double currentLat;
 	public static double currentLong;
 	public static Intent destinationIntent;
 	GoogleMap myMap;
-
 	LocationClient myLocationClient;
 	List<Address> list;
 	public SharedPreferences userInfo;
@@ -328,7 +325,6 @@ GooglePlayServicesClient.OnConnectionFailedListener, LocationListener{
 			myMap.setMapType(GoogleMap.MAP_TYPE_TERRAIN);
 		else if(item.getItemId() == R.id.editmapTypeHybrid)
 			myMap.setMapType(GoogleMap.MAP_TYPE_HYBRID);
-
 		return super.onOptionsItemSelected(item);
 	} 
 
@@ -374,12 +370,10 @@ GooglePlayServicesClient.OnConnectionFailedListener, LocationListener{
 	public void onConnected(Bundle arg0) {
 		// TODO Auto-generated method stub
 		Toast.makeText(this, "Connected to location service", Toast.LENGTH_SHORT).show();
-
 		LocationRequest request = LocationRequest.create();
 		request.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
 		request.setInterval(50000);
 		request.setFastestInterval(10000);
-
 		myLocationClient.requestLocationUpdates(request, this);
 		goToCurrentLocation();
 	}
@@ -412,7 +406,6 @@ GooglePlayServicesClient.OnConnectionFailedListener, LocationListener{
 		String message = "Location: " + location.getLatitude() + " (lat), " +
 		location.getLongitude() + " (lng)";
 		Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
-
 		currentLat = location.getLatitude();
 		currentLong = location.getLongitude();
 	}
@@ -430,21 +423,21 @@ GooglePlayServicesClient.OnConnectionFailedListener, LocationListener{
 	public void startAddRouteScreen(int code)
 	{
 		Intent i = new Intent(this, EditRouteScreen.class);
-		i.putExtra("com.android.location.Address", list.get(code));
+		i.putExtra("com.android.location.Address1", list.get(code));
 		startActivity(i);
 	}
 
 	public void startAddRouteScreen(Intent destination)
 	{
-		destination.putExtra("com.android.location.Address", list.get(0));
+		destination.putExtra("com.android.location.Address1", list.get(0));
 		startActivity(destination);
 	}
 
 	public void startAddRouteScreen(Intent destination, Marker marker)
 	{
 		Address addr = null;
-		destination.putExtra("com.android.location.Address", addr);
-		destination.putExtra("com.google.android.gms.maps.model.LatLng", marker.getPosition());
+		destination.putExtra("com.android.location.Address1", addr);
+		destination.putExtra("com.google.android.gms.maps.model.LatLng1", marker.getPosition());
 		startActivity(destination);
 	}
 	@Override
