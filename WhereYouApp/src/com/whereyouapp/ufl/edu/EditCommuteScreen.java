@@ -218,4 +218,3 @@ public class EditCommuteScreen extends Activity {
 	}
 }
 
-
