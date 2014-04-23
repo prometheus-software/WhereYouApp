@@ -185,6 +185,14 @@ public class EditRouteScreen extends Activity {
 	            startActivityForResult(intent, 1); 	            
 	        } 
 	    });
+		for (int i = 0; i < 7; i ++)
+		{
+			oldDays.add(0);
+		}
+		for (int j = 0;j < 2; j ++)
+		{
+			oldTime.add("00");
+		}
 	}
 	public void onRadioButtonClicked (View view)
 	{
@@ -400,28 +408,7 @@ public class EditRouteScreen extends Activity {
 	public void onResume()
 	{
 		//Check receipt of address object
-		Bundle b = getIntent().getExtras(); 
-		if(b != null) {
-			Address addr = b.getParcelable("com.android.location.Address");
-			//If the address object is null, then the user tapped the map to set a location
-			//This means we got back a LatLng object representing where the map was tapped
-			if(addr == null)
-			{
-				LatLng point = b.getParcelable("com.google.android.gms.maps.model.LatLng");
-				completeAddress = "No address set";
-				TextView displayAddress = (TextView) findViewById(R.id.edit_display_address);
-			  	displayAddress.setText("Location Selected");
-			}
-			else
-			{
-				String locationLine = addr.getAddressLine(0);
-				String addressLine = addr.getAddressLine(1);
-				String cityAndZipLine = addr.getAddressLine(2);
-				completeAddress = locationLine +  " \n" + addressLine + "\n" + cityAndZipLine;
-			  	TextView displayAddress = (TextView) findViewById(R.id.edit_display_address);
-			  	displayAddress.setText("Address Selected");
-			}
-		}
+		LatLng point;
 	  	EditText routeName = (EditText) findViewById(R.id.edit_route_name);
 	  	Bundle extras = getIntent().getExtras();
 		Integer position1 = null;
@@ -433,6 +420,28 @@ public class EditRouteScreen extends Activity {
 				routes = dbHandle.getAllRoutes();
 				dbHandle.close();
 			}
+			else
+			{
+				Address addr = extras.getParcelable("com.android.location.Address1");
+				//If the address object is null, then the user tapped the map to set a location
+				//This means we got back a LatLng object representing where the map was tapped
+				if(addr == null)
+				{
+					point = extras.getParcelable("com.google.android.gms.maps.model.LatLng1");
+					completeAddress = "No address set";
+					TextView displayAddress = (TextView) findViewById(R.id.edit_display_address);
+				  	displayAddress.setText("Location Selected");
+				}
+				else
+				{
+					String locationLine = addr.getAddressLine(0);
+					String addressLine = addr.getAddressLine(1);
+					String cityAndZipLine = addr.getAddressLine(2);
+					completeAddress = locationLine +  " \n" + addressLine + "\n" + cityAndZipLine;
+				  	TextView displayAddress = (TextView) findViewById(R.id.edit_display_address);
+				  	displayAddress.setText("Address Selected");
+				}
+			}
 		}
 		if (position1 != null) {
 			routeName.setText(routes.get(position1).getName(), TextView.BufferType.EDITABLE);
@@ -443,6 +452,11 @@ public class EditRouteScreen extends Activity {
 		}
 		else{
 			routeName.setText(userInfo.getString("name", null));
+		}
+		if (position1 != null)
+		{
+			TextView displayAddress = (TextView) findViewById(R.id.edit_display_address);
+			displayAddress.setText(routes.get(position1).getAddress(), TextView.BufferType.EDITABLE);
 		}
 	  	EditText message = (EditText) findViewById(R.id.edit_enter_message);
 	  	if(position1 != null) {
@@ -596,7 +610,6 @@ public class EditRouteScreen extends Activity {
 	    //Save all changes to SharedPrefs object
 	    editor.commit();
 	}
-
 	public void saveRoute(MenuItem menuItem)
 	{
 		//Again, clear shared preferences
@@ -646,17 +659,16 @@ public class EditRouteScreen extends Activity {
 		double[] coord;
 		if(b != null) 
 		{
-			theAddress = b.getParcelable("com.android.location.Address");
+			theAddress = b.getParcelable("com.android.location.Address1");
 			//If the address is null, then the user tapped the map to set a destination
 			if(theAddress == null)
 			{
-				LatLng point = b.getParcelable("com.google.android.gms.maps.model.LatLng");
+				LatLng point = b.getParcelable("com.google.android.gms.maps.model.LatLng1");
 				double lat = point.latitude;
 				double lng = point.longitude;
 				coord = new double[2];
 				coord[0] = lat;
 				coord[1] = lng;
-
 				if (error)
 				{
 					 Toast.makeText(this, "Error with phone number; fix and save again.", Toast.LENGTH_LONG).show();
@@ -712,39 +724,31 @@ public class EditRouteScreen extends Activity {
         		startActivity(i);
 	        }
 	     }).show();
-
-	}
-    
+	} 
     @Override
 	public void onBackPressed()
 	{
 		Intent intent = new Intent(this, SavedRoutesScreen.class);
 		startActivity(intent);
 	}
-    
     public void toCommute(MenuItem item)
     {
     	EditText routeName = (EditText) findViewById(R.id.edit_route_name);
 	    String route = routeName.getText().toString();
 	    editor.putString("name", route);
-
 	    EditText message = (EditText) findViewById(R.id.edit_enter_message);
 	    String theMessage = message.getText().toString();
 	    editor.putString("message", theMessage);
-
 	    //Note that I'm storing this as a string and not a numeric value
 	    EditText phone  = (EditText) findViewById(R.id.edit_enter_contact);
 	    String phoneNum = phone.getText().toString();
 	    editor.putString("phone", phoneNum);
-
 	    Spinner radiusSelector = (Spinner) findViewById(R.id.edit_enter_radius);
 	    int radiusCode = radiusSelector.getSelectedItemPosition();
 	    editor.putInt("radius", radiusCode);
-
 	    RadioGroup group = (RadioGroup) findViewById(R.id.edit_km_mile);
 	    int choice = group.getCheckedRadioButtonId();
 	    editor.putInt("choice", choice);
-
 	    EditText phone2 = (EditText) findViewById(R.id.edit_enter_contact6);
 	    String phoneNum2 = phone2.getText().toString();
 	    editor.putString("phone2", phoneNum2);
@@ -757,7 +761,4 @@ public class EditRouteScreen extends Activity {
 	    startActivityForResult(intent, 2);
     }
 }
-
-
-
 
