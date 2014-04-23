@@ -469,7 +469,7 @@ public class EditRouteScreen extends Activity {
 	    String phones[] = null;
 	    if(position1 != null) {
 	    	phones = routes.get(position1).getNumber();
-	    	phone.setText(phones[0].substring(4));
+	    	phone.setText(phones[0].substring(4), TextView.BufferType.EDITABLE);
 	    }
 	    else {
 	    	if (mode != 1)
@@ -556,7 +556,7 @@ public class EditRouteScreen extends Activity {
 		EditText phone2 = (EditText) findViewById(R.id.edit_enter_contact6);
 		if(phones != null) {
 		if(phones.length>=2) {
-	    	phone2.setText(phones[1].substring(4));
+	    	phone2.setText(phones[1].substring(4), TextView.BufferType.EDITABLE);
 	    }
 		}	
 	    else {
