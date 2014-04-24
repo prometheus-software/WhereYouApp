@@ -30,6 +30,7 @@ public class SavedRoutesScreen extends Activity{
 	static int currentRouteIndex;
 	public static RouteDataSource dbHandle;
 	public static SettingsDataSource setdbHandle;
+	public static boolean isActive;
 	@SuppressLint("NewApi")
 	//@Override
 	/*public void onCreate(Bundle savedInstanceState) {
@@ -182,6 +183,7 @@ public class SavedRoutesScreen extends Activity{
 	
 	public void onPause()
 	{
+		isActive = false;
 		super.onPause();
 	}
 	
@@ -196,6 +198,7 @@ public class SavedRoutesScreen extends Activity{
 	{
 		//Update routes to reflect any changes in the database
 		routes = dbHandle.getAllRoutes();
+		isActive = true;
 		super.onResume();
 	}
 
