@@ -188,6 +188,13 @@ public class AddRouteScreen extends Activity {
 	            startActivityForResult(intent, 1); 	            
 	        } 
 	    });
+		
+		//setting default value of alarm to false, time arraylist and days arraylist to 0 values
+		alarm = false;
+		for(int i = 0; i < 2; i++)
+			time.add(i,"0");
+		for(int i = 0; i < 7; i++)
+			days.add(i,0);
 	}
 	public void onRadioButtonClicked (View view)
 	{
