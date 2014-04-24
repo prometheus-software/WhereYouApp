@@ -698,6 +698,24 @@ public class EditRouteScreen extends Activity {
 				}
 			}
 			dbHandle.open();
+			try
+			{
+				if (phoneNumbers[0].substring(4).length() != 0)
+				{
+					Long part1 = Long.parseLong(phoneNumbers [0].substring(4));
+				}
+				if (phoneNumbers[1].substring(4).length() != 0)
+				{
+					Long part2 = Long.parseLong(phoneNumbers [1]);
+				}
+			}
+			catch (NumberFormatException e)
+			{
+				 Toast.makeText(this, "Error with phone number; fix and save again.", Toast.LENGTH_LONG).show();
+				 error = true;
+				 Intent intent = new Intent (getApplicationContext(), AddRouteScreen.class);
+				 startActivity(intent);
+			}
 			dbHandle.deleteRoute(oldRouteName);
 			dbHandle.insertRoute(new Route(name, coord, phoneNumbers, radiusCode, theMessage, addr, alarm, time, days));
 			dbHandle.setActive(name);
@@ -722,15 +740,18 @@ public class EditRouteScreen extends Activity {
 		whichContact = 0;
 		mode = 0;
 		//Clear saved text fields and whatnot
-		new AlertDialog.Builder(this)
-		.setTitle("Confirmation")
-		.setMessage("Route was successfully created")
-		.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
-			public void onClick(DialogInterface dialog, int which) { 
-				Intent i = new Intent(getBaseContext(), SavedRoutesScreen.class);
-				startActivity(i);
-			}
-		}).show();
+		if (!error)
+		{
+			new AlertDialog.Builder(this)
+			.setTitle("Confirmation")
+			.setMessage("Route was successfully updated")
+			.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+				public void onClick(DialogInterface dialog, int which) { 
+					Intent i = new Intent(getBaseContext(), SavedRoutesScreen.class);
+					startActivity(i);
+				}
+			}).show();
+		}
 	} 
 	@Override
 	public void onBackPressed()
@@ -768,4 +789,5 @@ public class EditRouteScreen extends Activity {
 		startActivityForResult(intent, 2);
 	}
 }
+
 
