@@ -656,13 +656,9 @@ public class EditRouteScreen extends Activity {
 				 error = true;
 				 Intent intent = new Intent (getApplicationContext(), AddRouteScreen.class);
 				 startActivity(intent);
-			}
-			
+			}	
 			dbHandle.updateRoute(oldName, name, coord, phoneNumbers, radiusCode, theMessage, addr, alarm, time, days);
-			/*dbHandle.deleteRoute(oldRouteName);
-			dbHandle.insertRoute(new Route(name, coord, phoneNumbers, radiusCode, theMessage, addr, alarm, time, days));
 			dbHandle.setActive(name);
-			*/
 			dbHandle.close();
 		}
 		editor = userInfo.edit();
