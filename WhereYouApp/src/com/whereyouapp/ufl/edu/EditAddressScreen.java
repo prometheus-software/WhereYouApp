@@ -423,20 +423,20 @@ GooglePlayServicesClient.OnConnectionFailedListener, LocationListener{
 	public void startAddRouteScreen(int code)
 	{
 		Intent i = new Intent(this, EditRouteScreen.class);
-		i.putExtra("com.android.location.Address1", list.get(code));
+		i.putExtra("com.android.location.Address", list.get(code));
 		startActivity(i);
 	}
 
 	public void startAddRouteScreen(Intent destination)
 	{
-		destination.putExtra("com.android.location.Address1", list.get(0));
+		destination.putExtra("com.android.location.Address", list.get(0));
 		startActivity(destination);
 	}
 
 	public void startAddRouteScreen(Intent destination, Marker marker)
 	{
 		Address addr = null;
-		destination.putExtra("com.android.location.Address1", addr);
+		destination.putExtra("com.android.location.Address", addr);
 		destination.putExtra("com.google.android.gms.maps.model.LatLng1", marker.getPosition());
 		startActivity(destination);
 	}
@@ -456,4 +456,5 @@ GooglePlayServicesClient.OnConnectionFailedListener, LocationListener{
 		editor.commit();
 	}
 }
+
 
