@@ -208,9 +208,17 @@ public class RouteDataSource {
 				RouteDBHelper.PHONE2 + "='" + phoneNums[1] + "', " +
 				RouteDBHelper.ALERTDIST + "=" + radiusCode + ", " +
 				RouteDBHelper.MESSAGE + "='" + message + "', " +
-				RouteDBHelper.ADDRESS + "='" + address + "' " +
-				//RouteDBHelper.ALARM + "=" + alarm +
+				RouteDBHelper.ADDRESS + "='" + address + "', " +
+				RouteDBHelper.ALARM + "=" + alarmValue + ", " +
+				RouteDBHelper.HOURS + "='" + time.get(0) + "', "+
+				RouteDBHelper.MINUTES + "='" + time.get(1) + "', "+
+				RouteDBHelper.MONDAY + "=" + days.get(0) + ", "+
+				RouteDBHelper.TUESDAY + "=" + days.get(1) + ", "+
+				RouteDBHelper.WEDNESDAY + "=" + days.get(2) + ", "+
+				RouteDBHelper.THURSDAY + "=" + days.get(3) + ", "+
+				RouteDBHelper.FRIDAY + "=" + days.get(4) + ", "+
+				RouteDBHelper.SATURDAY + "=" + days.get(5) + ", "+
+				RouteDBHelper.SUNDAY + "=" + days.get(6) + " "+
 				" WHERE " + RouteDBHelper.NAME + "='" + oldName + "'");
 	}
 }
-
