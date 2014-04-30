@@ -116,80 +116,6 @@ public class EditRouteScreen extends Activity {
 		mode = 0;
 		factor = 1;
 		//Creates 
-		((ImageButton)findViewById(R.id.edit_contact_list1)).setOnClickListener( new OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				//timesClicked++;
-				//Toast.makeText(v.getContext(), "Times clicked: " + timesClicked, Toast.LENGTH_LONG).show();
-				EditText routeName = (EditText) findViewById(R.id.edit_route_name);
-				String route = routeName.getText().toString();     
-				EditText message = (EditText) findViewById(R.id.edit_enter_message);
-				String theMessage = message.getText().toString();  
-				//Check to see if we have an empty charsequence...this fucks up the db so I'm fixing it here
-				if(route.length() == 0)
-				{
-					route = null;
-				}
-				if(theMessage.length() == 0)
-				{
-					theMessage = null;
-				}
-				editor.putString("name", route);
-				editor.putString("message", theMessage);
-				Spinner radiusSelector = (Spinner) findViewById(R.id.edit_enter_radius);
-				int radiusCode = radiusSelector.getSelectedItemPosition();
-				editor.putInt("radius", radiusCode);
-				RadioGroup kmMileSelector = (RadioGroup) findViewById(R.id.edit_km_mile);
-				int choice = kmMileSelector.getCheckedRadioButtonId();
-				editor.putInt("choice", choice);
-				EditText phone2 = (EditText) findViewById(R.id.edit_enter_contact6);
-				String phoneNum2 = phone2.getText().toString();
-				editor.putString("phone2", phoneNum2);
-				editor.commit();
-				whichContact = 1;
-				mode = 1;
-				Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
-				intent.setType(ContactsContract.CommonDataKinds.Phone.CONTENT_ITEM_TYPE);
-				startActivityForResult(intent, 1); 	            
-			} 
-		});
-
-		((ImageButton)findViewById(R.id.edit_contact_list2)).setOnClickListener( new OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				//timesClicked++;
-				//Toast.makeText(v.getContext(), "Times clicked: " + timesClicked, Toast.LENGTH_LONG).show();
-				EditText routeName = (EditText) findViewById(R.id.edit_route_name);
-				String route = routeName.getText().toString();
-				EditText message = (EditText) findViewById(R.id.edit_enter_message);
-				String theMessage = message.getText().toString();
-				if(route.length() == 0)
-				{
-					route = null;
-				}
-				if(theMessage.length() == 0)
-				{
-					theMessage = null;
-				}
-				editor.putString("name", route);   
-				editor.putString("message", theMessage);
-				Spinner radiusSelector = (Spinner) findViewById(R.id.edit_enter_radius);
-				int radiusCode = radiusSelector.getSelectedItemPosition();
-				editor.putInt("radius", radiusCode);
-				RadioGroup kmMileSelector = (RadioGroup) findViewById(R.id.edit_km_mile);
-				int choice = kmMileSelector.getCheckedRadioButtonId();
-				editor.putInt("choice", choice);
-				EditText phone  = (EditText) findViewById(R.id.edit_enter_contact);
-				String phoneNum = phone.getText().toString();
-				editor.putString("phone", phoneNum);
-				editor.commit();
-				whichContact = 2;
-				mode = 2;
-				Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
-				intent.setType(ContactsContract.CommonDataKinds.Phone.CONTENT_ITEM_TYPE);
-				startActivityForResult(intent, 1); 	            
-			} 
-		});
 		for (int i = 0; i < 7; i ++)
 		{
 			oldDays.add(0);
@@ -627,6 +553,7 @@ public class EditRouteScreen extends Activity {
 		//Save all changes to SharedPrefs object
 		editor.commit();
 	}
+<<<<<<< HEAD
 	public void saveRoute(MenuItem menuItem)
 	{
 		//Again, clear shared preferences
@@ -767,6 +694,8 @@ public class EditRouteScreen extends Activity {
 			}).show();
 		}
 	} 
+=======
+>>>>>>> FETCH_HEAD
 	@Override
 	public void onBackPressed()
 	{

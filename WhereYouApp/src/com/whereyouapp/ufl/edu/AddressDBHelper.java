@@ -11,14 +11,14 @@ public class AddressDBHelper extends SQLiteOpenHelper {
 	private static final String DATABASE_NAME = "route.db";
 	private static final int DATABASE_VERSION = 2;
 	public static final String TABLE_NAME = "recentaddresses";
-	public static final String COL_ID ="addressId";
-	public static final String ADDRESS2 = "address";
+	public static final String COLUMN_ID ="addressId";
+	public static final String ADDRESS = "address";
 	public static final String TIMESTAMP = "time";
 
 	private static final String DATABASE_CREATION = 
 			"CREATE TABLE " + TABLE_NAME + " (" +
-			COL_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
-			ADDRESS2 + " TEXT, " +
+			COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+			ADDRESS + " TEXT, " +
 			TIMESTAMP + " INTEGER" + ") ";
 
 	//Context describes how this DB will connect to the activity

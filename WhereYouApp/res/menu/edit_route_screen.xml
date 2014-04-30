@@ -1,10 +1,4 @@
-<menu xmlns:android="http://schemas.android.com/apk/res/android" >
-    <item
-        android:id="@+id/editsaveRoute"
-        android:orderInCategory="100"
-        android:showAsAction="ifRoom|withText"
-        android:title="Save"
-        android:onClick="saveRoute"/>    
+<menu xmlns:android="http://schemas.android.com/apk/res/android" > 
 	<item
 	    android:id = "@+id/edittoCommute"
 	    android:orderInCategory = "100"
