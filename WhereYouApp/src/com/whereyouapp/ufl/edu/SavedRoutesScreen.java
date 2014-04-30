@@ -145,7 +145,9 @@ public class SavedRoutesScreen extends Activity{
 						//
 						//
 						//Starts the AddRouteScreen and passes the position of the route in the database
+						//WTF is position? ID maybe? Also, integer != LatLng
 						myIntent.putExtra("position", (Integer)v.getTag());
+						//myIntent.putExtra(name, value);
 						startActivity(myIntent);						
 					}
 				});
@@ -198,6 +200,68 @@ public class SavedRoutesScreen extends Activity{
 	{
 		//Update routes to reflect any changes in the database
 		routes = dbHandle.getAllRoutes();
+		ListView list = new ListView(this);
+		//Build the layout from SQLite database query
+				if(routes == null)
+				{
+					System.out.println("NOTHING");
+				}
+				else {
+					
+				String[] items = new String[routes.size()];
+				for(int i = 0; i < items.length; i++) {
+					items[i] = routes.get(i).getName();
+				}
+		        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.row_view, R.id.text, items) {
+		            @Override
+		            public View getView(int position, View convertView, ViewGroup parent) {
+		            	View row =  super.getView(position, convertView, parent);
+		                row.setBackgroundResource(R.drawable.actionbar_bg);
+		                View routeName = row.findViewById(R.id.text);
+		                routeName.setTag(position);
+		                routeName.setOnClickListener(new AdapterView.OnClickListener() {              
+							@Override
+							public void onClick(View v) {
+								// TODO Auto-generated method stub
+								Intent myIntent = new Intent(getApplicationContext(), EditRouteScreen.class);
+								//
+								//
+								//Starts the AddRouteScreen and passes the position of the route in the database
+								//WTF is position? ID maybe? Also, integer != LatLng
+								myIntent.putExtra("position", (Integer)v.getTag());
+								//myIntent.putExtra(name, value);
+								startActivity(myIntent);						
+							}
+						});
+		                ImageButton imgb =  (ImageButton)row.findViewById(R.id.on);
+		                View right = row.findViewById(R.id.on);               
+		               if (routes.get(position).getIsActive() == 1) {
+		            	   imgb.setImageResource(R.drawable.on);
+		               }
+		               else {
+		            	   imgb.setImageResource(R.drawable.off);
+		               }
+		                right.setTag(position);
+		                right.setOnLongClickListener(new AdapterView.OnLongClickListener() {
+							@Override
+							public boolean onLongClick(View v) {
+								// TODO Auto-generated method stub
+								SavedRoutesScreen.showRouteOptions((Integer) v.getTag());
+								return true;
+							}
+						});                
+		                right.setOnClickListener(new AdapterView.OnClickListener() {
+							@Override
+							public void onClick(View v) {
+								SavedRoutesScreen.toggleActive((Integer) v.getTag());
+							}
+		                });                    
+		                return row;               
+		            }
+		        };       
+		        Controller.setServiceAlarm(this, true);     
+		        list.setAdapter(adapter);
+				}
 		isActive = true;
 		super.onResume();
 	}
@@ -205,6 +269,7 @@ public class SavedRoutesScreen extends Activity{
 	public static void showRouteOptions(int i)
 	{
 		currentRouteIndex = i;
+		routes = dbHandle.getAllRoutes();
 		final Route selectedRoute = routes.get(i);
 		String message = "Name: " + selectedRoute.getName();
 		message += "\n";
@@ -312,7 +377,7 @@ public class SavedRoutesScreen extends Activity{
 		        }
 		  })
 		  
-		  .show().getWindow().addFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);;
+		  .show().getWindow().addFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
 	}
 
 	public static void deleteRoute(int i)

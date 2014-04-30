@@ -196,5 +196,21 @@ public class RouteDataSource {
 				RouteDBHelper.ISACTIVE + "=0" + " WHERE " + RouteDBHelper.NAME
 				+ "="+ "'" + routeName + "'");
 	}
+	
+	public void updateRoute(String oldName, String newName, double[] coord, String[] phoneNums, double radiusCode, String message, String address, boolean alarm, ArrayList<String> time, ArrayList<Integer> days)
+	{
+		int alarmValue = (alarm) ? 1 : 0;
+		database.execSQL("UPDATE " + RouteDBHelper.TABLE_NAME + " SET " + 
+				RouteDBHelper.NAME + "='" + newName + "', " + 
+				RouteDBHelper.LAT + "=" + coord[0] + ", " + 
+				RouteDBHelper.LNG + "=" + coord[1] + ", " + 
+				RouteDBHelper.PHONE + "='" + phoneNums[0] + "', " +
+				RouteDBHelper.PHONE2 + "='" + phoneNums[1] + "', " +
+				RouteDBHelper.ALERTDIST + "=" + radiusCode + ", " +
+				RouteDBHelper.MESSAGE + "='" + message + "', " +
+				RouteDBHelper.ADDRESS + "='" + address + "' " +
+				//RouteDBHelper.ALARM + "=" + alarm +
+				" WHERE " + RouteDBHelper.NAME + "='" + oldName + "'");
+	}
 }
 

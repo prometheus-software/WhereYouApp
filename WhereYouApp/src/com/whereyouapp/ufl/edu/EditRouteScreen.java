@@ -52,9 +52,11 @@ public class EditRouteScreen extends Activity {
 	public int whichContact;
 	public String contactChosen1;
 	public String contactChosen2;
+	public String routeName;
 	public int mode;
 	public double factor;
 	public boolean alarm;
+	public Integer position1;
 	public ArrayList<String> time = new ArrayList<String>(2);
 	public ArrayList<Integer> days = new ArrayList<Integer>(7);
 	public String oldRouteName;
@@ -62,6 +64,9 @@ public class EditRouteScreen extends Activity {
 	public String oldPhoneNumber;
 	public String oldPhoneNumber2;
 	public boolean oldAlarm;
+	public String oldName;
+	public double lat;
+	public double lng;
 	public ArrayList<String> oldTime = new ArrayList<String>(2);
 	public ArrayList<Integer> oldDays = new ArrayList<Integer>(7);
 	public double oldDistance;
@@ -418,7 +423,7 @@ public class EditRouteScreen extends Activity {
 		LatLng point;
 		EditText routeName = (EditText) findViewById(R.id.edit_route_name);
 		Bundle extras = getIntent().getExtras();
-		Integer position1 = null;
+		position1 = null;
 		if (extras != null) {
 			if (extras.containsKey("position")) {
 				dbHandle.open();
@@ -429,18 +434,22 @@ public class EditRouteScreen extends Activity {
 			}
 			else
 			{
-				Address addr = extras.getParcelable("com.android.location.Address1");
+				Address addr = extras.getParcelable("com.android.location.Address");
 				//If the address object is null, then the user tapped the map to set a location
 				//This means we got back a LatLng object representing where the map was tapped
 				if(addr == null)
 				{
-					point = extras.getParcelable("com.google.android.gms.maps.model.LatLng1");
+					point = extras.getParcelable("com.google.android.gms.maps.model.LatLng");
+					lat = ((LatLng)point).latitude;
+					lng = ((LatLng)point).longitude;
 					completeAddress = "No address set";
 					TextView displayAddress = (TextView) findViewById(R.id.edit_display_address);
 					displayAddress.setText("Location Selected");
 				}
 				else
 				{
+					lat = addr.getLatitude();
+					lng = addr.getLongitude();
 					String locationLine = addr.getAddressLine(0);
 					String addressLine = addr.getAddressLine(1);
 					String cityAndZipLine = addr.getAddressLine(2);
@@ -451,7 +460,8 @@ public class EditRouteScreen extends Activity {
 			}
 		}
 		if (position1 != null) {
-			routeName.setText(routes.get(position1).getName(), TextView.BufferType.EDITABLE);
+			oldName = routes.get(position1).getName();
+			routeName.setText(oldName, TextView.BufferType.EDITABLE);
 			System.out.println(routes.get(position1).getName());
 			//extras.remove("position");
 			//extras = null;
@@ -626,7 +636,8 @@ public class EditRouteScreen extends Activity {
 		//Grab info from text fields
 		//SaveRoute.saveRoute(new Route())
 		EditText routeName = (EditText) findViewById(R.id.edit_route_name);
-		String name = routeName.getText().toString();	  	
+		String name = routeName.getText().toString();
+		//this.routeName = name;
 		EditText message = (EditText) findViewById(R.id.edit_enter_message);
 		String theMessage = message.getText().toString();
 
@@ -666,13 +677,13 @@ public class EditRouteScreen extends Activity {
 		double[] coord;
 		if(b != null) 
 		{
-			theAddress = b.getParcelable("com.android.location.Address1");
+			theAddress = b.getParcelable("com.android.location.Address");
 			//If the address is null, then the user tapped the map to set a destination
 			if(theAddress == null)
 			{
-				LatLng point = b.getParcelable("com.google.android.gms.maps.model.LatLng1");
-				double lat = point.latitude;
-				double lng = point.longitude;
+				LatLng point = b.getParcelable("com.google.android.gms.maps.model.LatLng");
+				double lat = this.lat;
+				double lng = this.lng;
 				coord = new double[2];
 				coord[0] = lat;
 				coord[1] = lng;
@@ -685,8 +696,8 @@ public class EditRouteScreen extends Activity {
 			}
 			else
 			{
-				double lat = theAddress.getLatitude();
-				double lng = theAddress.getLongitude();
+				double lat = this.lat;
+				double lng = this.lng;
 				coord = new double[2];
 				coord[0] = lat;
 				coord[1] = lng;
@@ -716,9 +727,12 @@ public class EditRouteScreen extends Activity {
 				 Intent intent = new Intent (getApplicationContext(), AddRouteScreen.class);
 				 startActivity(intent);
 			}
-			dbHandle.deleteRoute(oldRouteName);
+			
+			dbHandle.updateRoute(oldName, name, coord, phoneNumbers, radiusCode, theMessage, addr, alarm, time, days);
+			/*dbHandle.deleteRoute(oldRouteName);
 			dbHandle.insertRoute(new Route(name, coord, phoneNumbers, radiusCode, theMessage, addr, alarm, time, days));
 			dbHandle.setActive(name);
+			*/
 			dbHandle.close();
 		}
 		editor = userInfo.edit();
