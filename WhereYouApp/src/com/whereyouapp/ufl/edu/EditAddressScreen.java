@@ -437,7 +437,7 @@ GooglePlayServicesClient.OnConnectionFailedListener, LocationListener{
 	{
 		Address addr = null;
 		destination.putExtra("com.android.location.Address", addr);
-		destination.putExtra("com.google.android.gms.maps.model.LatLng1", marker.getPosition());
+		destination.putExtra("com.google.android.gms.maps.model.LatLng", marker.getPosition());
 		startActivity(destination);
 	}
 	@Override
@@ -456,5 +456,4 @@ GooglePlayServicesClient.OnConnectionFailedListener, LocationListener{
 		editor.commit();
 	}
 }
-
 
