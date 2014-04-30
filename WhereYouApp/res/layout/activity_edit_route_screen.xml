@@ -33,16 +33,6 @@
             android:paddingLeft="8dp"
             android:text="@string/no_address"
             android:textAppearance="?android:attr/textAppearanceLarge" />	 
-    	 <Button
-            android:id="@+id/edit_set_address"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignBaseline="@+id/edit_display_address"
-            android:layout_alignBottom="@+id/edit_display_address"
-            android:layout_alignParentRight="true"
-            android:onClick="startMapActivity"
-            android:background="@drawable/rounded_button"
-            android:text="@string/set_address" />
        <TextView
             android:id="@+id/edit_distance_text"
             android:layout_width="wrap_content"
