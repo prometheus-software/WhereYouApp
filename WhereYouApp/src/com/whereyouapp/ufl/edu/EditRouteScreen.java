@@ -553,7 +553,6 @@ public class EditRouteScreen extends Activity {
 		//Save all changes to SharedPrefs object
 		editor.commit();
 	}
-<<<<<<< HEAD
 	public void saveRoute(MenuItem menuItem)
 	{
 		//Again, clear shared preferences
@@ -694,8 +693,6 @@ public class EditRouteScreen extends Activity {
 			}).show();
 		}
 	} 
-=======
->>>>>>> FETCH_HEAD
 	@Override
 	public void onBackPressed()
 	{
@@ -732,5 +729,4 @@ public class EditRouteScreen extends Activity {
 		startActivityForResult(intent, 2);
 	}
 }
-
 
