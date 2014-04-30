@@ -14,6 +14,7 @@ import android.widget.Button;
 public class MainScreen extends Activity {
 	public static RouteDataSource dbHandle;
 	public static SettingsDataSource setdbHandle;
+	public static AddressDataSource addressdbHandle;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -29,6 +30,11 @@ public class MainScreen extends Activity {
 		dbHandle = new RouteDataSource(this);
 		dbHandle.open();
 		dbHandle.recreateTable();
+		
+		addressdbHandle = new AddressDataSource(this);
+		addressdbHandle.open();
+		addressdbHandle.recreateTable();
+		
 
 
 	}
