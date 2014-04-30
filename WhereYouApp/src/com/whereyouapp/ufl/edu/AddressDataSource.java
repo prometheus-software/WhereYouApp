@@ -1,8 +1,6 @@
 package com.whereyouapp.ufl.edu;
-
 import java.util.ArrayList;
 import java.util.List;
-
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
@@ -10,7 +8,6 @@ import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-
 public class AddressDataSource {
 	SQLiteOpenHelper dbHelper;
 	SQLiteDatabase database;
@@ -18,33 +15,27 @@ public class AddressDataSource {
 		{
 			AddressDBHelper.COLUMN_ID,
 			AddressDBHelper.ADDRESS,
-			AddressDBHelper.TIMESTAMP,
-			
+			AddressDBHelper.TIMESTAMP		
 		};
-
 	public static final String DATABASE_CREATION = 
 			"CREATE TABLE IF NOT EXISTS " + AddressDBHelper.TABLE_NAME + " (" + 
 					AddressDBHelper.COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
 					AddressDBHelper.ADDRESS + " TEXT, " + 
 					AddressDBHelper.TIMESTAMP + " INTEGER " + 
 			")";
-
 	public AddressDataSource(Context context)
 	{
 		dbHelper = new AddressDBHelper(context);
 	}
-
 	public void open() throws SQLException
 	{
 		//Opens connection to DB
 		database = dbHelper.getWritableDatabase();
 	}
-
 	public void close()
 	{
 		dbHelper.close();
 	}
-
 	public void insertAddress(AddressStorable a)
 	{
 		ContentValues values = new ContentValues();
@@ -52,9 +43,7 @@ public class AddressDataSource {
 		values.put(AddressDBHelper.ADDRESS, a.getAddress());
 		values.put(AddressDBHelper.TIMESTAMP, a.getTimestamp());
 		database.insert(AddressDBHelper.TABLE_NAME, null, values);
-
 	}
-
 	public List<AddressStorable> getAllAddresses()
 	{
 		List<AddressStorable> addresses = null;
@@ -78,7 +67,6 @@ public class AddressDataSource {
 		cursor.close();
 		return addresses;
 	}
-
 	public void deleteAllAddresses()
 	{
 		database.execSQL("DROP TABLE IF EXISTS " + AddressDBHelper.TABLE_NAME);
@@ -88,14 +76,9 @@ public class AddressDataSource {
 	{
 		database.execSQL(DATABASE_CREATION);
 	}
-
 	public void deleteAddress(String addressName)
 	{
 		database.execSQL("DELETE FROM " + AddressDBHelper.TABLE_NAME + " WHERE " +
 							AddressDBHelper.ADDRESS + "=" + "'" + addressName + "'");
-
 	}
-	
-
-
 }
