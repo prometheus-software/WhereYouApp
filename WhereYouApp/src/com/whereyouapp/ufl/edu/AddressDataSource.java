@@ -60,7 +60,7 @@ public class AddressDataSource {
 		List<AddressStorable> addresses = null;
 
 		Cursor cursor = database.query(AddressDBHelper.TABLE_NAME, allColumns, 
-				null, null, null, null, null);
+				null, null, null, null, AddressDBHelper.TIMESTAMP, "5");
 
 		if(cursor.getCount() > 0)
 		{
@@ -95,6 +95,7 @@ public class AddressDataSource {
 							AddressDBHelper.ADDRESS + "=" + "'" + addressName + "'");
 
 	}
+	
 
 
 }
