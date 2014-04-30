@@ -26,7 +26,7 @@ public class AddressDataSource {
 			"CREATE TABLE IF NOT EXISTS " + AddressDBHelper.TABLE_NAME + " (" + 
 					AddressDBHelper.COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
 					AddressDBHelper.ADDRESS + " TEXT, " + 
-					AddressDBHelper.TIMESTAMP + " INTEGER, " + 
+					AddressDBHelper.TIMESTAMP + " INTEGER " + 
 			")";
 
 	public AddressDataSource(Context context)
