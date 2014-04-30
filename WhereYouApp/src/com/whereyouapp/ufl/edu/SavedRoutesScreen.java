@@ -306,7 +306,7 @@ public class SavedRoutesScreen extends Activity{
 		message += "\n";
 		ArrayList<String> time = selectedRoute.getTime();
 		message += "Time: ";
-		if (Integer.parseInt(time.get(0)) < 10)
+		if (time.get(0).equals("0") || time.get(0).equals("1") || time.get(0).equals("2") || time.get(0).equals("3") || time.get(0).equals("4") || time.get(0).equals("5") || time.get(0).equals("6") || time.get(0).equals("7") || time.get(0).equals("8") || time.get(0).equals("9"))
 		{
 			message += "0" + time.get(0);
 		}
@@ -315,7 +315,7 @@ public class SavedRoutesScreen extends Activity{
 			message += time.get(0);
 		}
 		message += ":";
-		if (Integer.parseInt(time.get(1)) < 10)
+		if (time.get(1).equals("0") || time.get(1).equals("1") || time.get(1).equals("2") || time.get(1).equals("3") || time.get(1).equals("4") || time.get(1).equals("5") || time.get(1).equals("6") || time.get(1).equals("7") || time.get(1).equals("8") || time.get(1).equals("9"))
 		{
 			message += "0" + time.get(1);
 		}
