@@ -92,7 +92,7 @@ public class Controller extends Service
 					double [] coordinates=s.getCoordinates();
 					double distance=coordinatesDistance(currentLocation.getLatitude(),currentLocation.getLongitude(),coordinates[0],coordinates[1]);
 
-					Toast.makeText(this, "The difference is "+distance, Toast.LENGTH_LONG).show();
+					//Toast.makeText(this, "The difference is "+distance, Toast.LENGTH_LONG).show();
 					if(distance-s.getDistance()<min_distance){
 						min_distance=distance-s.getDistance();
 					}
