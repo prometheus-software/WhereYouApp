@@ -107,8 +107,7 @@ public class AddRouteScreen extends Activity {
 				completeAddress = a;
 				TextView displayAddress = (TextView) findViewById(R.id.display_address);
 			  	displayAddress.setText("Address Selected");
-				
-				
+							
 			}
 
 			@Override
@@ -684,7 +683,7 @@ public class AddRouteScreen extends Activity {
 			dbHandle.insertRoute(new Route(name, coord, phoneNumbers, radiusCode, theMessage, addr, alarm, time, days));
 			dbHandle.setActive(name);
 			dbHandle.close();
-			
+			addressdbHandle.open();
 			if (completeAddress != null)
 			{
 				addressdbHandle.insertAddress(new AddressStorable(completeAddress, (int)System.currentTimeMillis()/1000));
@@ -778,5 +777,6 @@ public class AddRouteScreen extends Activity {
 	    startActivityForResult(intent, 2);
     }
 }
+
 
 
