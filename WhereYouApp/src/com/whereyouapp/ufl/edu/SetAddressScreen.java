@@ -412,7 +412,7 @@ GooglePlayServicesClient.OnConnectionFailedListener, LocationListener{
 		// TODO Auto-generated method stub
 		String message = "Location: " + location.getLatitude() + " (lat), " +
 		location.getLongitude() + " (lng)";
-		Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+		//Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
 
 		currentLat = location.getLatitude();
 		currentLong = location.getLongitude();
@@ -464,3 +464,4 @@ GooglePlayServicesClient.OnConnectionFailedListener, LocationListener{
 		editor.commit();
 	}
 }
+
