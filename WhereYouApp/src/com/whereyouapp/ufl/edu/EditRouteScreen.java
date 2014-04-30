@@ -71,6 +71,7 @@ public class EditRouteScreen extends Activity {
 	public ArrayList<Integer> oldDays = new ArrayList<Integer>(7);
 	public double oldDistance;
 	static List<Route> routes;
+	public double [] coord = new double [2];
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -518,6 +519,10 @@ public class EditRouteScreen extends Activity {
 			oldDays = routes.get(position1).getDays();
 			oldTime = routes.get(position1).getTime();
 		}
+		if (position1 != null)
+		{
+			coord = routes.get(position1).getCoordinates();
+		}
 		if(position1 != null) {
 			extras.remove("position");
 			extras = null;
@@ -600,7 +605,6 @@ public class EditRouteScreen extends Activity {
 		radiusCode *= factor;
 		Address theAddress = null;
 		Bundle b = getIntent().getExtras(); 
-		double[] coord;
 		if(b != null) 
 		{
 			theAddress = b.getParcelable("com.android.location.Address");
@@ -729,4 +733,3 @@ public class EditRouteScreen extends Activity {
 		startActivityForResult(intent, 2);
 	}
 }
-
