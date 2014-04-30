@@ -78,24 +78,6 @@
             android:ems="10"
             android:textColorHint="#FFFFFF"
             android:hint="@string/enter_contact" />
-        <ImageButton
-            android:id="@+id/edit_contact_list2"
-            android:contentDescription="@string/CBdescription"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignRight="@+id/edit_enter_contact6"
-            android:layout_alignTop="@+id/edit_enter_contact6"
-            android:background="@android:color/transparent"
-            android:src="@drawable/contacts_button" />
-        <ImageButton
-            android:id="@+id/edit_contact_list1"
-            android:contentDescription="@string/CBdescription"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignRight="@+id/edit_enter_contact"
-            android:layout_alignTop="@+id/edit_enter_contact"
-            android:background="@android:color/transparent"
-            android:src="@drawable/contacts_button" />
         <EditText                              
             android:id="@+id/edit_enter_message"
             android:layout_width="match_parent"
@@ -111,15 +93,15 @@
 	    android:layout_width = "match_parent"
 	    android:layout_height = "wrap_content"
 	    android:layout_alignLeft="@+id/edit_enter_contact"
-        android:layout_alignTop="@+id/edit_enter_radius"
-        android:layout_below="@+id/edit_distance_text"
-        android:layout_marginLeft="75dp">
+            android:layout_alignTop="@+id/edit_enter_radius"
+            android:layout_below="@+id/edit_distance_text"
+            android:layout_marginLeft="75dp">
 		<RadioButton
-			android:id = "@+id/edit_mile"
+	            android:id = "@+id/edit_mile"
 		    android:layout_width = "wrap_content"
 		    android:layout_height = "wrap_content"
 		    android:layout_marginBottom="0dp"
-            android:layout_marginLeft="15dp"
+                    android:layout_marginLeft="15dp"
 		    android:text = "@string/miles"		        
 		    android:checked = "true"
 		    android:onClick = "onRadioButtonClicked" />
