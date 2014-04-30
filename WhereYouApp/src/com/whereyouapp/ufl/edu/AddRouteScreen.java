@@ -42,13 +42,11 @@ import android.support.v4.app.TaskStackBuilder;
 public class AddRouteScreen extends Activity {
 
 	private static final String TAG = "WhereYouApp";
-	private Spinner spinner1;
 	private Spinner spinner2;
 	public final static String EXTRA_MESSAGE = "com.example.whereyouapp.MESSAGE";
 	public SharedPreferences userInfo;
 	public SharedPreferences.Editor editor;
 	public static RouteDataSource dbHandle;
-	public static AddressDataSource addressdbHandle;
 	public static Context context;
 	public String completeAddress;
 	public int pos;
@@ -61,18 +59,11 @@ public class AddRouteScreen extends Activity {
 	public ArrayList<String> time = new ArrayList<String>(2);
 	public ArrayList<Integer> days = new ArrayList<Integer>(7);
 	static List<Route> routes;
-	static List<AddressStorable> addresses;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		dbHandle = MainScreen.dbHandle;
 		dbHandle = new RouteDataSource(this);
 		dbHandle.open();
-		
-		addressdbHandle = MainScreen.addressdbHandle;
-		addressdbHandle = new AddressDataSource(this);
-		addressdbHandle.open();
-		
-		
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_add_route_screen);
 		//Set button colors to green and red, respectively -- FUCK YOUR COLORS
@@ -86,38 +77,7 @@ public class AddRouteScreen extends Activity {
 		*/
 		EditText editText = (EditText) findViewById(R.id.route_name);
 		editText.setText("", TextView.BufferType.EDITABLE);
-		
-		spinner1 = (Spinner) findViewById(R.id.spinner1);
-		List<AddressStorable> addressList = addressdbHandle.getAllAddresses();
-		List<String> addressNames = new ArrayList<String>();
-		for (AddressStorable a : addressList)
-		{
-			addressNames.add(a.getAddress());
-		}
-		ArrayAdapter<String> dataAdapter2 = new ArrayAdapter<String>(this,
-				android.R.layout.simple_spinner_item, addressNames);
-			dataAdapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-		spinner1.setAdapter(dataAdapter2);
-		spinner1.setOnItemSelectedListener(new OnItemSelectedListener() {
 
-			@Override
-			public void onItemSelected(AdapterView<?> arg0, View arg1,
-					int arg2, long arg3) {
-				String a = (String) spinner1.getSelectedItem();
-				completeAddress = a;
-				TextView displayAddress = (TextView) findViewById(R.id.display_address);
-			  	displayAddress.setText("Address Selected");
-							
-			}
-
-			@Override
-			public void onNothingSelected(AdapterView<?> arg0) {
-				// TODO Auto-generated method stub
-				
-			}
-			
-		});
-		
 		spinner2 = (Spinner) findViewById(R.id.enter_radius);
 		List <String> list2 = new ArrayList<String>();                    
 		//list2.add("Choose an alert distance");
@@ -145,7 +105,7 @@ public class AddRouteScreen extends Activity {
 		contactChosen2 = "";
 
 
-		
+
 
 		whichContact = 0;
 		mode = 0;
@@ -225,7 +185,7 @@ public class AddRouteScreen extends Activity {
 	            startActivityForResult(intent, 1); 	            
 	        } 
 	    });
-		
+
 		//setting default value of alarm to false, time arraylist and days arraylist to 0 values
 		alarm = false;
 		for(int i = 0; i < 2; i++)
@@ -471,8 +431,8 @@ public class AddRouteScreen extends Activity {
 			}
 		}
 	  	EditText routeName = (EditText) findViewById(R.id.route_name);
-	  	
-	  	
+
+
 	  	Bundle extras = getIntent().getExtras();
 		Integer position1 = null;
 		if (extras != null) {
@@ -484,7 +444,7 @@ public class AddRouteScreen extends Activity {
 		    dbHandle.close();
 			}
 		}
-		
+
 		if(position1 != null) {
 			routeName.setText(routes.get(position1).getName(), TextView.BufferType.EDITABLE);
 			System.out.println(routes.get(position1).getName());
@@ -496,7 +456,7 @@ public class AddRouteScreen extends Activity {
 		routeName.setText(userInfo.getString("name", null));
 		}
 
-		
+
 	  	EditText message = (EditText) findViewById(R.id.enter_message);
 	  	if(position1 != null) {
 	  		message.setText(routes.get(position1).getMessage(), TextView.BufferType.EDITABLE);
@@ -522,7 +482,7 @@ public class AddRouteScreen extends Activity {
 	    }
 		Spinner radiusSelector = (Spinner) findViewById(R.id.enter_radius);
 		radiusSelector.setSelection(userInfo.getInt("radius", 0), true);
-		
+
 		RadioGroup kmMileSelector = (RadioGroup) findViewById(R.id.km_mile);
 		kmMileSelector.check(userInfo.getInt("choice", 0));
 		EditText phone2 = (EditText) findViewById(R.id.enter_contact6);
@@ -555,7 +515,6 @@ public class AddRouteScreen extends Activity {
 	public void onPause()
 	{
 		dbHandle.close();
-		addressdbHandle.close();
 	    super.onPause();
 	    EditText routeName = (EditText) findViewById(R.id.route_name);
 	    String route = routeName.getText().toString();
@@ -683,12 +642,6 @@ public class AddRouteScreen extends Activity {
 			dbHandle.insertRoute(new Route(name, coord, phoneNumbers, radiusCode, theMessage, addr, alarm, time, days));
 			dbHandle.setActive(name);
 			dbHandle.close();
-			addressdbHandle.open();
-			if (completeAddress != null)
-			{
-				addressdbHandle.insertAddress(new AddressStorable(completeAddress, (int)System.currentTimeMillis()/1000));
-			}
-			addressdbHandle.close();
 		}
 		editor = userInfo.edit();
 		editor.clear();
@@ -726,7 +679,7 @@ public class AddRouteScreen extends Activity {
     @Override
 	public void onBackPressed()
 	{
-		
+
     	EditText editText = (EditText) findViewById(R.id.route_name);
 		editText.setText("", TextView.BufferType.EDITABLE);
 		//editText = (EditText) findViewById(R.id.enter_address);
@@ -777,6 +730,5 @@ public class AddRouteScreen extends Activity {
 	    startActivityForResult(intent, 2);
     }
 }
-
 
 
