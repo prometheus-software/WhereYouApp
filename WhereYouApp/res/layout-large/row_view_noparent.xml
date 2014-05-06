@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  android:orientation="horizontal"
+  android:layout_width="fill_parent"
+  android:layout_height="?android:attr/listPreferredItemHeight">
+ <!--   <com.examples.listzones.NoParentPressImageView
+    android:id="@+id/left"
+    android:layout_width="?android:attr/listPreferredItemHeight"
+    android:layout_height="fill_parent"
+    android:src="@drawable/marker"
+    android:scaleType="center"
+    android:clickable="true" />
+    -->
+  <TextView
+    android:id="@+id/text"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:layout_weight="1"
+    android:gravity="center"
+    android:textAppearance="?android:attr/textAppearanceLarge" />
+  <com.examples.listzones.NoParentPressImageView
+    android:id="@+id/right"
+    android:layout_width="?android:attr/listPreferredItemHeight"
+    android:layout_height="fill_parent"
+    android:src="@drawable/marker"
+    android:scaleType="center"
+    android:clickable="true"/>
+</LinearLayout>
