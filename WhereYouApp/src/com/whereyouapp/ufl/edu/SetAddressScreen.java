@@ -14,20 +14,14 @@ import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.GoogleMap.OnMapClickListener;
 import com.google.android.gms.maps.GoogleMap.OnMapLongClickListener;
 import com.google.android.gms.maps.GoogleMap.OnMarkerClickListener;
 import com.google.android.gms.maps.GoogleMap.OnMarkerDragListener;
-import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
-import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
-import android.graphics.PorterDuff;
-import android.widget.Button;
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
@@ -198,6 +192,7 @@ GooglePlayServicesClient.OnConnectionFailedListener, LocationListener{
 		return (myMap != null);
 	}
 
+	@SuppressWarnings("unused")
 	private void goToLocation(double lat, double lng)
 	{
 		//This object represents the location on the map that we will display
@@ -221,8 +216,6 @@ GooglePlayServicesClient.OnConnectionFailedListener, LocationListener{
 
 	public void geoLocate(View v) throws IOException
 	{
-		final int code = 0;
-		String locality = null;
 		hideSoftKeyboard(v);
 		CharSequence addresses[] = null;
 
@@ -250,8 +243,6 @@ GooglePlayServicesClient.OnConnectionFailedListener, LocationListener{
 		}
 
 		Address theAddress = list.get(0);
-		locality = theAddress.getLocality();
-
 		double lat = theAddress.getLatitude();
 		double lng = theAddress.getLongitude();
 
@@ -264,7 +255,6 @@ GooglePlayServicesClient.OnConnectionFailedListener, LocationListener{
 		marker.showInfoWindow();
 
 		addresses = new CharSequence[4];
-		String addressString[] = new String[4];
 		for(int i = 0; i < 4; i++)
 		{
 			Address theAddress2 = list.get(i);
@@ -409,11 +399,6 @@ GooglePlayServicesClient.OnConnectionFailedListener, LocationListener{
 
 	@Override
 	public void onLocationChanged(Location location) {
-		// TODO Auto-generated method stub
-		String message = "Location: " + location.getLatitude() + " (lat), " +
-		location.getLongitude() + " (lng)";
-		//Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
-
 		currentLat = location.getLatitude();
 		currentLong = location.getLongitude();
 	}
@@ -464,4 +449,3 @@ GooglePlayServicesClient.OnConnectionFailedListener, LocationListener{
 		editor.commit();
 	}
 }
-
