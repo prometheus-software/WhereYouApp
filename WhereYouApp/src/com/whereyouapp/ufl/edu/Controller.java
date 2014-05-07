@@ -1,6 +1,5 @@
 package com.whereyouapp.ufl.edu;
 import java.util.ArrayList;
-import java.util.Arrays;
 import android.app.Activity;
 import android.app.AlarmManager;
 import android.app.Notification;
