@@ -5,12 +5,9 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.view.Menu;
 import android.view.WindowManager;
-import android.widget.TextView;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.PorterDuff;
 import android.view.View;
-import android.widget.Button;
 public class MainScreen extends Activity {
 	public static RouteDataSource dbHandle;
 	public static SettingsDataSource setdbHandle;
