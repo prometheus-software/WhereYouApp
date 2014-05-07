@@ -2,12 +2,9 @@ package com.whereyouapp.ufl.edu;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteDatabase.CursorFactory;
 import android.database.sqlite.SQLiteOpenHelper;
 
 public class SettingsDBHelper extends SQLiteOpenHelper {
-
-	private static final String LOGTAG = "IDK";
 
 	private static final String DATABASE_NAME = "route.db";
 	private static final int DATABASE_VERSION = 2;
