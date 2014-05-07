@@ -1,9 +1,7 @@
 package com.whereyouapp.ufl.edu;
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.app.Notification;
-import android.app.PendingIntent;
-import android.content.ContentValues;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -13,32 +11,24 @@ import android.location.Address;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.ContactsContract;
-import android.telephony.SmsManager;
 import android.text.InputType;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.EditText;
-import android.widget.Button;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.graphics.PorterDuff;
 import java.util.*;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
-import java.io.IOException;
 import java.lang.String;
 import com.google.android.gms.maps.model.LatLng;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ImageButton;
 import android.view.*;
-import android.app.NotificationManager;
-import android.support.v4.app.NotificationCompat;
-import android.support.v4.app.TaskStackBuilder;
+@SuppressLint("CutPasteId")
 public class AddRouteScreen extends Activity {
 
 	private static final String TAG = "WhereYouApp";
@@ -297,21 +287,12 @@ public class AddRouteScreen extends Activity {
 
 		Log.d(TAG, "sendMessage");
 
-		Intent intent = new Intent(this, AddRouteScreenMessage.class);
+		//Intent intent = new Intent(this, AddRouteScreenMessage.class);
 		EditText editText = (EditText) findViewById(R.id.route_name);
-		String message = "Your route name is " + editText.getText().toString() + ".\n";
 		editText = (EditText) findViewById (R.id.enter_contact);
-		message += "The contact phone number is " + editText.getText().toString() + ".\n";
 		editText = (EditText) findViewById (R.id.enter_contact6);
-		message += "The second contact phone number is " + editText.getText().toString() + ".\n";
 		editText = (EditText) findViewById (R.id.enter_message);
-		message += "The text message is " + editText.getText().toString() + ".\n";
 		editText = (EditText) findViewById(R.id.route_name);
-		String name = editText.getText().toString();
-		//editText = (EditText) findViewById (R.id.enter_address);
-		String address = editText.getText().toString();
-		double radius = Double.parseDouble(String.valueOf(spinner2.getSelectedItem()));
-		radius *= factor;
 		editText = (EditText) findViewById (R.id.enter_contact);
 		String phoneNumber = editText.getText().toString();
 		editText = (EditText) findViewById(R.id.enter_contact6);
@@ -323,7 +304,6 @@ public class AddRouteScreen extends Activity {
 			Log.d(TAG, "" + part1);
 		}catch(NumberFormatException e)
 		{
-			message = "Invalid phone number entered!";
 		}
 		try
 		{
@@ -331,17 +311,15 @@ public class AddRouteScreen extends Activity {
 			Log.d(TAG, "" + part2);
 		}catch(NumberFormatException e)
 		{
-			message = "Invalid phone number entered!";
 		}
 		editText = (EditText) findViewById(R.id.enter_message);
-		String message1 = editText.getText().toString();
 		String [] phoneNumbers = new String [2];
 		phoneNumbers [0] = phoneNumber;
 		phoneNumbers [1] = phoneNumber2;
 		//Route route = new Route (name, address, phoneNumbers, radius, message1);
-		intent.putExtra(EXTRA_MESSAGE, message);
+		//intent.putExtra(EXTRA_MESSAGE, message);
 		//Start AddRouteScreenMessage or MapScreen (whatever comes next)
-		startActivity(intent);
+		//startActivity(intent);
 	}
 	public void onRestart(MenuItem menuItem)
 	{
@@ -415,7 +393,6 @@ public class AddRouteScreen extends Activity {
 			//This means we got back a LatLng object representing where the map was tapped
 			if(addr == null)
 			{
-				LatLng point = b.getParcelable("com.google.android.gms.maps.model.LatLng");
 				completeAddress = "No address set";
 				TextView displayAddress = (TextView) findViewById(R.id.display_address);
 			  	displayAddress.setText("Location Selected");
@@ -539,6 +516,7 @@ public class AddRouteScreen extends Activity {
 	    editor.commit();
 	}
 
+	@SuppressLint("CutPasteId")
 	public void saveRoute(MenuItem menuItem)
 	{
 		//Again, clear shared preferences
@@ -625,11 +603,9 @@ public class AddRouteScreen extends Activity {
 			{
 				if (phoneNumbers[0].substring(4).length() != 0)
 				{
-					Long part1 = Long.parseLong(phoneNumbers [0].substring(4));
 				}
 				if (phoneNumbers[1].substring(4).length() != 0)
 				{
-					Long part2 = Long.parseLong(phoneNumbers [1]);
 				}
 			}
 			catch (NumberFormatException e)
@@ -730,5 +706,7 @@ public class AddRouteScreen extends Activity {
 	    startActivityForResult(intent, 2);
     }
 }
+
+
 
 
