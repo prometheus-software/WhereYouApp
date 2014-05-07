@@ -1,12 +1,14 @@
 package com.whereyouapp.ufl.edu;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 
 public class AddressStorable implements Serializable {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	public static int addressID = 0;
-	private static ArrayList<AddressStorable> addresses = new ArrayList<AddressStorable>();
 	private String address;
 	private int timestamp;
 	
