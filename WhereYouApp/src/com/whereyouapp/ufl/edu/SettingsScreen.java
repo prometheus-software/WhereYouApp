@@ -1,33 +1,15 @@
 package com.whereyouapp.ufl.edu;
-import android.net.Uri;
 import android.os.Bundle;
-import android.provider.ContactsContract;
 import android.app.Activity;
-import android.app.Notification;
-import android.app.NotificationManager;
-import android.app.PendingIntent;
-import android.support.v4.app.NotificationCompat;
-import android.support.v4.app.TaskStackBuilder;
-import android.text.InputType;
-import android.util.Log;
 import android.view.Menu;
 import android.widget.Spinner;
 import java.util.List;
 import java.util.ArrayList;
 import android.widget.ArrayAdapter;
-import android.content.Context;
 import android.content.Intent;
-import android.database.Cursor;
-import android.graphics.PorterDuff;
 import android.view.MenuItem;
-import android.view.View;
-import android.view.View.OnClickListener;
-import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
-import android.widget.EditText;
-import android.widget.TextView.BufferType;
-import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 public class SettingsScreen extends Activity {
@@ -39,7 +21,6 @@ public class SettingsScreen extends Activity {
 	public static SettingsDataSource setdbHandle;
 	public int savedBatteryLevel;
 	public boolean savedBatteryManager;
-	private static final String TAG = "WhereYouApp";
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -153,4 +134,3 @@ public class SettingsScreen extends Activity {
 		startActivity(intent);
 	}
 }
-
