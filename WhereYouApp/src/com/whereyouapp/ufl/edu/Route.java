@@ -19,6 +19,10 @@ Included access modifiers for those fields, as well as addRoute, removeRoute, an
 
 public class Route implements Serializable{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	//how are phone numbers stored best?
 	//10-digit longs?
 	private String [] theNumbers = new String [2];
@@ -244,10 +248,6 @@ public class Route implements Serializable{
 		routeList.remove(route);
 	}
 
-	public static void duplicateRoute(Route route) {
-		Route duplicate = new Route(route);
-	}
-
 	public static ArrayList<Route> getRouteList() {
 		return routeList;
 	}
@@ -274,33 +274,5 @@ public class Route implements Serializable{
 	{
 		this.isActive = i;
 	}
-
-	public static void populateList(String listData) {
-		String[] routeInfo = listData.split("\\|");
-		int n = Integer.parseInt(routeInfo[0]);
-		Route temp;
-		int index = 1;
-		int routesCreated = 0;
-		String tempName; String tempCoords; String tempNumbers; double tempDistance; String tempMessage;
-		while(routesCreated < n) {
-			tempName = routeInfo[index];
-			index++;
-			tempCoords = routeInfo[index];
-			index++;
-			tempCoords += " "+routeInfo[index];
-			index++;
-			tempNumbers = routeInfo[index];
-			index++;
-			tempNumbers += " " + routeInfo[index];
-			index++;
-			tempDistance = Double.parseDouble(routeInfo[index]);
-			index++;
-			tempMessage = routeInfo[index];
-			index++;
-			//temp = new Route(tempName, tempCoords, tempNumber, tempDistance, tempMessage);
-			routesCreated++;
-		}
-	}
 }
 //test comment please ignore
-
