@@ -2,8 +2,6 @@ package com.whereyouapp.ufl.edu;
 
 import android.location.Location;
 import android.os.Bundle;
-import android.widget.Toast;
-
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesClient;
 import com.google.android.gms.location.LocationClient;
@@ -26,10 +24,6 @@ GooglePlayServicesClient.OnConnectionFailedListener, LocationListener{
 
 	@Override
 	public void onLocationChanged(Location location) {
-		// TODO Auto-generated method stub
-		String message = "Location: " + location.getLatitude() + ", " +
-		location.getLongitude();
-
 		currentLat = location.getLatitude();
 		currentLong = location.getLongitude();
 	}
