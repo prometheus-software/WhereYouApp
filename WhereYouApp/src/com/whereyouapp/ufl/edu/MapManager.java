@@ -1,22 +1,13 @@
 package com.whereyouapp.ufl.edu;
 
-import java.io.IOException;
-import java.util.List;
-
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.location.Address;
-import android.location.Geocoder;
-import android.view.View;
-import android.widget.EditText;
-import android.widget.Toast;
 
 public class MapManager 
 {
@@ -75,6 +66,7 @@ public class MapManager
 	}
 
 
+	@SuppressWarnings("unused")
 	private void goToLocation(double lat, double lng)
 	{
 		//This object represents the location on the map that we will display
@@ -87,6 +79,7 @@ public class MapManager
 		map.moveCamera(update);
 	}
 
+	@SuppressWarnings("unused")
 	private void goToLocation(double lat, double lng, float zoomLevel) 
 	{
 		LatLng latLng = new LatLng(lat, lng);
