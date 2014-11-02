@@ -32,12 +32,19 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name="com.example.whereyouapp.MainScreen"
+            android:name="com.example.whereyouapp.MainSplashScreen"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity
+            android:name="com.example.whereyouapp.MainScreen"
+            android:label="@string/app_name" >
+                <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.whereyouapp.MainSplashScreen" />
         </activity>
         <activity
             android:name="com.example.whereyouapp.AddRouteScreen"
@@ -81,7 +88,7 @@
         </activity>
          <activity
             android:name="com.example.whereyouapp.SetAddressScreen"
-            android:label="Set Address Screen"
+            android:label="Set Address"
             android:parentActivityName="com.example.whereyouapp.AddRouteScreen" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
